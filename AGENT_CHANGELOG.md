@@ -42,3 +42,12 @@
 - Tests run: npm test - passed previously for approved implementation
 - UI review: approved-by-human
 - Blockers or coordination notes: Proceeding with merge to main and push per explicit approval.
+
+## 2026-06-07 19:57 CDT - codex - main
+
+- Status: merged
+- Summary: Merged feature/codex/forgotten-realms-adventure into main after explicit stable approval.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed on main
+- UI review: approved-by-human
+- Blockers or coordination notes: Ready to push main to origin.
