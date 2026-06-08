@@ -1,6 +1,18 @@
 export const gameData = {
   year: "1496 DR",
   startCityId: "waterdeep",
+  startTime: { year: 1496, dayOfYear: 1, hour: 8, minute: 0 },
+  travelPace: {
+    milesPerHour: 3,
+    walkingHoursPerDay: 8
+  },
+  travelRoutes: {
+    "luskan:neverwinter": { miles: 153 },
+    "neverwinter:waterdeep": { miles: 335 },
+    "daggerford:waterdeep": { miles: 150 },
+    "baldurs-gate:daggerford": { miles: 600 },
+    "baldurs-gate:elturel": { miles: 200 }
+  },
   topicLabels: {
     world: "World",
     rumors: "Rumors",
