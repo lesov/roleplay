@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <main class="shell">
+    <div id="char-creation-overlay" class="char-overlay" role="dialog" aria-modal="true" aria-labelledby="char-creation-title">
+      <form id="char-creation-form" class="char-panel" novalidate>
+        <p class="char-era">1496 DR — Sword Coast</p>
+        <h1 id="char-creation-title">Create Your Adventurer</h1>
+        <div class="char-fields">
+          <label for="char-name">Name</label>
+          <input id="char-name" type="text" maxlength="40" required autocomplete="off" placeholder="Enter your name">
+          <label for="char-race">Race</label>
+          <select id="char-race"></select>
+          <label for="char-class">Class</label>
+          <select id="char-class"></select>
+          <label for="char-background">Background</label>
+          <select id="char-background"></select>
+        </div>
+        <p id="char-error" class="char-error" hidden></p>
+        <button type="submit" id="begin-adventure">Begin Adventure</button>
+      </form>
+    </div>
+    <main class="shell" hidden>
       <section class="world-pane" aria-labelledby="place-name">
         <div class="map" id="map" aria-label="Sword Coast travel map"></div>
         <div class="place">

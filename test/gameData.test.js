@@ -4,6 +4,10 @@ import { gameData } from "../src/gameData.js";
 
 const requiredTopics = ["world", "rumors", "roads", "local"];
 
+function routeKey(cityId, connectionId) {
+  return [cityId, connectionId].sort().join(":");
+}
+
 test("start city exists", () => {
   assert.ok(gameData.cities[gameData.startCityId]);
 });
@@ -44,6 +48,33 @@ test("travel connections are bidirectional", () => {
         `${city.id} links to ${connectionId}, but not back`
       );
     }
+  }
+});
+
+test("every travel connection has walking route mileage", () => {
+  for (const city of Object.values(gameData.cities)) {
+    for (const connectionId of city.connections) {
+      const route = gameData.travelRoutes[routeKey(city.id, connectionId)];
+      assert.ok(route, `${city.id} to ${connectionId} is missing route mileage`);
+      assert.ok(route.miles > 0, `${city.id} to ${connectionId} needs positive mileage`);
+    }
+  }
+});
+
+test("travel routes match valid connected cities", () => {
+  for (const [key, route] of Object.entries(gameData.travelRoutes)) {
+    const [cityId, connectionId] = key.split(":");
+    assert.ok(gameData.cities[cityId], `${key} starts from a missing city`);
+    assert.ok(gameData.cities[connectionId], `${key} ends at a missing city`);
+    assert.ok(Number.isInteger(route.miles), `${key} mileage should be an integer`);
+    assert.ok(
+      gameData.cities[cityId].connections.includes(connectionId),
+      `${key} is not represented in city connections`
+    );
+    assert.ok(
+      gameData.cities[connectionId].connections.includes(cityId),
+      `${key} is not represented bidirectionally in city connections`
+    );
   }
 });
 

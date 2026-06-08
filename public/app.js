@@ -1,10 +1,28 @@
+import {
+  advanceWalkingTravel,
+  createCalendarTime,
+  formatCalendarTime,
+  formatWalkingDuration,
+  travelMinutesForMiles
+} from "./time.js";
+
 const state = {
+  player: null,
   data: null,
   currentCityId: null,
+  currentTime: null,
   logEntries: []
 };
 
 const elements = {
+  charOverlay: document.querySelector("#char-creation-overlay"),
+  charForm: document.querySelector("#char-creation-form"),
+  charName: document.querySelector("#char-name"),
+  charRace: document.querySelector("#char-race"),
+  charClass: document.querySelector("#char-class"),
+  charBackground: document.querySelector("#char-background"),
+  charError: document.querySelector("#char-error"),
+  shell: document.querySelector(".shell"),
   year: document.querySelector("#year"),
   placeName: document.querySelector("#place-name"),
   placeEpithet: document.querySelector("#place-epithet"),
@@ -19,8 +37,35 @@ const elements = {
   clearLog: document.querySelector("#clear-log")
 };
 
+function populateSelect(selectEl, options) {
+  selectEl.replaceChildren(
+    ...options.map(({ id, label }) => {
+      const opt = document.createElement("option");
+      opt.value = id;
+      opt.textContent = label;
+      return opt;
+    })
+  );
+}
+
+function showCharacterCreation(options) {
+  populateSelect(elements.charRace, options.races);
+  populateSelect(elements.charClass, options.classes);
+  populateSelect(elements.charBackground, options.backgrounds);
+  elements.charOverlay.hidden = false;
+  elements.charName.focus();
+}
+
 function cityById(cityId) {
   return state.data.cities[cityId];
+}
+
+function routeKey(cityId, destinationId) {
+  return [cityId, destinationId].sort().join(":");
+}
+
+function routeByCities(cityId, destinationId) {
+  return state.data.travelRoutes[routeKey(cityId, destinationId)];
 }
 
 function addLog(title, message) {
@@ -42,9 +87,17 @@ function renderLog() {
 }
 
 function travelTo(cityId) {
+  const origin = cityById(state.currentCityId);
   const destination = cityById(cityId);
+  const route = routeByCities(origin.id, destination.id);
+  const pace = state.data.travelPace;
+  const travelMinutes = travelMinutesForMiles(route.miles, pace.milesPerHour);
+  state.currentTime = advanceWalkingTravel(state.currentTime, travelMinutes, pace);
   state.currentCityId = cityId;
-  addLog("Travel", `You arrive in ${destination.name}, ${destination.epithet}.`);
+  addLog(
+    "Travel",
+    `You walk ${route.miles} miles from ${origin.name} to ${destination.name} over ${formatWalkingDuration(route.miles, pace)} on foot. You arrive in ${destination.name}, ${destination.epithet}, on ${formatCalendarTime(state.currentTime)}.`
+  );
   render();
 }
 
@@ -57,11 +110,12 @@ function speak(topicId) {
 function renderTravel(city) {
   const buttons = city.connections.map((connectionId) => {
     const destination = cityById(connectionId);
+    const route = routeByCities(city.id, connectionId);
     const button = document.createElement("button");
     const name = document.createElement("strong");
     const marker = document.createElement("span");
     name.textContent = destination.name;
-    marker.textContent = "Travel";
+    marker.textContent = `${formatWalkingDuration(route.miles, state.data.travelPace)} on foot`;
     button.type = "button";
     button.append(name, marker);
     button.addEventListener("click", () => travelTo(connectionId));
@@ -128,7 +182,7 @@ function renderMap() {
 
 function render() {
   const city = cityById(state.currentCityId);
-  elements.year.textContent = state.data.year;
+  elements.year.textContent = formatCalendarTime(state.currentTime);
   elements.placeName.textContent = city.name;
   elements.placeEpithet.textContent = city.epithet;
   elements.placeDescription.textContent = city.description;
@@ -140,23 +194,61 @@ function render() {
   renderMap();
 }
 
-async function init() {
+async function startGame() {
   const response = await fetch("/api/game-data");
   state.data = await response.json();
   state.currentCityId = state.data.startCityId;
+  state.currentTime = createCalendarTime(
+    state.data.startTime.year,
+    state.data.startTime.dayOfYear,
+    state.data.startTime.hour,
+    state.data.startTime.minute
+  );
   const city = cityById(state.currentCityId);
-  addLog("Arrival", `You stand in ${city.name}, with ${city.tavern.name} close at hand.`);
+  addLog(
+    "Arrival",
+    `${state.player.name} stands in ${city.name}, with ${city.tavern.name} close at hand.`
+  );
+  elements.shell.hidden = false;
   render();
 }
+
+elements.charForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = elements.charName.value.trim();
+  if (!name) {
+    elements.charError.textContent = "Please enter a name for your adventurer.";
+    elements.charError.hidden = false;
+    elements.charName.focus();
+    return;
+  }
+  elements.charError.hidden = true;
+  state.player = {
+    name,
+    race: elements.charRace.value,
+    characterClass: elements.charClass.value,
+    background: elements.charBackground.value,
+  };
+  elements.charOverlay.hidden = true;
+  await startGame();
+});
 
 elements.clearLog.addEventListener("click", () => {
   state.logEntries = [];
   renderLog();
 });
 
-window.addEventListener("resize", renderMap);
+window.addEventListener("resize", () => {
+  if (!elements.shell.hidden) renderMap();
+});
 
-init().catch((error) => {
-  addLog("Error", "The local chronicle failed to open. Restart the server and try again.");
-  console.error(error);
+async function boot() {
+  const response = await fetch("/api/character-options");
+  const options = await response.json();
+  showCharacterCreation(options);
+}
+
+boot().catch(() => {
+  elements.charError.textContent = "Failed to load character options. Please restart the server.";
+  elements.charError.hidden = false;
 });

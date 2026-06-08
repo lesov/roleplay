@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gameData } from "./src/gameData.js";
+import { races, classes, backgrounds } from "./src/characterData.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const publicDir = resolve(__dirname, "public");
@@ -47,6 +48,11 @@ const server = createServer(async (req, res) => {
 
     if (url.pathname === "/api/game-data") {
       send(req, res, 200, JSON.stringify(gameData), "application/json; charset=utf-8");
+      return;
+    }
+
+    if (url.pathname === "/api/character-options") {
+      send(req, res, 200, JSON.stringify({ races, classes, backgrounds }), "application/json; charset=utf-8");
       return;
     }
 
