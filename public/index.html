@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>1496 DR Sword Coast</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="world-pane" aria-labelledby="place-name">
+        <div class="map" id="map" aria-label="Sword Coast travel map"></div>
+        <div class="place">
+          <p class="year" id="year"></p>
+          <h1 id="place-name"></h1>
+          <p class="epithet" id="place-epithet"></p>
+          <p class="description" id="place-description"></p>
+        </div>
+      </section>
+
+      <section class="action-pane" aria-label="Travel and tavern actions">
+        <div class="panel">
+          <div class="panel-header">
+            <h2>Roads</h2>
+          </div>
+          <div class="button-grid" id="travel-options"></div>
+        </div>
+
+        <div class="panel tavern">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Tavern</p>
+              <h2 id="tavern-name"></h2>
+            </div>
+            <span id="innkeeper-name"></span>
+          </div>
+          <p id="tavern-intro"></p>
+          <div class="button-grid topics" id="dialogue-options"></div>
+        </div>
+      </section>
+
+      <section class="log-pane" aria-label="Adventure log">
+        <div class="panel log-panel">
+          <div class="panel-header">
+            <h2>Log</h2>
+            <button class="icon-button" id="clear-log" type="button" title="Clear log" aria-label="Clear log">x</button>
+          </div>
+          <ol id="log"></ol>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
