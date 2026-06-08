@@ -33,3 +33,12 @@
 - Tests run: npm test - passed
 - UI review: approved-by-human
 - Blockers or coordination notes: Merge to main still requires explicit human stable-state declaration per AGENT_WORKFLOW_INSTRUCTIONS.md.
+
+## 2026-06-07 19:57 CDT - codex - feature/codex/forgotten-realms-adventure
+
+- Status: approved
+- Summary: Human declared project stable and approved push to main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed previously for approved implementation
+- UI review: approved-by-human
+- Blockers or coordination notes: Proceeding with merge to main and push per explicit approval.
