@@ -6,6 +6,11 @@ import {
   travelMinutesForMiles
 } from "./time.js";
 import { assessRouteSafety } from "./routeSafety.js";
+import {
+  createPlayerKnowledge,
+  knownWorldState,
+  rememberRumors
+} from "./playerKnowledge.js";
 import { runCharacterWizard } from "./character/wizard.js";
 import { renderCharacterSheet } from "./character/sheet.js";
 
@@ -14,6 +19,7 @@ const state = {
   data: null,
   lore: null,
   worldState: null,
+  knowledge: createPlayerKnowledge(),
   currentCityId: null,
   currentTime: null,
   selectedLoreSectionId: null,
@@ -109,17 +115,38 @@ async function travelTo(cityId) {
   render();
 }
 
-function speak(topicId) {
+async function fetchLocalRumors() {
+  const params = new URLSearchParams({
+    cityId: state.currentCityId,
+    year: `${state.currentTime.year}`,
+    dayOfYear: `${state.currentTime.dayOfYear}`,
+    known: [...state.knowledge.knownEventIds].join(",")
+  });
+  const response = await fetch(`/api/rumors?${params}`);
+  const result = await response.json();
+  return result.rumors || [];
+}
+
+async function speak(topicId) {
   const city = cityById(state.currentCityId);
   const label = state.data.topicLabels[topicId];
-  addLog(`${city.tavern.innkeeper} on ${label}`, city.tavern.dialogue[topicId]);
+  const rumorTopics = new Set(["world", "rumors"]);
+  const localRumors = rumorTopics.has(topicId) ? await fetchLocalRumors() : [];
+  const learnedRumors = rememberRumors(state.knowledge, localRumors);
+  const learnedText = learnedRumors.length
+    ? ` ${learnedRumors.map((rumor) => `Word going around: ${rumor.summary}`).join(" ")}`
+    : "";
+
+  addLog(`${city.tavern.innkeeper} on ${label}`, `${city.tavern.dialogue[topicId]}${learnedText}`);
+  renderWorldNews();
+  renderTravel(city);
 }
 
 function renderTravel(city) {
   const buttons = city.connections.map((connectionId) => {
     const destination = cityById(connectionId);
     const route = routeByCities(city.id, connectionId);
-    const safety = assessRouteSafety(route, state.worldState);
+    const safety = assessRouteSafety(route, knownWorldState(state.knowledge));
     const button = document.createElement("button");
     const details = document.createElement("span");
     const name = document.createElement("strong");
@@ -152,7 +179,9 @@ function renderDialogue(city) {
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = label;
-    button.addEventListener("click", () => speak(topicId));
+    button.addEventListener("click", () => {
+      void speak(topicId);
+    });
     return button;
   });
 
@@ -160,9 +189,16 @@ function renderDialogue(city) {
 }
 
 function renderWorldNews() {
-  const events = state.worldState?.recentEvents || [];
+  const events = state.knowledge.knownEvents;
+  if (events.length === 0) {
+    const item = document.createElement("li");
+    item.textContent = "No rumors learned yet.";
+    elements.worldNews.replaceChildren(item);
+    return;
+  }
+
   elements.worldNews.replaceChildren(
-    ...events.slice().reverse().map((event) => {
+    ...events.map((event) => {
       const item = document.createElement("li");
       const headline = document.createElement("strong");
       const summary = document.createElement("p");

@@ -38,6 +38,10 @@ function isShieldmeetYear(year) {
   return year % 4 === 0;
 }
 
+export function daysInYear(year) {
+  return 365 + (isShieldmeetYear(year) ? 1 : 0);
+}
+
 export function dayOfYearForMonthDay(year, month, day) {
   const monthIndex = MONTHS.indexOf(month);
   if (monthIndex === -1) {
@@ -68,7 +72,7 @@ export function dayOfYearForFestival(year, festival) {
   return dayOfYearForMonthDay(year, festivalDay.afterMonth, 30) + festivalDay.offset;
 }
 
-function fireDayOfYear(fire) {
+export function fireDayOfYear(fire) {
   if (fire.dayOfYear) {
     return fire.dayOfYear;
   }

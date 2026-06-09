@@ -6,6 +6,7 @@ import { gameData } from "./src/gameData.js";
 import { characterRules } from "./src/character/index.js";
 import { presets } from "./src/character/presets.js";
 import { loadLoreCodex } from "./src/lore.js";
+import { discoverableRumors } from "./src/worldSim/rumors.js";
 import { simulateWorldState } from "./src/worldSim/sim.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
@@ -77,6 +78,29 @@ const server = createServer(async (req, res) => {
         res,
         200,
         JSON.stringify(simulateWorldState({ year, dayOfYear })),
+        "application/json; charset=utf-8"
+      );
+      return;
+    }
+
+    if (url.pathname === "/api/rumors") {
+      const year = Number.parseInt(url.searchParams.get("year") || `${gameData.startTime.year}`, 10);
+      const dayOfYear = Number.parseInt(url.searchParams.get("dayOfYear") || `${gameData.startTime.dayOfYear}`, 10);
+      const cityId = url.searchParams.get("cityId") || gameData.startCityId;
+      const known = (url.searchParams.get("known") || "").split(",").filter(Boolean);
+
+      if (!gameData.cities[cityId]) {
+        send(req, res, 400, JSON.stringify({ error: "Unknown city" }), "application/json; charset=utf-8");
+        return;
+      }
+
+      send(
+        req,
+        res,
+        200,
+        JSON.stringify({
+          rumors: discoverableRumors({ year, dayOfYear }, cityId, gameData, known)
+        }),
         "application/json; charset=utf-8"
       );
       return;
