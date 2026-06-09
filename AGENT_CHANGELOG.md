@@ -168,3 +168,12 @@
 - Tests run: npm test - passed; git diff --check - passed
 - UI review: approved-by-human
 - Blockers or coordination notes: Human approval received with "good. merge and push."
+
+## 2026-06-08 19:03 CDT - codex - main
+
+- Status: merged
+- Summary: Merged approved lore codex and world simulation implementation into main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed on main; git diff --check - passed on main
+- UI review: approved-by-human
+- Blockers or coordination notes: Push to origin/main approved by human; will run tests on main before pushing.
