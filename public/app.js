@@ -13,6 +13,7 @@ import {
 } from "./playerKnowledge.js";
 import { runCharacterWizard } from "./character/wizard.js";
 import { renderCharacterSheet } from "./character/sheet.js";
+import { getWeather } from "./weather.js";
 
 const state = {
   player: null,
@@ -39,6 +40,7 @@ const elements = {
   placeName: document.querySelector("#place-name"),
   placeEpithet: document.querySelector("#place-epithet"),
   placeDescription: document.querySelector("#place-description"),
+  weather: document.querySelector("#weather"),
   tavernName: document.querySelector("#tavern-name"),
   innkeeperName: document.querySelector("#innkeeper-name"),
   tavernIntro: document.querySelector("#tavern-intro"),
@@ -286,12 +288,28 @@ function renderMap() {
   elements.map.replaceChildren(...fragments);
 }
 
+function renderWeather(city) {
+  const weather = getWeather({
+    regionId: city.region,
+    year: state.currentTime.year,
+    dayOfYear: state.currentTime.dayOfYear
+  });
+  const badge = document.createElement("span");
+  badge.className = `weather-badge weather-${weather.condition.id}`;
+  badge.textContent = `${weather.condition.label} · ${weather.temperature.label}`;
+  const desc = document.createElement("span");
+  desc.className = "weather-desc";
+  desc.textContent = weather.description;
+  elements.weather.replaceChildren(badge, desc);
+}
+
 function render() {
   const city = cityById(state.currentCityId);
   elements.year.textContent = formatCalendarTime(state.currentTime);
   elements.placeName.textContent = city.name;
   elements.placeEpithet.textContent = city.epithet;
   elements.placeDescription.textContent = city.description;
+  renderWeather(city);
   elements.tavernName.textContent = city.tavern.name;
   elements.innkeeperName.textContent = city.tavern.innkeeper;
   elements.tavernIntro.textContent = city.tavern.intro;

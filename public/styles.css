@@ -1203,3 +1203,52 @@ h2 {
     min-width: 92px;
   }
 }
+
+/* Regional weather (world pane) */
+
+.weather {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin: 16px 0 0;
+}
+
+.weather-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-strong);
+  color: var(--accent-strong);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Condition tints — subtle left accent so weather reads at a glance */
+.weather-badge.weather-clear,
+.weather-badge.weather-fair,
+.weather-badge.weather-heat-haze { border-color: var(--accent); color: var(--accent-strong); }
+.weather-badge.weather-rain,
+.weather-badge.weather-storm,
+.weather-badge.weather-sleet { border-color: var(--water); color: #9cc3e6; }
+.weather-badge.weather-snow,
+.weather-badge.weather-fog,
+.weather-badge.weather-sea-mist,
+.weather-badge.weather-overcast,
+.weather-badge.weather-cloudy { border-color: #6b7780; color: #c6d2da; }
+.weather-badge.weather-ash-haze { border-color: var(--danger); color: #e0a59b; }
+
+.weather-desc {
+  flex: 1;
+  min-width: 200px;
+  color: var(--muted);
+  font-size: 0.96rem;
+  font-style: italic;
+  line-height: 1.5;
+}
