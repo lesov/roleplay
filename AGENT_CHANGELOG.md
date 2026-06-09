@@ -339,3 +339,12 @@
 - Tests run: npm test - passed; git diff --check - passed
 - UI review: approved-by-human
 - Blockers or coordination notes: Human approval received with "checked good. Merge and push"; separate local edits remain unstaged.
+
+## 2026-06-09 10:33 CDT - codex - main
+
+- Status: merged
+- Summary: Merged approved player-knowledge rumor flow into main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed on main; git diff --check - passed on main
+- UI review: approved-by-human
+- Blockers or coordination notes: Push to origin/main approved by human; separate local edits remain unstaged.
