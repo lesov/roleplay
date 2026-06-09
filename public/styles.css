@@ -1252,3 +1252,40 @@ h2 {
   font-style: italic;
   line-height: 1.5;
 }
+
+/* In-city Places panel */
+
+.button-grid button.active {
+  border-color: var(--accent-strong);
+  background: #332a1b;
+  color: var(--accent-strong);
+}
+
+.location-detail {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.location-category {
+  margin: 0;
+  color: var(--accent-strong);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.location-name {
+  margin: 0;
+  font-size: 1.18rem;
+  line-height: 1.2;
+}
+
+.location-description {
+  margin: 4px 0 0;
+  color: #ddd1bd;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}

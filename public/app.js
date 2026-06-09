@@ -24,6 +24,7 @@ const state = {
   currentCityId: null,
   currentTime: null,
   selectedLoreSectionId: null,
+  selectedLocationId: null,
   logEntries: []
 };
 
@@ -46,6 +47,8 @@ const elements = {
   tavernIntro: document.querySelector("#tavern-intro"),
   travelOptions: document.querySelector("#travel-options"),
   dialogueOptions: document.querySelector("#dialogue-options"),
+  locationOptions: document.querySelector("#location-options"),
+  locationDetail: document.querySelector("#location-detail"),
   worldNews: document.querySelector("#world-news"),
   codexSection: document.querySelector("#codex-section"),
   codexContent: document.querySelector("#codex-content"),
@@ -109,6 +112,7 @@ async function travelTo(cityId) {
   const travelMinutes = travelMinutesForMiles(route.miles, pace.milesPerHour);
   state.currentTime = advanceWalkingTravel(state.currentTime, travelMinutes, pace);
   state.currentCityId = cityId;
+  state.selectedLocationId = null;
   await refreshWorldState();
   addLog(
     "Travel",
@@ -174,6 +178,45 @@ function renderTravel(city) {
   });
 
   elements.travelOptions.replaceChildren(...buttons);
+}
+
+function renderLocations(city) {
+  const locations = city.locations || [];
+  if (locations.length === 0) {
+    elements.locationOptions.replaceChildren();
+    elements.locationDetail.replaceChildren();
+    return;
+  }
+
+  const selected =
+    locations.find((location) => location.id === state.selectedLocationId) || locations[0];
+  state.selectedLocationId = selected.id;
+
+  const buttons = locations.map((location) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = location.name;
+    if (location.id === selected.id) {
+      button.classList.add("active");
+    }
+    button.addEventListener("click", () => {
+      state.selectedLocationId = location.id;
+      renderLocations(city);
+    });
+    return button;
+  });
+  elements.locationOptions.replaceChildren(...buttons);
+
+  const category = document.createElement("p");
+  const name = document.createElement("h3");
+  const description = document.createElement("p");
+  category.className = "location-category";
+  category.textContent = selected.category;
+  name.className = "location-name";
+  name.textContent = selected.name;
+  description.className = "location-description";
+  description.textContent = selected.description;
+  elements.locationDetail.replaceChildren(category, name, description);
 }
 
 function renderDialogue(city) {
@@ -314,6 +357,7 @@ function render() {
   elements.innkeeperName.textContent = city.tavern.innkeeper;
   elements.tavernIntro.textContent = city.tavern.intro;
   renderTravel(city);
+  renderLocations(city);
   renderDialogue(city);
   renderWorldNews();
   renderCodex();
