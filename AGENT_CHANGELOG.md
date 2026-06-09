@@ -349,6 +349,33 @@
 - UI review: approved-by-human
 - Blockers or coordination notes: Push to origin/main approved by human; separate local edits remain unstaged.
 
+## 2026-06-09 18:23 CDT - codex - feature/codex/city-location-interactions
+
+- Status: started
+- Summary: Begin unifying taverns with city places so every visitable location has a contact the player can speak with.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md has a pre-existing local edit and will not be changed or staged for this task.
+
+## 2026-06-09 18:31 CDT - codex - feature/codex/city-location-interactions
+
+- Status: ready-for-review
+- Summary: Unified taverns with the Places panel. Each city now models its tavern as a visitable location with an innkeeper contact, and every other city location has a simple contact who can explain the establishment or organization. The separate tavern panel was removed, and dialogue buttons now come from the currently selected place.
+- Files changed: src/gameData.js, public/index.html, public/app.js, public/styles.css, test/cityLocations.test.js, test/gameData.test.js, AGENT_CHANGELOG.md
+- Tests run: node --check src/gameData.js - pass; node --check public/app.js - pass; npm test - pass; git diff --check - pass; local server smoke checks on http://localhost:3007 - pass
+- UI review: pending-human-test
+- Blockers or coordination notes: UI change requires human review before merge. master_timeline_GM_internal.md has a pre-existing local edit and was left untouched/unstaged.
+
+## 2026-06-09 18:36 CDT - codex - feature/codex/city-location-interactions
+
+- Status: approved
+- Summary: Human tested the unified Places and location-contact UI and approved merge/push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: node --check src/gameData.js - pass; node --check public/app.js - pass; npm test - pass; git diff --check - pass
+- UI review: approved-by-human
+- Blockers or coordination notes: Proceeding with commit, merge to main, final checks, and push. master_timeline_GM_internal.md remains an unrelated local edit and will not be staged.
+
 ## 2026-06-09 - claude-sonnet - feature/claude-sonnet/regional-weather
 
 - Status: started

@@ -42,9 +42,6 @@ const elements = {
   placeEpithet: document.querySelector("#place-epithet"),
   placeDescription: document.querySelector("#place-description"),
   weather: document.querySelector("#weather"),
-  tavernName: document.querySelector("#tavern-name"),
-  innkeeperName: document.querySelector("#innkeeper-name"),
-  tavernIntro: document.querySelector("#tavern-intro"),
   travelOptions: document.querySelector("#travel-options"),
   dialogueOptions: document.querySelector("#dialogue-options"),
   locationOptions: document.querySelector("#location-options"),
@@ -75,6 +72,17 @@ function routeKey(cityId, destinationId) {
 
 function routeByCities(cityId, destinationId) {
   return state.data.travelRoutes[routeKey(cityId, destinationId)];
+}
+
+function selectedLocation(city) {
+  const locations = city.locations || [];
+  return locations.find((location) => location.id === state.selectedLocationId) || locations[0];
+}
+
+function dialogueLabel(topicId) {
+  return state.data.topicLabels[topicId] || {
+    establishment: "Establishment"
+  }[topicId] || topicId;
 }
 
 function addLog(title, message) {
@@ -135,7 +143,14 @@ async function fetchLocalRumors() {
 
 async function speak(topicId) {
   const city = cityById(state.currentCityId);
-  const label = state.data.topicLabels[topicId];
+  const location = selectedLocation(city);
+  const contact = location?.contact;
+  const dialogue = contact?.dialogue?.[topicId];
+  if (!contact || !dialogue) {
+    return;
+  }
+
+  const label = dialogueLabel(topicId);
   const rumorTopics = new Set(["world", "rumors"]);
   const localRumors = rumorTopics.has(topicId) ? await fetchLocalRumors() : [];
   const learnedRumors = rememberRumors(state.knowledge, localRumors);
@@ -143,7 +158,7 @@ async function speak(topicId) {
     ? ` ${learnedRumors.map((rumor) => `Word going around: ${rumor.summary}`).join(" ")}`
     : "";
 
-  addLog(`${city.tavern.innkeeper} on ${label}`, `${city.tavern.dialogue[topicId]}${learnedText}`);
+  addLog(`${contact.name} on ${label}`, `${dialogue}${learnedText}`);
   renderWorldNews();
   renderTravel(city);
 }
@@ -202,6 +217,7 @@ function renderLocations(city) {
     button.addEventListener("click", () => {
       state.selectedLocationId = location.id;
       renderLocations(city);
+      renderDialogue(city);
     });
     return button;
   });
@@ -210,20 +226,28 @@ function renderLocations(city) {
   const category = document.createElement("p");
   const name = document.createElement("h3");
   const description = document.createElement("p");
+  const contact = document.createElement("p");
+  const intro = document.createElement("p");
   category.className = "location-category";
   category.textContent = selected.category;
   name.className = "location-name";
   name.textContent = selected.name;
   description.className = "location-description";
   description.textContent = selected.description;
-  elements.locationDetail.replaceChildren(category, name, description);
+  contact.className = "location-contact";
+  contact.textContent = `${selected.contact.name}, ${selected.contact.role}`;
+  intro.className = "location-intro";
+  intro.textContent = selected.contact.intro;
+  elements.locationDetail.replaceChildren(category, name, description, contact, intro);
 }
 
 function renderDialogue(city) {
-  const buttons = Object.entries(state.data.topicLabels).map(([topicId, label]) => {
+  const location = selectedLocation(city);
+  const dialogue = location?.contact?.dialogue || {};
+  const buttons = Object.keys(dialogue).map((topicId) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.textContent = label;
+    button.textContent = dialogueLabel(topicId);
     button.addEventListener("click", () => {
       void speak(topicId);
     });
@@ -353,9 +377,6 @@ function render() {
   elements.placeEpithet.textContent = city.epithet;
   elements.placeDescription.textContent = city.description;
   renderWeather(city);
-  elements.tavernName.textContent = city.tavern.name;
-  elements.innkeeperName.textContent = city.tavern.innkeeper;
-  elements.tavernIntro.textContent = city.tavern.intro;
   renderTravel(city);
   renderLocations(city);
   renderDialogue(city);
@@ -381,7 +402,7 @@ async function startGame() {
   const identity = state.player.subrace ? state.player.subrace.label : state.player.race.label;
   addLog(
     "Arrival",
-    `${state.player.name}, a ${identity} ${state.player.class.label}, stands in ${city.name}, with ${city.tavern.name} close at hand.`
+    `${state.player.name}, a ${identity} ${state.player.class.label}, stands in ${city.name}, with several places nearby to visit.`
   );
   renderCharacterPanel();
   elements.shell.hidden = false;
