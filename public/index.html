@@ -8,22 +8,17 @@
   </head>
   <body>
     <div id="char-creation-overlay" class="char-overlay" role="dialog" aria-modal="true" aria-labelledby="char-creation-title">
-      <form id="char-creation-form" class="char-panel" novalidate>
-        <p class="char-era">1496 DR — Sword Coast</p>
-        <h1 id="char-creation-title">Create Your Adventurer</h1>
-        <div class="char-fields">
-          <label for="char-name">Name</label>
-          <input id="char-name" type="text" maxlength="40" required autocomplete="off" placeholder="Enter your name">
-          <label for="char-race">Race</label>
-          <select id="char-race"></select>
-          <label for="char-class">Class</label>
-          <select id="char-class"></select>
-          <label for="char-background">Background</label>
-          <select id="char-background"></select>
+      <div id="char-wizard" class="char-wizard"></div>
+    </div>
+
+    <div id="sheet-overlay" class="sheet-overlay" hidden role="dialog" aria-modal="true" aria-label="Character sheet">
+      <div class="sheet-modal">
+        <div class="sheet-modal-header">
+          <h2>Character Sheet</h2>
+          <button class="icon-button" id="sheet-close" type="button" title="Close" aria-label="Close character sheet">x</button>
         </div>
-        <p id="char-error" class="char-error" hidden></p>
-        <button type="submit" id="begin-adventure">Begin Adventure</button>
-      </form>
+        <div id="sheet-body"></div>
+      </div>
     </div>
     <main class="shell" hidden>
       <section class="world-pane" aria-labelledby="place-name">
@@ -37,6 +32,17 @@
       </section>
 
       <section class="action-pane" aria-label="Travel and tavern actions">
+        <div class="panel character-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Adventurer</p>
+              <h2 id="character-name"></h2>
+            </div>
+            <button class="text-button" id="view-sheet" type="button">View sheet</button>
+          </div>
+          <p id="character-summary"></p>
+        </div>
+
         <div class="panel">
           <div class="panel-header">
             <h2>Roads</h2>

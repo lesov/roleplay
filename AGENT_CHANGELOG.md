@@ -231,3 +231,21 @@
 - Tests run: npm test - 39/39 pass on clean branch baseline
 - UI review: pending-human-test
 - Blockers or coordination notes: Branched from main. Work isolated to new src/character/* and public/character/* modules; only minimal touch-points in public/app.js and public/index.html. Not modifying other agents' lore/worldSim/time/routeSafety modules.
+
+## 2026-06-08 - claude-sonnet - feature/claude-sonnet/full-character-creation
+
+- Status: ready-for-review
+- Summary: Implemented full D&D 5e (SRD) level-1 character creation. New src/character/ dataset (9 races + subraces, 12 classes, 13 backgrounds, 64 cantrips/level-1 spells, equipment, reference tables) plus 6 quick-start presets. New pure builder in public/character/builder.js (ability mods, proficiency, point-buy, racial increases, derived HP/AC/saves/skills/passive perception/spell DC, validation) shared by browser and tests. Multi-step wizard (public/character/wizard.js) with Quick Start, race/class/background/abilities(standard-array|point-buy|roll)/equipment/details/review steps; character-sheet renderer (sheet.js) used in review and a new in-game Character panel. Server now serves /api/character-options (full rules) and /api/character-presets. app.js/index.html/styles.css wired to the wizard + sheet; arrival log names race+class.
+- Files changed: src/character/{reference,equipment,races,classes,backgrounds,spells,presets,index}.js (new), public/character/{builder,wizard,sheet}.js (new), test/character/{builder,presets,data}.test.js (new), src/characterData.js (shim), server.js, public/index.html, public/app.js, public/styles.css, AGENT_CHANGELOG.md
+- Tests run: npm test - 68/68 pass (29 new character tests + 39 pre-existing); node --check on all browser modules; headless DOM smoke test of wizard (start render, all 6 presets build + Begin fires onComplete, custom build advances); all 6 presets assemble with valid stats (Fighter AC18/HP12, Cleric AC16/HP12, Wizard AC13/HP7, Rogue AC14/HP10, Bard AC13/HP10, Barbarian AC13/HP14).
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server started on http://localhost:3013. master_timeline_GM_internal.md has a pre-existing human/agent edit in the working tree and was left untouched and unstaged. Merge to main still requires explicit human stable-state approval.
+
+## 2026-06-08 - claude-sonnet - feature/claude-sonnet/full-character-creation
+
+- Status: approved
+- Summary: Human tested the full SRD character creation UI (Quick Start presets + custom multi-step wizard + in-game sheet) and approved with "all checks out." Committing the completed feature to the task branch.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 68/68 pass
+- UI review: approved-by-human
+- Blockers or coordination notes: Work committed to feature/claude-sonnet/full-character-creation. Merge to main still requires explicit human stable-state declaration AND merge authorization per AGENT_WORKFLOW_INSTRUCTIONS.md.
