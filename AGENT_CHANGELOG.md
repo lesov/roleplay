@@ -384,3 +384,29 @@
 - Tests run: npm test - 90/90 pass on main after merge
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Pushing to origin/main (requires SSH key passphrase; may need to be run interactively by the user).
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/city-locations
+
+- Status: started
+- Summary: Begin selectable in-city destinations (descriptions & lore only, no interactions). Add a `locations` array to each city in gameData and a "Places" panel that shows the selected location's lore.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 90/90 pass on clean branch baseline
+- Blockers or coordination notes: Branched from main. gameData.js edits are purely additive (new `locations` field per city). New test in test/cityLocations.test.js (isolated from concurrently-edited gameData.test.js). Not touching other agents' modules or master_timeline_GM_internal.md.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/city-locations
+
+- Status: ready-for-review
+- Summary: Added selectable in-city destinations (descriptions & lore only). Each of the 7 cities gained a `locations` array (4 lore-consistent places each) in src/gameData.js. New "Places" panel in the action pane: location buttons + a detail area showing the selected place's category/name/description (mirrors the Codex select+detail pattern). Selection resets on travel so each city defaults to its first place. No interactions inside locations; tavern dialogue unchanged.
+- Files changed: src/gameData.js, public/index.html, public/app.js, public/styles.css, test/cityLocations.test.js (new), AGENT_CHANGELOG.md
+- Tests run: npm test - 94/94 pass (4 new cityLocations tests + 90 existing); node --check public/app.js.
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server on http://localhost:3015. gameData.js change is purely additive (locations field). Did not touch other agents' modules or master_timeline_GM_internal.md. Merge to main needs explicit human stable-state + merge approval.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/city-locations
+
+- Status: approved
+- Summary: Human tested in-city Places UI and approved ("checked are done. approved to merge"). Committing to the task branch and merging to main; human will push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 94/94 pass
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged. Push will be performed by the human.

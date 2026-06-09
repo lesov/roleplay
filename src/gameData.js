@@ -72,6 +72,36 @@ export const gameData = {
       description:
         "A brilliant, fractious city of marble courts, dueling schools, hired captains, and noble houses that know every foreign power is counting their gates.",
       connections: ["arrabar", "soorenar", "velprintalar"],
+      locations: [
+        {
+          id: "sand-court",
+          name: "The Sand Court",
+          category: "Arena",
+          description:
+            "Tiered marble seats climb above a raked sand floor the attendants never quite scrub clean. Between the blood-sports Cimbar argues philosophy here just as fiercely, and a clever orator can leave more bruised than any duelist."
+        },
+        {
+          id: "duelists-salle",
+          name: "The Duelists' Salle",
+          category: "Fencing School",
+          description:
+            "Chalk dust and oiled steel hang in the air of Cimbar's most famous fencing school, where the sons of noble houses learn the forms that settle quarrels before any magistrate hears them. Its masters are bought, feared, and now and then hired to settle a quarrel permanently."
+        },
+        {
+          id: "forum-of-orators",
+          name: "The Forum of Orators",
+          category: "Forum",
+          description:
+            "A colonnade of weathered marble where Cimbar conducts the business it loves best: talking. Merchants, demagogues, and foreign factors trade rumor and insult beneath statues of heroes the city has already half-forgotten."
+        },
+        {
+          id: "captains-hall",
+          name: "The Captains' Hall",
+          category: "Mercenary Hall",
+          description:
+            "A smoke-stained hall near the gates where free-company captains post their banners and their prices. Every claimant in Chessenta hires here, and more than one has discovered too late that a rival hired the same blades first."
+        }
+      ],
       tavern: {
         name: "The Bronze Laurel",
         innkeeper: "Ilyra Dathane",
@@ -98,6 +128,36 @@ export const gameData = {
       description:
         "A southern city-kingdom with old royal claims, anxious gates, and a court where every genealogy is treated like a drawn sword.",
       connections: ["cimbar"],
+      locations: [
+        {
+          id: "claimants-court",
+          name: "The Claimant's Court",
+          category: "Royal Court",
+          description:
+            "A cramped throne room kept deliberately grand, where Soorenar's rulers receive petitioners beneath a canopy of old battle-flags. Every courtier watches the doors, and every greeting is weighed for the word king."
+        },
+        {
+          id: "hall-of-lineages",
+          name: "The Hall of Lineages",
+          category: "Archive",
+          description:
+            "Shelf upon shelf of brittle genealogies, guarded more jealously than the treasury. In Soorenar a bloodline is a weapon, and the archivists here have learned to lie with perfect handwriting."
+        },
+        {
+          id: "shuttered-market",
+          name: "The Shuttered Market",
+          category: "Market",
+          description:
+            "A square that does brisk trade behind half-closed shutters, as though commerce itself were best done quietly. The vendors price strangers higher and remember their faces longer."
+        },
+        {
+          id: "old-royal-wall",
+          name: "The Old Royal Wall",
+          category: "Fortifications",
+          description:
+            "The city's ancient wall, patched and re-patched, manned by guards who study the northern road as if Cormyr might appear upon it any morning. From the rampart you can see exactly how small a kingdom Soorenar truly is."
+        }
+      ],
       tavern: {
         name: "The Swan and Spear",
         innkeeper: "Doros Halvren",
@@ -124,6 +184,36 @@ export const gameData = {
       description:
         "A mercantile holy city where temple writs, trade contracts, and armed orders compete for the same narrow streets.",
       connections: ["cimbar", "selgaunt"],
+      locations: [
+        {
+          id: "high-temple",
+          name: "The High Temple of Torm",
+          category: "Temple",
+          description:
+            "The marble heart of the Church of Torm the Vigilant, where templars in burnished mail keep watch over an altar that has crowned and uncrowned kings. Pilgrims kneel in its nave while clerks in the side-chapels count the tithes of a dozen realms."
+        },
+        {
+          id: "templar-barracks",
+          name: "The Templar Barracks",
+          category: "Barracks",
+          description:
+            "Ordered ranks of cots, drilling yards, and racked halberds house the Church's own soldiers. The men here answer to no crown, only to the high seat, and they know precisely what that independence is worth."
+        },
+        {
+          id: "tithe-house",
+          name: "The Tithe-House",
+          category: "Counting-House",
+          description:
+            "A fortified counting-house where the faith's wealth is weighed, recorded, and lent. Here a churchman will tell you that good accounting is itself a form of devotion, and in Arrabar he is not entirely joking."
+        },
+        {
+          id: "pilgrim-quay",
+          name: "The Pilgrim Quay",
+          category: "Docks",
+          description:
+            "A crowded wharf where pilgrim barges unload the faithful alongside crates of incense, grain, and less holy cargo. The dockside priests bless arrivals and inspect their purses with the same practiced glance."
+        }
+      ],
       tavern: {
         name: "The Gilded Gauntlet",
         innkeeper: "Brother Caldus Merro",
@@ -150,6 +240,36 @@ export const gameData = {
       description:
         "A rich Sembian port of counting rooms, private guards, sharp contracts, and merchant families who treat rumors as a tradable good.",
       connections: ["arrabar", "suzail"],
+      locations: [
+        {
+          id: "great-counting-house",
+          name: "The Great Counting-House",
+          category: "Counting-House",
+          description:
+            "A cathedral of commerce in all but name, its long halls lined with ledgers, money-changers, and the quiet scratch of a hundred pens. Half the crowns of Faerun owe paper that is filed somewhere in these rooms."
+        },
+        {
+          id: "carrack-wharves",
+          name: "The Carrack Wharves",
+          category: "Docks",
+          description:
+            "Forests of masts crowd the Selgauntan waterfront, where Sembian carracks load and unload the trade of the whole Inner Sea. Nothing moves here without a fee, a tally, and someone taking note."
+        },
+        {
+          id: "merchant-villa",
+          name: "A Counting-Family Villa",
+          category: "Villa",
+          description:
+            "The walled townhouse of one of Selgaunt's merchant dynasties, where business is done over wine and the guards outnumber the servants. An invitation here is an honor that usually costs the guest more than the host."
+        },
+        {
+          id: "contract-court",
+          name: "The Contract Court",
+          category: "Court",
+          description:
+            "A dim hall of arbiters where Sembia settles its disputes the civilized way, with sealed contracts and ruinous penalties. Wise visitors read every clause twice, since the city's idea of an honest bargain is one where the trap was disclosed in advance."
+        }
+      ],
       tavern: {
         name: "The Silver Abacus",
         innkeeper: "Nessa Ormblade",
@@ -176,6 +296,36 @@ export const gameData = {
       description:
         "Cormyr's royal harbor stands beneath purple banners, orderly streets, and a court newly hungry for glory beyond its borders.",
       connections: ["selgaunt"],
+      locations: [
+        {
+          id: "royal-court",
+          name: "The Royal Court",
+          category: "Royal Court",
+          description:
+            "Beneath purple banners and the watchful eyes of courtiers, the Obarskyr court conducts the business of a kingdom rediscovering its ambition. The talk these days is less of defense than of old rights and crowns across the sea."
+        },
+        {
+          id: "war-wizards-college",
+          name: "The War Wizards' College",
+          category: "College",
+          description:
+            "A guarded precinct of warded doors and quiet apprentices, home to the dread War Wizards whose battle-magic no rival can match in open field. Visitors are watched by spells they will never see and rarely invited past the threshold."
+        },
+        {
+          id: "purple-dragon-barracks",
+          name: "The Purple Dragon Barracks",
+          category: "Barracks",
+          description:
+            "Drill-yards ring with the tramp of Cormyr's famous legions, disciplined, loyal, and visibly itching for a campaign. The veterans here remember old wars; the young officers can hardly wait for a new one."
+        },
+        {
+          id: "royal-harbor",
+          name: "The Royal Harbor",
+          category: "Harbor",
+          description:
+            "Suzail's orderly harbor bristles with naval pennants and customs clerks, every hull logged and every cargo taxed. It is the kind of harbor that makes a merchant feel safe and watched in equal measure."
+        }
+      ],
       tavern: {
         name: "The Purple Tankard",
         innkeeper: "Maerun Thistle",
@@ -202,6 +352,36 @@ export const gameData = {
       description:
         "A tense eastern city of watchtowers, spell-wards, refugee boats, and soldiers who sleep lightly with Thay across the frontier.",
       connections: ["cimbar", "eltabbar"],
+      locations: [
+        {
+          id: "watchtower-wall",
+          name: "The Watchtower Wall",
+          category: "Fortifications",
+          description:
+            "A grim curtain of stone and spell-ward facing east, manned day and night by soldiers who sleep in their armor. From the parapet the frontier with Thay looks deceptively quiet."
+        },
+        {
+          id: "war-mages-hall",
+          name: "The Hall of War-Mages",
+          category: "Hall",
+          description:
+            "The austere hall of Aglarond's war-mages, heirs to the tradition that has thrown the Red Wizards back for three centuries. They train without ceremony here, knowing the line holds only as long as they do."
+        },
+        {
+          id: "refugee-quays",
+          name: "The Refugee Quays",
+          category: "Docks",
+          description:
+            "Crowded jetties where fishing boats and refugee craft put in from the contested eastern shore. The harbor-folk trade in rumor and red wax, and grief has made some of them merciful and others sharp."
+        },
+        {
+          id: "wardens-gate",
+          name: "The Warden's Gate",
+          category: "Keep",
+          description:
+            "The studded gate of the citadel from which Aglarond's witch-rulers have long defied Thay. Petitioners wait under the arch beside soldiers who measure every stranger against the threat across the water."
+        }
+      ],
       tavern: {
         name: "The Windward Shield",
         innkeeper: "Savaen Rul",
@@ -228,6 +408,36 @@ export const gameData = {
       description:
         "A severe city of red-robed masters, silent servants, guarded canals, and power that treats mercy as a negotiable luxury.",
       connections: ["velprintalar"],
+      locations: [
+        {
+          id: "enclave-gate",
+          name: "The Red Enclave Gate",
+          category: "Enclave",
+          description:
+            "The lacquered gate of a Red Wizard enclave, flanked by silent guards and wards that prickle the skin. Beyond it lie courtyards no outsider sees twice, and servants who do not seem to breathe."
+        },
+        {
+          id: "slave-market",
+          name: "The Slave Market",
+          category: "Market",
+          description:
+            "A grim plaza where Thay trades the bodies that fuel its endless ambitions, conducted with the cold efficiency of a grain exchange. Foreigners are advised to keep their eyes down and their papers in order."
+        },
+        {
+          id: "canal-wharves",
+          name: "The Canal Wharves",
+          category: "Canals",
+          description:
+            "Guarded canals thread the city, their black water carrying barges of goods, secrets, and things best not named. The wharf-masters note every hull and forget nothing."
+        },
+        {
+          id: "factors-house",
+          name: "A Zulkir's Factor-House",
+          category: "Factor-House",
+          description:
+            "The fortified townhouse of a zulkir's factor, where Thayan gold buys charts, chains, and influence in cities far to the west. Business here is brief, exact, and never quite as scholarly as it pretends."
+        }
+      ],
       tavern: {
         name: "The Ashen Seal",
         innkeeper: "Kethra Voss",
