@@ -258,3 +258,48 @@
 - Tests run: npm test - 68/68 pass on main after merge
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Pushing to origin/main.
+
+## 2026-06-08 22:28 CDT - codex - feature/codex/inner-sea-travel-region
+
+- Status: started
+- Summary: Begin moving the playable travel start and destinations from the Sword Coast to the Sea of Fallen Stars region while leaving distant Sword Coast world events intact.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md has a pre-existing local edit and will not be changed or staged for this task.
+
+## 2026-06-08 22:31 CDT - codex - feature/codex/inner-sea-travel-region
+
+- Status: ready-for-review
+- Summary: Moved playable travel to the Sea of Fallen Stars with Cimbar as the start city, Inner Sea route safety metadata, updated region labels, and regression tests that keep Sword Coast cities out of the current travel graph.
+- Files changed: AGENT_CHANGELOG.md, public/character/wizard.js, public/index.html, public/routeSafety.js, src/gameData.js, test/gameData.test.js, test/routeSafety.test.js
+- Tests run: npm test - passed; git diff --check - passed; node --check public/character/wizard.js - passed; node --check public/routeSafety.js - passed; node --check src/gameData.js - passed; curl -s http://localhost:3005/api/game-data verified startCityId=cimbar and Inner Sea city graph; curl -s http://localhost:3005/ verified Sea of Fallen Stars page title and map label
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3005. master_timeline_GM_internal.md remains a separate local edit and was not changed for this task.
+
+## 2026-06-08 22:39 CDT - codex - feature/codex/inner-sea-travel-region
+
+- Status: ready-for-review
+- Summary: Moved Eltabbar's map marker southeast to stop it overlapping Velprintalar and added a regression test for eastern map-label spacing.
+- Files changed: AGENT_CHANGELOG.md, src/gameData.js, test/gameData.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s http://localhost:3005/api/game-data verified Velprintalar at 78,48 and Eltabbar at 92,68 after server restart
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3005. master_timeline_GM_internal.md remains a separate local edit and was not changed for this task.
+
+## 2026-06-08 22:43 CDT - codex - feature/codex/inner-sea-travel-region
+
+- Status: ready-for-review
+- Summary: Removed the misleading decorative blue map strip and faint orange map circle from the travel map background.
+- Files changed: AGENT_CHANGELOG.md, public/styles.css
+- Tests run: npm test - passed; git diff --check - passed; curl -s http://localhost:3005/styles.css verified the map background no longer includes the fixed water strip or radial marker
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3005. master_timeline_GM_internal.md remains a separate local edit and was not changed for this task.
+
+## 2026-06-08 22:46 CDT - codex - feature/codex/inner-sea-travel-region
+
+- Status: approved
+- Summary: Human approved the Sea of Fallen Stars travel-region and map fixes for merge and push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed; git diff --check - passed
+- UI review: approved-by-human
+- Blockers or coordination notes: Human approval received with "ok , checked and approved, merge and push"; separate local edits remain unstaged.

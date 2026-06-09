@@ -1,46 +1,59 @@
 export const gameData = {
   year: "1496 DR",
-  startCityId: "waterdeep",
+  startCityId: "cimbar",
   startTime: { year: 1496, dayOfYear: 1, hour: 8, minute: 0 },
   travelPace: {
     milesPerHour: 3,
     walkingHoursPerDay: 8
   },
   travelRoutes: {
-    "luskan:neverwinter": {
-      miles: 153,
-      baseRisk: "risky",
-      hazards: ["cold hills", "hungry beasts", "desperate roadfolk"],
-      safetyTags: ["northern", "wilderness"],
-      safeSummary: "The northern road is open, but the cold hills hide trouble between settlements."
-    },
-    "neverwinter:waterdeep": {
-      miles: 335,
+    "arrabar:cimbar": {
+      miles: 520,
       baseRisk: "watchful",
-      hazards: ["long coastal miles", "watched caravans", "busy toll roads"],
-      safetyTags: ["northern", "coastal", "trade"],
-      safeSummary: "Traffic and patrols help, though every busy road carries spies, tolls, and thieves."
+      hazards: ["Vilhon toll posts", "mercenary escorts", "rival city agents"],
+      safetyTags: ["southern", "trade", "religious"],
+      safeSummary:
+        "The Vilhon road is busy enough to find company, but every shrine, bridge, and counting-house has a watcher."
     },
-    "daggerford:waterdeep": {
-      miles: 150,
-      baseRisk: "safe",
-      hazards: ["patrolled road", "tolls", "caravan traffic"],
-      safetyTags: ["trade", "patrolled"],
-      safeSummary: "This is the safest road on the map: busy, watched, and close to Waterdeep's reach."
-    },
-    "baldurs-gate:daggerford": {
-      miles: 600,
+    "arrabar:selgaunt": {
+      miles: 640,
       baseRisk: "risky",
-      hazards: ["long open road", "bandits", "thin patrols"],
-      safetyTags: ["southern", "trade", "wilderness"],
-      safeSummary: "The long south road is open, but distance makes every patrol, camp, and supply stop matter."
+      hazards: ["long caravan stages", "political scrutiny", "thin rural patrols"],
+      safetyTags: ["trade", "religious", "coastal"],
+      safeSummary:
+        "Merchant traffic keeps the road alive, though temple agents and Sembian factors both take careful note of strangers."
     },
-    "baldurs-gate:elturel": {
-      miles: 200,
+    "cimbar:soorenar": {
+      miles: 430,
       baseRisk: "risky",
-      hazards: ["hard memories", "pilgrim traffic", "watched crossings"],
-      safetyTags: ["southern", "pilgrim", "religious"],
-      safeSummary: "The road is watched closely, but old grief and pilgrim traffic make tempers uncertain."
+      hazards: ["contested claims", "city-state patrols", "hired blades"],
+      safetyTags: ["southern", "trade"],
+      safeSummary:
+        "This is the road every claimant watches; travel is possible, but neutrality is hard to prove near Soorenar."
+    },
+    "cimbar:velprintalar": {
+      miles: 780,
+      baseRisk: "perilous",
+      hazards: ["empty frontier roads", "war refugees", "eastern scouts"],
+      safetyTags: ["eastern", "coastal", "wilderness"],
+      safeSummary:
+        "The eastern crossing is long, exposed, and full of rumors from Thay's frontier."
+    },
+    "eltabbar:velprintalar": {
+      miles: 360,
+      baseRisk: "perilous",
+      hazards: ["border skirmishes", "Red Wizard patrols", "haunted battlefields"],
+      safetyTags: ["eastern", "wilderness"],
+      safeSummary:
+        "Aglarond's shield holds for now, but the road toward Thay is no place for careless travelers."
+    },
+    "selgaunt:suzail": {
+      miles: 260,
+      baseRisk: "watchful",
+      hazards: ["customs posts", "royal patrols", "merchant spies"],
+      safetyTags: ["trade", "northern", "patrolled"],
+      safeSummary:
+        "Cormyrean patrols and Sembian ledgers keep this road orderly, which also means every traveler is noticed."
     }
   },
   topicLabels: {
@@ -50,159 +63,185 @@ export const gameData = {
     local: "Local"
   },
   cities: {
-    luskan: {
-      id: "luskan",
-      name: "Luskan",
-      epithet: "City of Sails",
-      region: "Sword Coast North",
-      map: { x: 22, y: 12 },
+    cimbar: {
+      id: "cimbar",
+      name: "Cimbar",
+      epithet: "Prize City of Chessenta",
+      region: "Chessenta",
+      map: { x: 47, y: 65 },
       description:
-        "A hard-bitten harbor of cutthroat captains, rebuilt power, and cold sea wind. In 1496 DR, people still measure every promise by who profits from it.",
-      connections: ["neverwinter"],
+        "A brilliant, fractious city of marble courts, dueling schools, hired captains, and noble houses that know every foreign power is counting their gates.",
+      connections: ["arrabar", "soorenar", "velprintalar"],
       tavern: {
-        name: "The Frosted Tankard",
-        innkeeper: "Marda Velryn",
+        name: "The Bronze Laurel",
+        innkeeper: "Ilyra Dathane",
         intro:
-          "Marda wipes salt from the bar with a gray cloth and watches the door before she watches you.",
+          "Ilyra sets down a cup of dark wine and studies whether your purse or your accent will cause more trouble.",
         dialogue: {
           world:
-            "The world? It has learned to smile with a knife in its sleeve. Trade runs again, ships crowd the docks, and every lord from here to Calimshan wants the Sword Coast to look orderly enough for taxes.",
+            "The Inner Sea is smiling with all its teeth. Cormyr talks of old rights, Sembia talks of lawful trade, Arrabar talks of holy order, and Chessenta knows all three mean soldiers eventually.",
           rumors:
-            "Black-sailed smugglers have been seen north of the harbor, and folk whisper that old pirate loyalties are waking under new names.",
+            "A Cormyrean herald was seen pricing horses near the east gate, then pretending he had never heard the word Soorenar.",
           roads:
-            "South to Neverwinter is the common road. Hire guards if you can; the cold hills hide desperate people, hungry beasts, and worse things that remember older wars.",
+            "West takes you to Arrabar and the temples. South runs toward Soorenar, where every claim has a knife behind it. East is a long, hard crossing toward Aglarond.",
           local:
-            "Luskan respects strength, coin, and silence. Ask too many names at once and you will be sold three false ones before supper."
+            "Cimbar is rich enough to buy loyalty and proud enough to insult it. Smile politely, pay promptly, and never assume a hired guard is only hired once."
         }
       }
     },
-    neverwinter: {
-      id: "neverwinter",
-      name: "Neverwinter",
-      epithet: "Jewel of the North",
-      region: "Sword Coast North",
-      map: { x: 34, y: 25 },
+    soorenar: {
+      id: "soorenar",
+      name: "Soorenar",
+      epithet: "The Disputed Crown",
+      region: "Chessenta",
+      map: { x: 39, y: 86 },
       description:
-        "Warm river mist curls through a city still proud of its recovery. Craftsfolk, soldiers, and ambitious nobles all claim they are building the future.",
-      connections: ["luskan", "waterdeep"],
+        "A southern city-kingdom with old royal claims, anxious gates, and a court where every genealogy is treated like a drawn sword.",
+      connections: ["cimbar"],
       tavern: {
-        name: "The Moonstone Rest",
-        innkeeper: "Tavik Amblecrown",
+        name: "The Swan and Spear",
+        innkeeper: "Doros Halvren",
         intro:
-          "Tavik sets a clean mug before you, polished bright enough to catch the hearthlight.",
+          "Doros keeps the shutters half-latched even at noon, as if the road itself might listen through the windows.",
         dialogue: {
           world:
-            "After all the calamities, folk want roads open, walls mended, and rulers who can keep monsters out of the vegetable carts. That is a humble dream, but not an easy one.",
+            "When great crowns rediscover old bloodlines, small kingdoms discover how heavy parchment can be. Soorenar hears Cormyr's name in too many foreign mouths.",
           rumors:
-            "Prospectors from the north came in pale and empty-handed. They claimed something under the old stones sang in a voice they knew from childhood.",
+            "Three nobles have hired extra household guards this tenday, and none of them will say which cousin they fear.",
           roads:
-            "North takes you to Luskan if the weather holds. South to Waterdeep is safer, busier, and watched by everyone who thinks travelers carry secrets.",
+            "The north road back to Cimbar is open, but no checkpoint asks only one question. Carry papers, coin, and a story that survives repetition.",
           local:
-            "Neverwinter likes to call itself reborn. Mind you, rebirth leaves scars, and some of those scars own property."
+            "Soorenar calls itself a kingdom because it remembers being treated as one. That memory is a treasure and a wound."
         }
       }
     },
-    waterdeep: {
-      id: "waterdeep",
-      name: "Waterdeep",
-      epithet: "City of Splendors",
-      region: "Sword Coast",
-      map: { x: 45, y: 42 },
+    arrabar: {
+      id: "arrabar",
+      name: "Arrabar",
+      epithet: "Seat of the Vigilant",
+      region: "Vilhon Reach",
+      map: { x: 25, y: 56 },
       description:
-        "The great city rises behind guarded gates and crowded wards, wealthy, suspicious, magnificent, and impossible to understand in a single lifetime.",
-      connections: ["neverwinter", "daggerford"],
+        "A mercantile holy city where temple writs, trade contracts, and armed orders compete for the same narrow streets.",
+      connections: ["cimbar", "selgaunt"],
       tavern: {
-        name: "The Blue Griffon",
-        innkeeper: "Selise Thann",
+        name: "The Gilded Gauntlet",
+        innkeeper: "Brother Caldus Merro",
         intro:
-          "Selise knows three conversations at every table and still notices when your boots stop at the bar.",
+          "Caldus polishes a brass holy symbol with one hand and counts dockside gossip with the other.",
         dialogue: {
           world:
-            "In 1496 DR, the Sword Coast pretends it has recovered its balance. The truth is livelier: merchants, masked powers, priests, and adventurers are all pushing on the same crooked table.",
+            "The faithful want peace, the merchants want certainty, and the high seat wants neither crown nor council strong enough to command it.",
           rumors:
-            "Tall figures in black have been glimpsed near the City of the Dead after moonrise. Sensible people call it nonsense, then lock their shutters early.",
+            "A sealed packet from Selgaunt reached the temple before dawn. By breakfast, three priests had changed their travel plans.",
           roads:
-            "North goes to Neverwinter by long coastal miles. South to Daggerford is steady traffic, patrols, tolls, and enough gossip to fill a library.",
+            "East to Cimbar is watched by soldiers and supplicants alike. North to Selgaunt is longer, richer, and full of people paid to remember faces.",
           local:
-            "Waterdeep is ruled by law, coin, custom, and secrets. Only fools try to decide which one is strongest."
+            "Arrabar forgives many sins after confession. Bad accounting is not one of them."
         }
       }
     },
-    daggerford: {
-      id: "daggerford",
-      name: "Daggerford",
-      epithet: "Duchy on the Delimbiyr",
-      region: "Sword Coast",
-      map: { x: 49, y: 56 },
+    selgaunt: {
+      id: "selgaunt",
+      name: "Selgaunt",
+      epithet: "Counting-House of Sembia",
+      region: "Sembia",
+      map: { x: 47, y: 31 },
       description:
-        "A river town with a ducal keep, busy gates, and the wary manners of a place that sees danger before the great cities believe it.",
-      connections: ["waterdeep", "baldurs-gate"],
+        "A rich Sembian port of counting rooms, private guards, sharp contracts, and merchant families who treat rumors as a tradable good.",
+      connections: ["arrabar", "suzail"],
       tavern: {
-        name: "The River Gate Hearth",
-        innkeeper: "Bran Harlowe",
+        name: "The Silver Abacus",
+        innkeeper: "Nessa Ormblade",
         intro:
-          "Bran leans on the counter with flour on one sleeve and a cudgel within easy reach.",
+          "Nessa has a ledger open before you sit down, though she has the courtesy not to write in it yet.",
         dialogue: {
           world:
-            "Big cities make grand claims, but the Realms are held together by ferries, granaries, bridge guards, and people willing to light a warning fire.",
+            "Sembia has survived shades, crowns, and pious lectures. Coin still moves, and where coin moves, armies eventually follow.",
           rumors:
-            "A caravan master swears one of his wagons arrived lighter than it left, though the seals were untouched and the guards remember nothing.",
+            "A dozen warehouses near the old quay are buying grain above market. That usually means famine, war, or a merchant who knows both are profitable.",
           roads:
-            "Waterdeep lies north and Baldur's Gate far south. The road is open, but open does not mean kind.",
+            "West to Suzail has patrols and paperwork. South to Arrabar has caravans, priests, and tolls that multiply after sunset.",
           local:
-            "Daggerford is small enough to remember your face and important enough that your face may matter."
+            "In Selgaunt, an honest bargain is one where everyone understands the trap before signing."
         }
       }
     },
-    "baldurs-gate": {
-      id: "baldurs-gate",
-      name: "Baldur's Gate",
-      epithet: "Gate of Trade",
-      region: "Western Heartlands",
-      map: { x: 34, y: 75 },
+    suzail: {
+      id: "suzail",
+      name: "Suzail",
+      epithet: "Capital of the Forest Kingdom",
+      region: "Cormyr",
+      map: { x: 32, y: 20 },
       description:
-        "A dense, smoky, ambitious city where trade, politics, refugees, soldiers, and criminals all press toward the same narrow streets.",
-      connections: ["daggerford", "elturel"],
+        "Cormyr's royal harbor stands beneath purple banners, orderly streets, and a court newly hungry for glory beyond its borders.",
+      connections: ["selgaunt"],
       tavern: {
-        name: "The Lantern and Ledger",
-        innkeeper: "Orryn Vale",
+        name: "The Purple Tankard",
+        innkeeper: "Maerun Thistle",
         intro:
-          "Orryn gives you a merchant's smile, then waits to see whether you spend like a pilgrim or a problem.",
+          "Maerun lowers his voice whenever a purple cloak passes the window, which is often.",
         dialogue: {
           world:
-            "The Realms are full of crowns, councils, and temples. Baldur's Gate trusts ledgers first. Ledgers do not lie, though the people holding them often do.",
+            "The crown says the realm is secure enough to remember its rights abroad. Veterans hear that and start checking their old boots.",
           rumors:
-            "Dockhands say a sealed chest was carried uphill under Flaming Fist guard, and the men carrying it would not meet anyone's eyes.",
+            "War Wizards have been taking private rooms near the docks. They ask about southern roads and pay in freshly stamped coin.",
           roads:
-            "North to Daggerford is a long haul. East to Elturel is watched more closely than most roads, especially by people who remember what the city endured.",
+            "East to Selgaunt is orderly and watched. The patrols keep bandits away, but they also keep questions close.",
           local:
-            "In this city, every door has a price. Sometimes the price is coin, sometimes a favor, sometimes pretending you saw nothing."
+            "Suzail loves law, lineage, and banners. If you cannot offer one, keep your business modest."
         }
       }
     },
-    elturel: {
-      id: "elturel",
-      name: "Elturel",
-      epithet: "City of the Companion's Shadow",
-      region: "Elturgard",
-      map: { x: 78, y: 88 },
+    velprintalar: {
+      id: "velprintalar",
+      name: "Velprintalar",
+      epithet: "Bulwark of Aglarond",
+      region: "Aglarond",
+      map: { x: 78, y: 48 },
       description:
-        "A scarred holy city on the River Chionthar, determined to stand upright after horror, judgment, and loss.",
-      connections: ["baldurs-gate"],
+        "A tense eastern city of watchtowers, spell-wards, refugee boats, and soldiers who sleep lightly with Thay across the frontier.",
+      connections: ["cimbar", "eltabbar"],
       tavern: {
-        name: "The Ashen Chalice",
-        innkeeper: "Maerin Duskford",
+        name: "The Windward Shield",
+        innkeeper: "Savaen Rul",
         intro:
-          "Maerin's voice is gentle, but every candle behind the bar is trimmed with soldierly precision.",
+          "Savaen serves tea strong enough to wake the dead, then apologizes for the phrase with a glance eastward.",
         dialogue: {
           world:
-            "The world is not healed just because the screaming stopped. But people rebuild walls, bury names, and choose morning again. That is not small.",
+            "The west argues over thrones while Aglarond counts patrols. Thay does not need an invitation, only a weak hour.",
           rumors:
-            "Pilgrims report a rider on a pale horse appearing at old battle sites, pointing east without speaking.",
+            "A fishing crew came in with red wax on its nets and no fish. The harbor master bought their silence badly.",
           roads:
-            "West to Baldur's Gate follows river trade and hard memories. Travel with company; grief has made some folk merciful and others sharp.",
+            "West to Cimbar is long and lonely. East toward Eltabbar is shorter, but every mile feels watched by something patient.",
           local:
-            "Elturel listens for sincerity. Empty piety wears thin here, but an honest apology can still open a door."
+            "Velprintalar welcomes help, mistrusts strangers, and has learned that both habits keep people alive."
+        }
+      }
+    },
+    eltabbar: {
+      id: "eltabbar",
+      name: "Eltabbar",
+      epithet: "Red Seat of Thay",
+      region: "Thay",
+      map: { x: 92, y: 68 },
+      description:
+        "A severe city of red-robed masters, silent servants, guarded canals, and power that treats mercy as a negotiable luxury.",
+      connections: ["velprintalar"],
+      tavern: {
+        name: "The Ashen Seal",
+        innkeeper: "Kethra Voss",
+        intro:
+          "Kethra pours without asking your name, then waits to see whether you are foolish enough to volunteer it.",
+        dialogue: {
+          world:
+            "Westerners call Thay a rumor until its ships take their ports. The wise prepare before the red sails are visible.",
+          rumors:
+            "A zulkir's factor has been buying old sea charts and new chains. No one here mistakes that for scholarship.",
+          roads:
+            "The road west returns to Velprintalar if the patrols allow it. Leave with papers, witnesses, and no borrowed debts.",
+          local:
+            "Eltabbar teaches caution quickly. Speak little, owe less, and never make eye contact with someone whose servants do not breathe."
         }
       }
     }

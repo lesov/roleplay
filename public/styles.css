@@ -82,10 +82,7 @@ button:focus-visible {
   position: relative;
   overflow: hidden;
   min-height: 360px;
-  background:
-    linear-gradient(90deg, var(--water) 0 23%, transparent 23%),
-    radial-gradient(circle at 52% 42%, rgba(201, 155, 69, 0.22), transparent 5%),
-    linear-gradient(160deg, #24302c, #151819 58%, #1c2421);
+  background: linear-gradient(160deg, #202c2a, #151819 58%, #1c2421);
 }
 
 .map::before {
