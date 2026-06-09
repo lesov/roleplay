@@ -12,6 +12,33 @@ test("start city exists", () => {
   assert.ok(gameData.cities[gameData.startCityId]);
 });
 
+test("play starts in the Sea of Fallen Stars region", () => {
+  const seaOfFallenStarsRegions = new Set([
+    "Aglarond",
+    "Chessenta",
+    "Cormyr",
+    "Sembia",
+    "Thay",
+    "Vilhon Reach"
+  ]);
+  const startCity = gameData.cities[gameData.startCityId];
+
+  assert.ok(seaOfFallenStarsRegions.has(startCity.region));
+});
+
+test("Sword Coast cities are not currently travelable", () => {
+  for (const cityId of [
+    "baldurs-gate",
+    "daggerford",
+    "elturel",
+    "luskan",
+    "neverwinter",
+    "waterdeep"
+  ]) {
+    assert.equal(gameData.cities[cityId], undefined, `${cityId} should not be playable now`);
+  }
+});
+
 test("every city has complete tavern and innkeeper dialogue data", () => {
   for (const city of Object.values(gameData.cities)) {
     assert.ok(city.name, `${city.id} is missing a name`);
@@ -93,16 +120,30 @@ test("all dialogue topic labels are represented in required topics", () => {
   assert.deepEqual(Object.keys(gameData.topicLabels), requiredTopics);
 });
 
-test("Baldur's Gate and Elturel map labels are spaced apart", () => {
-  const baldursGate = gameData.cities["baldurs-gate"].map;
-  const elturel = gameData.cities.elturel.map;
+test("Cimbar and Soorenar map labels are spaced apart", () => {
+  const cimbar = gameData.cities.cimbar.map;
+  const soorenar = gameData.cities.soorenar.map;
 
   assert.ok(
-    Math.abs(baldursGate.x - elturel.x) >= 35,
-    "Baldur's Gate and Elturel need enough horizontal separation for map labels"
+    Math.abs(cimbar.x - soorenar.x) >= 8,
+    "Cimbar and Soorenar need enough horizontal separation for map labels"
   );
   assert.ok(
-    Math.abs(baldursGate.y - elturel.y) >= 10,
-    "Baldur's Gate and Elturel need enough vertical separation for map labels"
+    Math.abs(cimbar.y - soorenar.y) >= 15,
+    "Cimbar and Soorenar need enough vertical separation for map labels"
+  );
+});
+
+test("Velprintalar and Eltabbar map labels are spaced apart", () => {
+  const velprintalar = gameData.cities.velprintalar.map;
+  const eltabbar = gameData.cities.eltabbar.map;
+
+  assert.ok(
+    Math.abs(velprintalar.x - eltabbar.x) >= 12,
+    "Velprintalar and Eltabbar need enough horizontal separation for map labels"
+  );
+  assert.ok(
+    Math.abs(velprintalar.y - eltabbar.y) >= 15,
+    "Velprintalar and Eltabbar need enough vertical separation for map labels"
   );
 });

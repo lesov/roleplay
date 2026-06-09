@@ -45,13 +45,13 @@ const WORLD_FACTORS = [
   },
   {
     flag: "thay_seizes_eastern_ports",
-    tags: ["trade", "coastal"],
+    tags: ["trade", "coastal", "eastern"],
     risk: 3,
     text: "eastern losses make merchants more guarded"
   },
   {
     flag: "thay_naval_supremacy",
-    tags: ["trade", "coastal"],
+    tags: ["trade", "coastal", "eastern"],
     risk: 6,
     text: "sea raids push more desperate traffic onto the roads"
   },

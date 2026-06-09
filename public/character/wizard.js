@@ -734,7 +734,7 @@ export function runCharacterWizard({ rules, presets, mountId = "char-wizard", on
   function render() {
     const frame = el("div", "wiz-frame");
     const header = el("div", "wiz-header");
-    header.append(el("p", "char-era", "1496 DR — Sword Coast"));
+    header.append(el("p", "char-era", "1496 DR - Sea of Fallen Stars"));
     header.append(el("h1", null, "Create Your Adventurer"));
     frame.append(header);
     frame.append(buildStepIndicator());
