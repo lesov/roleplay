@@ -1,3 +1,95 @@
+const LOCATION_CONTACT_NAMES = {
+  "sand-court": "Nymor Phoros",
+  "duelists-salle": "Master Rhelos Ankar",
+  "forum-of-orators": "Dathia Merrow",
+  "captains-hall": "Vargos Kline",
+  "claimants-court": "Seneschal Jorvan Nemeir",
+  "hall-of-lineages": "Archivist Sella Vant",
+  "shuttered-market": "Mira Haless",
+  "old-royal-wall": "Watch-Captain Orsik",
+  "high-temple": "Canon Vaelis Dorn",
+  "templar-barracks": "Marshal Sereth Korr",
+  "tithe-house": "Ledger-Priest Odran",
+  "pilgrim-quay": "Sister Calitha",
+  "great-counting-house": "Factor Brelan Morn",
+  "carrack-wharves": "Harbor Clerk Tessae",
+  "merchant-villa": "Steward Imbrar Sann",
+  "contract-court": "Arbiter Jalen Vorr",
+  "royal-court": "Court Usher Elian",
+  "war-wizards-college": "Scribe Amlar",
+  "purple-dragon-barracks": "Sergeant Kael Drann",
+  "royal-harbor": "Harbormaster Lysaer",
+  "watchtower-wall": "Warden Thaela",
+  "war-mages-hall": "Magister Corun",
+  "refugee-quays": "Dock-Healer Sellae",
+  "wardens-gate": "Gatewarden Rusk",
+  "enclave-gate": "Factor Nethros",
+  "slave-market": "Registrar Vekra",
+  "canal-wharves": "Canal-Master Orreth",
+  "factors-house": "Secretary Halvren"
+};
+
+const CATEGORY_CONTACT_ROLES = {
+  Arena: "Arena Steward",
+  Archive: "Archivist",
+  Barracks: "Drill Officer",
+  Canals: "Canal-Master",
+  "Counting-House": "Ledger-Keeper",
+  Court: "Court Officer",
+  Docks: "Dockmaster",
+  Enclave: "Enclave Factor",
+  "Factor-House": "Factor's Secretary",
+  "Fencing School": "Salle Master",
+  Forum: "Forum Speaker",
+  Fortifications: "Watch Officer",
+  Hall: "Hall Custodian",
+  Harbor: "Harbormaster",
+  Keep: "Gatewarden",
+  Market: "Market Registrar",
+  "Mercenary Hall": "Company Broker",
+  "Royal Court": "Court Officer",
+  Temple: "Temple Officer",
+  Villa: "House Steward"
+};
+
+function locationContact(location) {
+  const name = LOCATION_CONTACT_NAMES[location.id] || "A local attendant";
+  return {
+    name,
+    role: CATEGORY_CONTACT_ROLES[location.category] || "Local Contact",
+    intro: `${name} gives you a measured look, then explains what this place means to the city.`,
+    dialogue: {
+      establishment: location.description
+    }
+  };
+}
+
+function tavernLocation(tavern) {
+  return {
+    id: tavern.id,
+    name: tavern.name,
+    category: "Tavern",
+    description:
+      `${tavern.name} is a common room where travelers, locals, and working folk trade road talk, prices, and news that has reached the city.`,
+    contact: {
+      name: tavern.innkeeper,
+      role: "Innkeeper",
+      intro: tavern.intro,
+      dialogue: tavern.dialogue
+    }
+  };
+}
+
+function cityLocations(tavern, locations) {
+  return [
+    tavernLocation(tavern),
+    ...locations.map((location) => ({
+      ...location,
+      contact: locationContact(location)
+    }))
+  ];
+}
+
 export const gameData = {
   year: "1496 DR",
   startCityId: "cimbar",
@@ -72,7 +164,23 @@ export const gameData = {
       description:
         "A brilliant, fractious city of marble courts, dueling schools, hired captains, and noble houses that know every foreign power is counting their gates.",
       connections: ["arrabar", "soorenar", "velprintalar"],
-      locations: [
+      locations: cityLocations({
+        id: "bronze-laurel",
+        name: "The Bronze Laurel",
+        innkeeper: "Ilyra Dathane",
+        intro:
+          "Ilyra sets down a cup of dark wine and studies whether your purse or your accent will cause more trouble.",
+        dialogue: {
+          world:
+            "The Inner Sea is smiling with all its teeth. Cormyr talks of old rights, Sembia talks of lawful trade, Arrabar talks of holy order, and Chessenta knows all three mean soldiers eventually.",
+          rumors:
+            "A Cormyrean herald was seen pricing horses near the east gate, then pretending he had never heard the word Soorenar.",
+          roads:
+            "West takes you to Arrabar and the temples. South runs toward Soorenar, where every claim has a knife behind it. East is a long, hard crossing toward Aglarond.",
+          local:
+            "Cimbar is rich enough to buy loyalty and proud enough to insult it. Smile politely, pay promptly, and never assume a hired guard is only hired once."
+        }
+      }, [
         {
           id: "sand-court",
           name: "The Sand Court",
@@ -101,23 +209,7 @@ export const gameData = {
           description:
             "A smoke-stained hall near the gates where free-company captains post their banners and their prices. Every claimant in Chessenta hires here, and more than one has discovered too late that a rival hired the same blades first."
         }
-      ],
-      tavern: {
-        name: "The Bronze Laurel",
-        innkeeper: "Ilyra Dathane",
-        intro:
-          "Ilyra sets down a cup of dark wine and studies whether your purse or your accent will cause more trouble.",
-        dialogue: {
-          world:
-            "The Inner Sea is smiling with all its teeth. Cormyr talks of old rights, Sembia talks of lawful trade, Arrabar talks of holy order, and Chessenta knows all three mean soldiers eventually.",
-          rumors:
-            "A Cormyrean herald was seen pricing horses near the east gate, then pretending he had never heard the word Soorenar.",
-          roads:
-            "West takes you to Arrabar and the temples. South runs toward Soorenar, where every claim has a knife behind it. East is a long, hard crossing toward Aglarond.",
-          local:
-            "Cimbar is rich enough to buy loyalty and proud enough to insult it. Smile politely, pay promptly, and never assume a hired guard is only hired once."
-        }
-      }
+      ])
     },
     soorenar: {
       id: "soorenar",
@@ -128,7 +220,23 @@ export const gameData = {
       description:
         "A southern city-kingdom with old royal claims, anxious gates, and a court where every genealogy is treated like a drawn sword.",
       connections: ["cimbar"],
-      locations: [
+      locations: cityLocations({
+        id: "swan-and-spear",
+        name: "The Swan and Spear",
+        innkeeper: "Doros Halvren",
+        intro:
+          "Doros keeps the shutters half-latched even at noon, as if the road itself might listen through the windows.",
+        dialogue: {
+          world:
+            "When great crowns rediscover old bloodlines, small kingdoms discover how heavy parchment can be. Soorenar hears Cormyr's name in too many foreign mouths.",
+          rumors:
+            "Three nobles have hired extra household guards this tenday, and none of them will say which cousin they fear.",
+          roads:
+            "The north road back to Cimbar is open, but no checkpoint asks only one question. Carry papers, coin, and a story that survives repetition.",
+          local:
+            "Soorenar calls itself a kingdom because it remembers being treated as one. That memory is a treasure and a wound."
+        }
+      }, [
         {
           id: "claimants-court",
           name: "The Claimant's Court",
@@ -157,23 +265,7 @@ export const gameData = {
           description:
             "The city's ancient wall, patched and re-patched, manned by guards who study the northern road as if Cormyr might appear upon it any morning. From the rampart you can see exactly how small a kingdom Soorenar truly is."
         }
-      ],
-      tavern: {
-        name: "The Swan and Spear",
-        innkeeper: "Doros Halvren",
-        intro:
-          "Doros keeps the shutters half-latched even at noon, as if the road itself might listen through the windows.",
-        dialogue: {
-          world:
-            "When great crowns rediscover old bloodlines, small kingdoms discover how heavy parchment can be. Soorenar hears Cormyr's name in too many foreign mouths.",
-          rumors:
-            "Three nobles have hired extra household guards this tenday, and none of them will say which cousin they fear.",
-          roads:
-            "The north road back to Cimbar is open, but no checkpoint asks only one question. Carry papers, coin, and a story that survives repetition.",
-          local:
-            "Soorenar calls itself a kingdom because it remembers being treated as one. That memory is a treasure and a wound."
-        }
-      }
+      ])
     },
     arrabar: {
       id: "arrabar",
@@ -184,7 +276,23 @@ export const gameData = {
       description:
         "A mercantile holy city where temple writs, trade contracts, and armed orders compete for the same narrow streets.",
       connections: ["cimbar", "selgaunt"],
-      locations: [
+      locations: cityLocations({
+        id: "gilded-gauntlet",
+        name: "The Gilded Gauntlet",
+        innkeeper: "Brother Caldus Merro",
+        intro:
+          "Caldus polishes a brass holy symbol with one hand and counts dockside gossip with the other.",
+        dialogue: {
+          world:
+            "The faithful want peace, the merchants want certainty, and the high seat wants neither crown nor council strong enough to command it.",
+          rumors:
+            "A sealed packet from Selgaunt reached the temple before dawn. By breakfast, three priests had changed their travel plans.",
+          roads:
+            "East to Cimbar is watched by soldiers and supplicants alike. North to Selgaunt is longer, richer, and full of people paid to remember faces.",
+          local:
+            "Arrabar forgives many sins after confession. Bad accounting is not one of them."
+        }
+      }, [
         {
           id: "high-temple",
           name: "The High Temple of Torm",
@@ -213,23 +321,7 @@ export const gameData = {
           description:
             "A crowded wharf where pilgrim barges unload the faithful alongside crates of incense, grain, and less holy cargo. The dockside priests bless arrivals and inspect their purses with the same practiced glance."
         }
-      ],
-      tavern: {
-        name: "The Gilded Gauntlet",
-        innkeeper: "Brother Caldus Merro",
-        intro:
-          "Caldus polishes a brass holy symbol with one hand and counts dockside gossip with the other.",
-        dialogue: {
-          world:
-            "The faithful want peace, the merchants want certainty, and the high seat wants neither crown nor council strong enough to command it.",
-          rumors:
-            "A sealed packet from Selgaunt reached the temple before dawn. By breakfast, three priests had changed their travel plans.",
-          roads:
-            "East to Cimbar is watched by soldiers and supplicants alike. North to Selgaunt is longer, richer, and full of people paid to remember faces.",
-          local:
-            "Arrabar forgives many sins after confession. Bad accounting is not one of them."
-        }
-      }
+      ])
     },
     selgaunt: {
       id: "selgaunt",
@@ -240,7 +332,23 @@ export const gameData = {
       description:
         "A rich Sembian port of counting rooms, private guards, sharp contracts, and merchant families who treat rumors as a tradable good.",
       connections: ["arrabar", "suzail"],
-      locations: [
+      locations: cityLocations({
+        id: "silver-abacus",
+        name: "The Silver Abacus",
+        innkeeper: "Nessa Ormblade",
+        intro:
+          "Nessa has a ledger open before you sit down, though she has the courtesy not to write in it yet.",
+        dialogue: {
+          world:
+            "Sembia has survived shades, crowns, and pious lectures. Coin still moves, and where coin moves, armies eventually follow.",
+          rumors:
+            "A dozen warehouses near the old quay are buying grain above market. That usually means famine, war, or a merchant who knows both are profitable.",
+          roads:
+            "West to Suzail has patrols and paperwork. South to Arrabar has caravans, priests, and tolls that multiply after sunset.",
+          local:
+            "In Selgaunt, an honest bargain is one where everyone understands the trap before signing."
+        }
+      }, [
         {
           id: "great-counting-house",
           name: "The Great Counting-House",
@@ -269,23 +377,7 @@ export const gameData = {
           description:
             "A dim hall of arbiters where Sembia settles its disputes the civilized way, with sealed contracts and ruinous penalties. Wise visitors read every clause twice, since the city's idea of an honest bargain is one where the trap was disclosed in advance."
         }
-      ],
-      tavern: {
-        name: "The Silver Abacus",
-        innkeeper: "Nessa Ormblade",
-        intro:
-          "Nessa has a ledger open before you sit down, though she has the courtesy not to write in it yet.",
-        dialogue: {
-          world:
-            "Sembia has survived shades, crowns, and pious lectures. Coin still moves, and where coin moves, armies eventually follow.",
-          rumors:
-            "A dozen warehouses near the old quay are buying grain above market. That usually means famine, war, or a merchant who knows both are profitable.",
-          roads:
-            "West to Suzail has patrols and paperwork. South to Arrabar has caravans, priests, and tolls that multiply after sunset.",
-          local:
-            "In Selgaunt, an honest bargain is one where everyone understands the trap before signing."
-        }
-      }
+      ])
     },
     suzail: {
       id: "suzail",
@@ -296,7 +388,23 @@ export const gameData = {
       description:
         "Cormyr's royal harbor stands beneath purple banners, orderly streets, and a court newly hungry for glory beyond its borders.",
       connections: ["selgaunt"],
-      locations: [
+      locations: cityLocations({
+        id: "purple-tankard",
+        name: "The Purple Tankard",
+        innkeeper: "Maerun Thistle",
+        intro:
+          "Maerun lowers his voice whenever a purple cloak passes the window, which is often.",
+        dialogue: {
+          world:
+            "The crown says the realm is secure enough to remember its rights abroad. Veterans hear that and start checking their old boots.",
+          rumors:
+            "War Wizards have been taking private rooms near the docks. They ask about southern roads and pay in freshly stamped coin.",
+          roads:
+            "East to Selgaunt is orderly and watched. The patrols keep bandits away, but they also keep questions close.",
+          local:
+            "Suzail loves law, lineage, and banners. If you cannot offer one, keep your business modest."
+        }
+      }, [
         {
           id: "royal-court",
           name: "The Royal Court",
@@ -325,23 +433,7 @@ export const gameData = {
           description:
             "Suzail's orderly harbor bristles with naval pennants and customs clerks, every hull logged and every cargo taxed. It is the kind of harbor that makes a merchant feel safe and watched in equal measure."
         }
-      ],
-      tavern: {
-        name: "The Purple Tankard",
-        innkeeper: "Maerun Thistle",
-        intro:
-          "Maerun lowers his voice whenever a purple cloak passes the window, which is often.",
-        dialogue: {
-          world:
-            "The crown says the realm is secure enough to remember its rights abroad. Veterans hear that and start checking their old boots.",
-          rumors:
-            "War Wizards have been taking private rooms near the docks. They ask about southern roads and pay in freshly stamped coin.",
-          roads:
-            "East to Selgaunt is orderly and watched. The patrols keep bandits away, but they also keep questions close.",
-          local:
-            "Suzail loves law, lineage, and banners. If you cannot offer one, keep your business modest."
-        }
-      }
+      ])
     },
     velprintalar: {
       id: "velprintalar",
@@ -352,7 +444,23 @@ export const gameData = {
       description:
         "A tense eastern city of watchtowers, spell-wards, refugee boats, and soldiers who sleep lightly with Thay across the frontier.",
       connections: ["cimbar", "eltabbar"],
-      locations: [
+      locations: cityLocations({
+        id: "windward-shield",
+        name: "The Windward Shield",
+        innkeeper: "Savaen Rul",
+        intro:
+          "Savaen serves tea strong enough to wake the dead, then apologizes for the phrase with a glance eastward.",
+        dialogue: {
+          world:
+            "The west argues over thrones while Aglarond counts patrols. Thay does not need an invitation, only a weak hour.",
+          rumors:
+            "A fishing crew came in with red wax on its nets and no fish. The harbor master bought their silence badly.",
+          roads:
+            "West to Cimbar is long and lonely. East toward Eltabbar is shorter, but every mile feels watched by something patient.",
+          local:
+            "Velprintalar welcomes help, mistrusts strangers, and has learned that both habits keep people alive."
+        }
+      }, [
         {
           id: "watchtower-wall",
           name: "The Watchtower Wall",
@@ -381,23 +489,7 @@ export const gameData = {
           description:
             "The studded gate of the citadel from which Aglarond's witch-rulers have long defied Thay. Petitioners wait under the arch beside soldiers who measure every stranger against the threat across the water."
         }
-      ],
-      tavern: {
-        name: "The Windward Shield",
-        innkeeper: "Savaen Rul",
-        intro:
-          "Savaen serves tea strong enough to wake the dead, then apologizes for the phrase with a glance eastward.",
-        dialogue: {
-          world:
-            "The west argues over thrones while Aglarond counts patrols. Thay does not need an invitation, only a weak hour.",
-          rumors:
-            "A fishing crew came in with red wax on its nets and no fish. The harbor master bought their silence badly.",
-          roads:
-            "West to Cimbar is long and lonely. East toward Eltabbar is shorter, but every mile feels watched by something patient.",
-          local:
-            "Velprintalar welcomes help, mistrusts strangers, and has learned that both habits keep people alive."
-        }
-      }
+      ])
     },
     eltabbar: {
       id: "eltabbar",
@@ -408,7 +500,23 @@ export const gameData = {
       description:
         "A severe city of red-robed masters, silent servants, guarded canals, and power that treats mercy as a negotiable luxury.",
       connections: ["velprintalar"],
-      locations: [
+      locations: cityLocations({
+        id: "ashen-seal",
+        name: "The Ashen Seal",
+        innkeeper: "Kethra Voss",
+        intro:
+          "Kethra pours without asking your name, then waits to see whether you are foolish enough to volunteer it.",
+        dialogue: {
+          world:
+            "Westerners call Thay a rumor until its ships take their ports. The wise prepare before the red sails are visible.",
+          rumors:
+            "A zulkir's factor has been buying old sea charts and new chains. No one here mistakes that for scholarship.",
+          roads:
+            "The road west returns to Velprintalar if the patrols allow it. Leave with papers, witnesses, and no borrowed debts.",
+          local:
+            "Eltabbar teaches caution quickly. Speak little, owe less, and never make eye contact with someone whose servants do not breathe."
+        }
+      }, [
         {
           id: "enclave-gate",
           name: "The Red Enclave Gate",
@@ -437,23 +545,7 @@ export const gameData = {
           description:
             "The fortified townhouse of a zulkir's factor, where Thayan gold buys charts, chains, and influence in cities far to the west. Business here is brief, exact, and never quite as scholarly as it pretends."
         }
-      ],
-      tavern: {
-        name: "The Ashen Seal",
-        innkeeper: "Kethra Voss",
-        intro:
-          "Kethra pours without asking your name, then waits to see whether you are foolish enough to volunteer it.",
-        dialogue: {
-          world:
-            "Westerners call Thay a rumor until its ships take their ports. The wise prepare before the red sails are visible.",
-          rumors:
-            "A zulkir's factor has been buying old sea charts and new chains. No one here mistakes that for scholarship.",
-          roads:
-            "The road west returns to Velprintalar if the patrols allow it. Leave with papers, witnesses, and no borrowed debts.",
-          local:
-            "Eltabbar teaches caution quickly. Speak little, owe less, and never make eye contact with someone whose servants do not breathe."
-        }
-      }
+      ])
     }
   }
 };

@@ -39,20 +39,11 @@ test("Sword Coast cities are not currently travelable", () => {
   }
 });
 
-test("every city has complete tavern and innkeeper dialogue data", () => {
+test("every city has complete descriptive data", () => {
   for (const city of Object.values(gameData.cities)) {
     assert.ok(city.name, `${city.id} is missing a name`);
     assert.ok(city.description, `${city.id} is missing a description`);
-    assert.ok(city.tavern?.name, `${city.id} is missing a tavern name`);
-    assert.ok(city.tavern?.innkeeper, `${city.id} is missing an innkeeper`);
-    assert.ok(city.tavern?.intro, `${city.id} is missing a tavern intro`);
-
-    for (const topic of requiredTopics) {
-      assert.ok(
-        city.tavern.dialogue?.[topic],
-        `${city.id} is missing ${topic} dialogue`
-      );
-    }
+    assert.equal("tavern" in city, false, `${city.id} should model taverns as locations`);
   }
 });
 

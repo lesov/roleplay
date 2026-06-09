@@ -171,8 +171,7 @@ h2 {
   font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
-.description,
-#tavern-intro {
+.description {
   margin: 16px 0 0;
   color: #ddd1bd;
   font-size: 1.05rem;
@@ -1288,4 +1287,19 @@ h2 {
   color: #ddd1bd;
   font-size: 0.98rem;
   line-height: 1.55;
+}
+
+.location-contact {
+  margin: 10px 0 0;
+  color: var(--accent-strong);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.location-intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
