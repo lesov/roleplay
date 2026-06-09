@@ -214,6 +214,15 @@
 - UI review: approved-by-human
 - Blockers or coordination notes: Human approval received with "check approved. merge and push"; separate user edits remain unstaged.
 
+## 2026-06-08 20:03 CDT - codex - main
+
+- Status: merged
+- Summary: Merged approved route safety previews and Harptos-dated world-affairs timing fix into main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed on main; git diff --check - passed on main
+- UI review: approved-by-human
+- Blockers or coordination notes: Push to origin/main approved by human; separate user edits remain unstaged.
+
 ## 2026-06-08 - claude-sonnet - feature/claude-sonnet/full-character-creation
 
 - Status: started
