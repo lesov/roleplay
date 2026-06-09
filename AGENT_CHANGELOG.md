@@ -249,3 +249,12 @@
 - Tests run: npm test - 68/68 pass
 - UI review: approved-by-human
 - Blockers or coordination notes: Work committed to feature/claude-sonnet/full-character-creation. Merge to main still requires explicit human stable-state declaration AND merge authorization per AGENT_WORKFLOW_INSTRUCTIONS.md.
+
+## 2026-06-08 - claude-sonnet - main
+
+- Status: merged
+- Summary: Merged feature/claude-sonnet/full-character-creation into main after explicit human approval ("all checks done, approved. merge and push"). Pushing main to origin.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 68/68 pass on main after merge
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Pushing to origin/main.
