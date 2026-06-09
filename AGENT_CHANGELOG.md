@@ -114,3 +114,57 @@
 - Tests run: npm test - passed on main; git diff --check - passed on main
 - UI review: approved-by-human
 - Blockers or coordination notes: Push to origin/main approved by human; will run tests on main before pushing.
+
+## 2026-06-07 22:53 CDT - codex - feature/codex/lore-worldsim
+
+- Status: started
+- Summary: Begin incorporating new lore and world-simulation scaffold documents into the game.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: New lore/scaffold markdown files are untracked; Windows Zone.Identifier sidecars will be ignored, not incorporated.
+
+## 2026-06-08 13:30 CDT - codex - feature/codex/lore-worldsim
+
+- Status: ready-for-review
+- Summary: Added sanitized Inner Sea Codex API/UI, server-side world simulation state, public world-affairs news, scaffold leak tests, and Zone.Identifier ignore rule.
+- Files changed: .gitignore, AGENT_CHANGELOG.md, codex_inner_sea_1496DR.md, master_timeline_GM_internal.md, worldsim_scaffold_spec_for_coding_agent.md, public/app.js, public/index.html, public/styles.css, server.js, src/lore.js, src/worldSim/factions.js, src/worldSim/timeline.js, src/worldSim/sim.js, test/lore.test.js, test/scaffoldSafety.js, test/worldSim.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s http://localhost:3003/api/lore - returned sanitized codex; curl -s 'http://localhost:3003/api/world-state?year=1496&dayOfYear=1' - returned public world state; curl -s http://localhost:3003/app.js - returned updated client bundle
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3003. AGENT_WORKFLOW_INSTRUCTIONS.md remains an existing untracked coordination file and was not changed.
+
+## 2026-06-08 18:24 CDT - codex - feature/codex/lore-worldsim
+
+- Status: in-progress
+- Summary: Add month/day grounding to world affairs timeline events and corresponding internal timeline notes.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: Follow-up requested after initial lore/worldsim implementation; assigning deterministic in-world dates within each event year.
+
+## 2026-06-08 18:30 CDT - codex - feature/codex/lore-worldsim
+
+- Status: ready-for-review
+- Summary: Assigned concrete Calendar of Harptos dates to world affairs events, updated GM timeline headings, exposed event date labels in world-state API, and rendered dates in the World Affairs UI.
+- Files changed: AGENT_CHANGELOG.md, master_timeline_GM_internal.md, public/app.js, public/styles.css, src/worldSim/sim.js, src/worldSim/timeline.js, test/worldSim.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s 'http://localhost:3003/api/world-state?year=1497&dayOfYear=80' verified the league event is not fired before 20 Ches; curl -s 'http://localhost:3003/api/world-state?year=1497&dayOfYear=81' verified the league event appears with date 20 Ches 1497 DR; curl -s http://localhost:3003/app.js verified client renders event.date
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3003. master_timeline_GM_internal.md was originally owned by nobody:nogroup; a mechanical rewrite recreated it with normal workspace ownership after chown was denied by the OS.
+
+## 2026-06-08 18:59 CDT - codex - feature/codex/lore-worldsim
+
+- Status: ready-for-review
+- Summary: Reverted the tighter month/day world affairs dates after human feedback; restored year-level timeline headings, year-start event firing, and headline/summary-only World Affairs display.
+- Files changed: AGENT_CHANGELOG.md, master_timeline_GM_internal.md, public/app.js, public/styles.css, src/worldSim/sim.js, src/worldSim/timeline.js, test/worldSim.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s 'http://localhost:3003/api/world-state?year=1497&dayOfYear=1' verified year-level event firing without date fields; curl -s http://localhost:3003/app.js and /styles.css verified date-label rendering was removed
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3003 with reverted year-level World Affairs behavior.
+
+## 2026-06-08 19:02 CDT - codex - feature/codex/lore-worldsim
+
+- Status: approved
+- Summary: Human approved the reverted lore/worldsim state and requested merge and push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed; git diff --check - passed
+- UI review: approved-by-human
+- Blockers or coordination notes: Human approval received with "good. merge and push."

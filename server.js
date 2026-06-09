@@ -4,6 +4,8 @@ import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gameData } from "./src/gameData.js";
 import { races, classes, backgrounds } from "./src/characterData.js";
+import { loadLoreCodex } from "./src/lore.js";
+import { simulateWorldState } from "./src/worldSim/sim.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const publicDir = resolve(__dirname, "public");
@@ -53,6 +55,24 @@ const server = createServer(async (req, res) => {
 
     if (url.pathname === "/api/character-options") {
       send(req, res, 200, JSON.stringify({ races, classes, backgrounds }), "application/json; charset=utf-8");
+      return;
+    }
+
+    if (url.pathname === "/api/lore") {
+      send(req, res, 200, JSON.stringify(await loadLoreCodex(__dirname)), "application/json; charset=utf-8");
+      return;
+    }
+
+    if (url.pathname === "/api/world-state") {
+      const year = Number.parseInt(url.searchParams.get("year") || `${gameData.startTime.year}`, 10);
+      const dayOfYear = Number.parseInt(url.searchParams.get("dayOfYear") || `${gameData.startTime.dayOfYear}`, 10);
+      send(
+        req,
+        res,
+        200,
+        JSON.stringify(simulateWorldState({ year, dayOfYear })),
+        "application/json; charset=utf-8"
+      );
       return;
     }
 
