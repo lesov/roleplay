@@ -375,3 +375,12 @@
 - Tests run: npm test - 90/90 pass
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged.
+
+## 2026-06-09 - claude-sonnet - main
+
+- Status: merged
+- Summary: Merged feature/claude-sonnet/regional-weather into main after explicit human approval ("all checks out, approved. merge and push"). Pushing main to origin.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 90/90 pass on main after merge
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Pushing to origin/main (requires SSH key passphrase; may need to be run interactively by the user).
