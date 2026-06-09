@@ -410,3 +410,12 @@
 - Tests run: npm test - 94/94 pass
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged. Push will be performed by the human.
+
+## 2026-06-09 - claude-sonnet - main
+
+- Status: merged
+- Summary: Merged feature/claude-sonnet/city-locations into main after explicit human approval. Human will perform the push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 94/94 pass on main after merge
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Push left to the human.
