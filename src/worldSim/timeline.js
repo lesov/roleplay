@@ -1,7 +1,7 @@
 export const timelineEvents = [
   {
     id: "evt_southern_claim",
-    fire: { year: 1496, dayOfYear: 1 },
+    fire: { year: 1496, month: "Eleint", day: 18 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -26,7 +26,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_inner_sea_league",
-    fire: { year: 1497, dayOfYear: 1 },
+    fire: { year: 1497, festival: "Greengrass" },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -51,7 +51,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_cormyr_succession",
-    fire: { year: 1500, dayOfYear: 1 },
+    fire: { year: 1500, month: "Tarsakh", day: 1 },
     category: "succession",
     storyline: "western_wars",
     protected: true,
@@ -68,7 +68,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_cimbar_taken",
-    fire: { year: 1501, dayOfYear: 1 },
+    fire: { year: 1501, month: "Eleint", day: 1 },
     category: "territory",
     storyline: "western_wars",
     protected: true,
@@ -92,7 +92,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_thayan_ports",
-    fire: { year: 1502, dayOfYear: 1 },
+    fire: { year: 1502, month: "Eleasis", day: 16 },
     category: "naval",
     storyline: "eastern_tide",
     protected: true,
@@ -113,7 +113,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_southern_spoils_break",
-    fire: { year: 1505, dayOfYear: 1 },
+    fire: { year: 1505, month: "Tarsakh", day: 3 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -137,7 +137,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_partition_league",
-    fire: { year: 1510, dayOfYear: 1 },
+    fire: { year: 1510, month: "Nightal", day: 1 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -157,7 +157,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_sembia_mainland_collapses",
-    fire: { year: 1511, dayOfYear: 1 },
+    fire: { year: 1511, month: "Mirtul", day: 14 },
     category: "territory",
     storyline: "western_wars",
     protected: true,
@@ -178,7 +178,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_church_flips",
-    fire: { year: 1512, dayOfYear: 1 },
+    fire: { year: 1512, month: "Alturiak", day: 11 },
     category: "reveal",
     storyline: "western_wars",
     protected: true,
@@ -199,7 +199,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_cormyr_expelled",
-    fire: { year: 1514, dayOfYear: 1 },
+    fire: { year: 1514, month: "Tarsakh", day: 11 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -223,7 +223,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_lords_alliance_raids",
-    fire: { year: 1515, dayOfYear: 1 },
+    fire: { year: 1515, month: "Eleasis", day: 16 },
     category: "war",
     storyline: "western_wars",
     protected: false,
@@ -244,7 +244,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_cormyr_great_king",
-    fire: { year: 1517, dayOfYear: 1 },
+    fire: { year: 1517, month: "Eleint", day: 13 },
     category: "succession",
     storyline: "western_wars",
     protected: true,
@@ -268,7 +268,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_fragile_peace",
-    fire: { year: 1518, dayOfYear: 1 },
+    fire: { year: 1518, month: "Eleasis", day: 13 },
     category: "diplomacy",
     storyline: "western_wars",
     protected: true,
@@ -288,7 +288,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_great_schism",
-    fire: { year: 1519, dayOfYear: 1 },
+    fire: { year: 1519, festival: "Feast of the Moon" },
     category: "schism",
     storyline: "schism",
     protected: true,
@@ -309,7 +309,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_alliance_consolidates",
-    fire: { year: 1521, dayOfYear: 1 },
+    fire: { year: 1521, month: "Eleint", day: 20 },
     category: "discovery",
     storyline: "new_world",
     protected: true,
@@ -333,7 +333,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_second_great_war",
-    fire: { year: 1523, dayOfYear: 1 },
+    fire: { year: 1523, month: "Eleasis", day: 1 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -350,7 +350,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_firearms_and_island",
-    fire: { year: 1524, dayOfYear: 1 },
+    fire: { year: 1524, month: "Tarsakh", day: 27 },
     category: "war",
     storyline: "eastern_tide",
     protected: true,
@@ -374,7 +374,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_king_captured",
-    fire: { year: 1527, dayOfYear: 1 },
+    fire: { year: 1527, month: "Alturiak", day: 24 },
     category: "war",
     storyline: "western_wars",
     protected: true,
@@ -395,7 +395,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_aglarond_breaks",
-    fire: { year: 1528, dayOfYear: 1 },
+    fire: { year: 1528, month: "Eleasis", day: 29 },
     category: "war",
     storyline: "eastern_tide",
     protected: true,
@@ -420,7 +420,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_arrabar_sacked",
-    fire: { year: 1529, dayOfYear: 1 },
+    fire: { year: 1529, month: "Mirtul", day: 6 },
     category: "schism",
     storyline: "schism",
     protected: true,
@@ -440,7 +440,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_eastern_siege_repulsed",
-    fire: { year: 1531, dayOfYear: 1 },
+    fire: { year: 1531, month: "Eleint", day: 1 },
     category: "war",
     storyline: "eastern_tide",
     protected: true,
@@ -460,7 +460,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_alliance_crowned",
-    fire: { year: 1532, dayOfYear: 1 },
+    fire: { year: 1532, month: "Alturiak", day: 24 },
     category: "diplomacy",
     storyline: "western_wars",
     protected: true,
@@ -477,7 +477,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_impious_pact",
-    fire: { year: 1537, dayOfYear: 1 },
+    fire: { year: 1538, month: "Kythorn", day: 1 },
     category: "reveal",
     storyline: "western_wars",
     protected: true,
@@ -498,7 +498,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_thayan_naval_supremacy",
-    fire: { year: 1540, dayOfYear: 1 },
+    fire: { year: 1540, month: "Eleint", day: 28 },
     category: "naval",
     storyline: "eastern_tide",
     protected: true,
@@ -520,7 +520,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_failed_corsair_expedition",
-    fire: { year: 1543, dayOfYear: 1 },
+    fire: { year: 1543, month: "Marpenoth", day: 1 },
     category: "naval",
     storyline: "eastern_tide",
     protected: false,
@@ -540,7 +540,7 @@ export const timelineEvents = [
   },
   {
     id: "evt_comprehensive_peace",
-    fire: { year: 1546, dayOfYear: 1 },
+    fire: { year: 1546, month: "Eleint", day: 29 },
     category: "diplomacy",
     storyline: "western_wars",
     protected: true,

@@ -5,6 +5,7 @@ import {
   formatWalkingDuration,
   travelMinutesForMiles
 } from "./time.js";
+import { assessRouteSafety } from "./routeSafety.js";
 
 const state = {
   player: null,
@@ -127,13 +128,27 @@ function renderTravel(city) {
   const buttons = city.connections.map((connectionId) => {
     const destination = cityById(connectionId);
     const route = routeByCities(city.id, connectionId);
+    const safety = assessRouteSafety(route, state.worldState);
     const button = document.createElement("button");
+    const details = document.createElement("span");
     const name = document.createElement("strong");
-    const marker = document.createElement("span");
+    const safetySummary = document.createElement("span");
+    const meta = document.createElement("span");
+    const duration = document.createElement("span");
+    const badge = document.createElement("span");
+    details.className = "travel-details";
+    meta.className = "travel-meta";
+    duration.className = "travel-duration";
+    badge.className = `safety-badge safety-${safety.level.toLowerCase()}`;
+    safetySummary.className = "travel-safety-summary";
     name.textContent = destination.name;
-    marker.textContent = `${formatWalkingDuration(route.miles, state.data.travelPace)} on foot`;
+    duration.textContent = `${formatWalkingDuration(route.miles, state.data.travelPace)} on foot`;
+    badge.textContent = safety.level;
+    safetySummary.textContent = safety.summary;
     button.type = "button";
-    button.append(name, marker);
+    details.append(name, safetySummary);
+    meta.append(duration, badge);
+    button.append(details, meta);
     button.addEventListener("click", () => travelTo(connectionId));
     return button;
   });

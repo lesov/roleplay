@@ -177,3 +177,48 @@
 - Tests run: npm test - passed on main; git diff --check - passed on main
 - UI review: approved-by-human
 - Blockers or coordination notes: Push to origin/main approved by human; will run tests on main before pushing.
+
+## 2026-06-08 19:41 CDT - codex - feature/codex/route-safety
+
+- Status: started
+- Summary: Begin route safety previews for travel destinations based on route lore and public world events.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md has pre-existing human edits and will not be changed or staged for this task.
+
+## 2026-06-08 19:44 CDT - codex - feature/codex/route-safety
+
+- Status: ready-for-review
+- Summary: Added route safety metadata, dynamic public-world-state risk scoring, safety badges and summaries on travel options, and route safety regression tests.
+- Files changed: AGENT_CHANGELOG.md, public/app.js, public/routeSafety.js, public/styles.css, src/gameData.js, test/gameData.test.js, test/routeSafety.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s http://localhost:3004/api/game-data verified route safety metadata; curl -s http://localhost:3004/routeSafety.js and /app.js verified browser modules
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3004. master_timeline_GM_internal.md remains a separate human edit and was not changed for this task.
+
+## 2026-06-08 19:53 CDT - codex - feature/codex/route-safety
+
+- Status: ready-for-review
+- Summary: Aligned runtime world-affairs triggers with the updated Harptos-dated master timeline so Cormyr's southern claim waits until 18 Eleint 1496 DR instead of firing at game start.
+- Files changed: AGENT_CHANGELOG.md, src/worldSim/sim.js, src/worldSim/timeline.js, test/worldSim.test.js
+- Tests run: npm test - passed; git diff --check - passed; curl -s 'http://localhost:3004/api/world-state?year=1496&dayOfYear=1' verified no Cormyr event at game start; curl -s 'http://localhost:3004/api/world-state?year=1496&dayOfYear=261' verified no event on 17 Eleint; curl -s 'http://localhost:3004/api/world-state?year=1496&dayOfYear=262' verified Cormyr's event fires on 18 Eleint
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md remains a separate human edit and was not changed for this fix.
+
+## 2026-06-08 20:03 CDT - codex - feature/codex/route-safety
+
+- Status: approved
+- Summary: Human approved route safety and world-affairs timing fix for merge and push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed; git diff --check - passed
+- UI review: approved-by-human
+- Blockers or coordination notes: Human approval received with "check approved. merge and push"; separate user edits remain unstaged.
+
+## 2026-06-08 - claude-sonnet - feature/claude-sonnet/full-character-creation
+
+- Status: started
+- Summary: Begin full D&D 5e (SRD) character creation — replacing the placeholder name+3-dropdown flow with a multi-step wizard (race+subrace, class, background, ability scores, spells, equipment, derived stats), an in-game character sheet, and 6 quick-start presets.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 39/39 pass on clean branch baseline
+- UI review: pending-human-test
+- Blockers or coordination notes: Branched from main. Work isolated to new src/character/* and public/character/* modules; only minimal touch-points in public/app.js and public/index.html. Not modifying other agents' lore/worldSim/time/routeSafety modules.
