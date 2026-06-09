@@ -78,6 +78,17 @@ test("travel routes match valid connected cities", () => {
   }
 });
 
+test("every travel route has player-facing safety metadata", () => {
+  const validRisks = new Set(["safe", "watchful", "risky", "perilous"]);
+
+  for (const [key, route] of Object.entries(gameData.travelRoutes)) {
+    assert.ok(validRisks.has(route.baseRisk), `${key} needs a valid baseRisk`);
+    assert.ok(route.safeSummary, `${key} needs a safety summary`);
+    assert.ok(route.hazards?.length > 0, `${key} needs route hazards`);
+    assert.ok(route.safetyTags?.length > 0, `${key} needs safety tags`);
+  }
+});
+
 test("all dialogue topic labels are represented in required topics", () => {
   assert.deepEqual(Object.keys(gameData.topicLabels), requiredTopics);
 });

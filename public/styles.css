@@ -216,6 +216,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   min-height: 46px;
   padding: 10px 12px;
   background: var(--panel-strong);
@@ -231,6 +232,61 @@ h2 {
   color: var(--accent-strong);
   font-family: ui-sans-serif, system-ui, sans-serif;
   font-size: 0.92rem;
+}
+
+.travel-details {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.travel-details strong {
+  color: var(--ink);
+}
+
+.travel-safety-summary {
+  color: var(--muted) !important;
+  font-size: 0.84rem !important;
+  line-height: 1.28;
+}
+
+.travel-meta {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.travel-duration {
+  white-space: nowrap;
+}
+
+.safety-badge {
+  min-width: 78px;
+  padding: 3px 7px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.74rem !important;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.safety-safe {
+  color: #9fd7a7 !important;
+}
+
+.safety-watchful {
+  color: #e3b75f !important;
+}
+
+.safety-risky {
+  color: #e38f5f !important;
+}
+
+.safety-perilous {
+  color: #e07a6e !important;
 }
 
 .topics {
@@ -488,5 +544,13 @@ h2 {
 
   .topics {
     grid-template-columns: 1fr;
+  }
+
+  .button-grid button {
+    align-items: start;
+  }
+
+  .travel-meta {
+    min-width: 92px;
   }
 }

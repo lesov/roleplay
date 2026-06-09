@@ -3,11 +3,88 @@ import { timelineEvents } from "./timeline.js";
 
 const CAMPAIGN_START_YEAR = 1496;
 const CAMPAIGN_END_YEAR = 1546;
+const MONTHS = [
+  "Hammer",
+  "Alturiak",
+  "Ches",
+  "Tarsakh",
+  "Mirtul",
+  "Kythorn",
+  "Flamerule",
+  "Eleasis",
+  "Eleint",
+  "Marpenoth",
+  "Uktar",
+  "Nightal"
+];
+const FESTIVALS_AFTER_MONTH = {
+  Hammer: 1,
+  Tarsakh: 1,
+  Flamerule: 1,
+  Eleint: 1,
+  Uktar: 1
+};
+const FESTIVAL_DAYS = {
+  Midwinter: { afterMonth: "Hammer", offset: 1 },
+  Greengrass: { afterMonth: "Tarsakh", offset: 1 },
+  Midsummer: { afterMonth: "Flamerule", offset: 1 },
+  Shieldmeet: { afterMonth: "Flamerule", offset: 2, leapOnly: true },
+  Highharvestide: { afterMonth: "Eleint", offset: 1 },
+  Higharvestide: { afterMonth: "Eleint", offset: 1 },
+  "Feast of the Moon": { afterMonth: "Uktar", offset: 1 }
+};
+
+function isShieldmeetYear(year) {
+  return year % 4 === 0;
+}
+
+export function dayOfYearForMonthDay(year, month, day) {
+  const monthIndex = MONTHS.indexOf(month);
+  if (monthIndex === -1) {
+    throw new Error(`Unknown Harptos month: ${month}`);
+  }
+
+  let dayOfYear = day;
+  for (const priorMonth of MONTHS.slice(0, monthIndex)) {
+    dayOfYear += 30 + (FESTIVALS_AFTER_MONTH[priorMonth] || 0);
+    if (priorMonth === "Flamerule" && isShieldmeetYear(year)) {
+      dayOfYear += 1;
+    }
+  }
+
+  return dayOfYear;
+}
+
+export function dayOfYearForFestival(year, festival) {
+  const festivalDay = FESTIVAL_DAYS[festival];
+  if (!festivalDay) {
+    throw new Error(`Unknown Harptos festival: ${festival}`);
+  }
+
+  if (festivalDay.leapOnly && !isShieldmeetYear(year)) {
+    throw new Error(`${festival} does not occur in ${year} DR`);
+  }
+
+  return dayOfYearForMonthDay(year, festivalDay.afterMonth, 30) + festivalDay.offset;
+}
+
+function fireDayOfYear(fire) {
+  if (fire.dayOfYear) {
+    return fire.dayOfYear;
+  }
+
+  if (fire.festival) {
+    return dayOfYearForFestival(fire.year, fire.festival);
+  }
+
+  return dayOfYearForMonthDay(fire.year, fire.month, fire.day);
+}
 
 function eventHasFired(event, time) {
+  const eventDay = fireDayOfYear(event.fire);
   return (
     event.fire.year < time.year ||
-    (event.fire.year === time.year && event.fire.dayOfYear <= time.dayOfYear)
+    (event.fire.year === time.year && eventDay <= time.dayOfYear)
   );
 }
 

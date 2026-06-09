@@ -7,11 +7,41 @@ export const gameData = {
     walkingHoursPerDay: 8
   },
   travelRoutes: {
-    "luskan:neverwinter": { miles: 153 },
-    "neverwinter:waterdeep": { miles: 335 },
-    "daggerford:waterdeep": { miles: 150 },
-    "baldurs-gate:daggerford": { miles: 600 },
-    "baldurs-gate:elturel": { miles: 200 }
+    "luskan:neverwinter": {
+      miles: 153,
+      baseRisk: "risky",
+      hazards: ["cold hills", "hungry beasts", "desperate roadfolk"],
+      safetyTags: ["northern", "wilderness"],
+      safeSummary: "The northern road is open, but the cold hills hide trouble between settlements."
+    },
+    "neverwinter:waterdeep": {
+      miles: 335,
+      baseRisk: "watchful",
+      hazards: ["long coastal miles", "watched caravans", "busy toll roads"],
+      safetyTags: ["northern", "coastal", "trade"],
+      safeSummary: "Traffic and patrols help, though every busy road carries spies, tolls, and thieves."
+    },
+    "daggerford:waterdeep": {
+      miles: 150,
+      baseRisk: "safe",
+      hazards: ["patrolled road", "tolls", "caravan traffic"],
+      safetyTags: ["trade", "patrolled"],
+      safeSummary: "This is the safest road on the map: busy, watched, and close to Waterdeep's reach."
+    },
+    "baldurs-gate:daggerford": {
+      miles: 600,
+      baseRisk: "risky",
+      hazards: ["long open road", "bandits", "thin patrols"],
+      safetyTags: ["southern", "trade", "wilderness"],
+      safeSummary: "The long south road is open, but distance makes every patrol, camp, and supply stop matter."
+    },
+    "baldurs-gate:elturel": {
+      miles: 200,
+      baseRisk: "risky",
+      hazards: ["hard memories", "pilgrim traffic", "watched crossings"],
+      safetyTags: ["southern", "pilgrim", "religious"],
+      safeSummary: "The road is watched closely, but old grief and pilgrim traffic make tempers uncertain."
+    }
   },
   topicLabels: {
     world: "World",
