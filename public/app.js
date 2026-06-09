@@ -9,8 +9,11 @@ import {
 const state = {
   player: null,
   data: null,
+  lore: null,
+  worldState: null,
   currentCityId: null,
   currentTime: null,
+  selectedLoreSectionId: null,
   logEntries: []
 };
 
@@ -32,6 +35,9 @@ const elements = {
   tavernIntro: document.querySelector("#tavern-intro"),
   travelOptions: document.querySelector("#travel-options"),
   dialogueOptions: document.querySelector("#dialogue-options"),
+  worldNews: document.querySelector("#world-news"),
+  codexSection: document.querySelector("#codex-section"),
+  codexContent: document.querySelector("#codex-content"),
   log: document.querySelector("#log"),
   map: document.querySelector("#map"),
   clearLog: document.querySelector("#clear-log")
@@ -86,7 +92,16 @@ function renderLog() {
   );
 }
 
-function travelTo(cityId) {
+async function refreshWorldState() {
+  const params = new URLSearchParams({
+    year: `${state.currentTime.year}`,
+    dayOfYear: `${state.currentTime.dayOfYear}`
+  });
+  const response = await fetch(`/api/world-state?${params}`);
+  state.worldState = await response.json();
+}
+
+async function travelTo(cityId) {
   const origin = cityById(state.currentCityId);
   const destination = cityById(cityId);
   const route = routeByCities(origin.id, destination.id);
@@ -94,6 +109,7 @@ function travelTo(cityId) {
   const travelMinutes = travelMinutesForMiles(route.miles, pace.milesPerHour);
   state.currentTime = advanceWalkingTravel(state.currentTime, travelMinutes, pace);
   state.currentCityId = cityId;
+  await refreshWorldState();
   addLog(
     "Travel",
     `You walk ${route.miles} miles from ${origin.name} to ${destination.name} over ${formatWalkingDuration(route.miles, pace)} on foot. You arrive in ${destination.name}, ${destination.epithet}, on ${formatCalendarTime(state.currentTime)}.`
@@ -135,6 +151,54 @@ function renderDialogue(city) {
   });
 
   elements.dialogueOptions.replaceChildren(...buttons);
+}
+
+function renderWorldNews() {
+  const events = state.worldState?.recentEvents || [];
+  elements.worldNews.replaceChildren(
+    ...events.slice().reverse().map((event) => {
+      const item = document.createElement("li");
+      const headline = document.createElement("strong");
+      const summary = document.createElement("p");
+      headline.textContent = event.headline;
+      summary.textContent = event.summary;
+      item.append(headline, summary);
+      return item;
+    })
+  );
+}
+
+function renderCodex() {
+  const sections = state.lore?.sections || [];
+  if (sections.length === 0) {
+    elements.codexSection.replaceChildren();
+    elements.codexContent.replaceChildren();
+    return;
+  }
+
+  if (!state.selectedLoreSectionId) {
+    state.selectedLoreSectionId = sections[0].id;
+  }
+
+  elements.codexSection.replaceChildren(
+    ...sections.map((section) => {
+      const option = document.createElement("option");
+      option.value = section.id;
+      option.textContent = section.title;
+      return option;
+    })
+  );
+  elements.codexSection.value = state.selectedLoreSectionId;
+
+  const selectedSection =
+    sections.find((section) => section.id === state.selectedLoreSectionId) || sections[0];
+  elements.codexContent.replaceChildren(
+    ...selectedSection.paragraphs.map((paragraph) => {
+      const item = document.createElement("p");
+      item.textContent = paragraph;
+      return item;
+    })
+  );
 }
 
 function renderMap() {
@@ -191,6 +255,8 @@ function render() {
   elements.tavernIntro.textContent = city.tavern.intro;
   renderTravel(city);
   renderDialogue(city);
+  renderWorldNews();
+  renderCodex();
   renderMap();
 }
 
@@ -204,6 +270,9 @@ async function startGame() {
     state.data.startTime.hour,
     state.data.startTime.minute
   );
+  const loreResponse = await fetch("/api/lore");
+  state.lore = await loreResponse.json();
+  await refreshWorldState();
   const city = cityById(state.currentCityId);
   addLog(
     "Arrival",
@@ -236,6 +305,11 @@ elements.charForm.addEventListener("submit", async (e) => {
 elements.clearLog.addEventListener("click", () => {
   state.logEntries = [];
   renderLog();
+});
+
+elements.codexSection.addEventListener("change", () => {
+  state.selectedLoreSectionId = elements.codexSection.value;
+  renderCodex();
 });
 
 window.addEventListener("resize", () => {
