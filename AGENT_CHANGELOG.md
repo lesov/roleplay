@@ -303,3 +303,12 @@
 - Tests run: npm test - passed; git diff --check - passed
 - UI review: approved-by-human
 - Blockers or coordination notes: Human approval received with "ok , checked and approved, merge and push"; separate local edits remain unstaged.
+
+## 2026-06-08 22:47 CDT - codex - main
+
+- Status: merged
+- Summary: Merged approved Sea of Fallen Stars playable travel region and map fixes into main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed on main; git diff --check - passed on main
+- UI review: approved-by-human
+- Blockers or coordination notes: Push to origin/main approved by human; separate local edits remain unstaged.
