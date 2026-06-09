@@ -312,3 +312,30 @@
 - Tests run: npm test - passed on main; git diff --check - passed on main
 - UI review: approved-by-human
 - Blockers or coordination notes: Push to origin/main approved by human; separate local edits remain unstaged.
+
+## 2026-06-09 10:06 CDT - codex - feature/codex/player-knowledge-rumors
+
+- Status: started
+- Summary: Begin replacing omniscient World Affairs display with player-learned rumor knowledge gated by innkeeper access and fastest-rider rumor spread.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md has a pre-existing local edit and will not be changed or staged for this task.
+
+## 2026-06-09 10:13 CDT - codex - feature/codex/player-knowledge-rumors
+
+- Status: ready-for-review
+- Summary: Added player knowledge tracking, innkeeper-gated rumor discovery, fastest-rider rumor propagation, Known Rumors UI, and route safety based on learned flags rather than omniscient world flags.
+- Files changed: AGENT_CHANGELOG.md, public/app.js, public/index.html, public/playerKnowledge.js, server.js, src/worldSim/rumors.js, src/worldSim/sim.js, src/worldSim/timeline.js, test/playerKnowledge.test.js, test/rumors.test.js, test/worldSim.test.js
+- Tests run: npm test - passed; git diff --check - passed; node --check public/app.js - passed; node --check public/playerKnowledge.js - passed; node --check src/worldSim/rumors.js - passed; node --check server.js - passed; curl -s 'http://localhost:3006/api/rumors?cityId=cimbar&year=1496&dayOfYear=285' verified no early Cimbar rumor; curl -s 'http://localhost:3006/api/rumors?cityId=cimbar&year=1496&dayOfYear=286' verified the Suzail rumor reaches Cimbar after 24 rider-days; curl -s 'http://localhost:3006/api/rumors?cityId=suzail&year=1496&dayOfYear=262' verified local same-day rumor discovery; curl -s http://localhost:3006/ verified Known Rumors panel label; curl -s http://localhost:3006/app.js and /playerKnowledge.js verified served browser modules
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server is running on http://localhost:3006. master_timeline_GM_internal.md remains a separate local edit and was not changed for this task.
+
+## 2026-06-09 10:33 CDT - codex - feature/codex/player-knowledge-rumors
+
+- Status: approved
+- Summary: Human approved the player-knowledge rumor flow for merge and push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - passed; git diff --check - passed
+- UI review: approved-by-human
+- Blockers or coordination notes: Human approval received with "checked good. Merge and push"; separate local edits remain unstaged.

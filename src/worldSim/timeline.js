@@ -11,6 +11,11 @@ export const timelineEvents = [
         "The Forest Kingdom revives an old claim on Soorenar, and Chessentan cities begin weighing surrender against ruin.",
       newsSources: ["caravan_rumor", "tavern_talk"]
     },
+    rumor: {
+      originCityId: "suzail",
+      text:
+        "Riders out of Suzail say purple banners are mustering for the southern road, though every teller disagrees on how far the crown means to march."
+    },
     effects: {
       setFlags: ["cormyr_southern_claim", "western_wars_stirring"],
       factionDeltas: [
@@ -35,6 +40,11 @@ export const timelineEvents = [
       summary:
         "Sembian gold, temple writs, and nervous city councils combine after a bloody retreat-road battle leaves no side satisfied.",
       newsSources: ["merchant_dispatch", "tavern_talk"]
+    },
+    rumor: {
+      originCityId: "selgaunt",
+      text:
+        "Merchants whisper that Sembian gold and temple writs are binding frightened powers into a league against Cormyr."
     },
     effects: {
       setFlags: ["first_grand_alliance_forms"],
@@ -61,6 +71,11 @@ export const timelineEvents = [
         "Cormyr's crown passes to a harder claimant, and court heralds add Cimbar to the kingdom's list of grievances.",
       newsSources: ["court_rumor", "war_wizard_sending"]
     },
+    rumor: {
+      originCityId: "suzail",
+      text:
+        "Court talk from Suzail says a new Obarskyr has taken the crown and is listening closely to old claims on Cimbar."
+    },
     effects: {
       setFlags: ["cormyr_new_claimant", "cimbar_claim_active"],
       factionDeltas: [{ faction: "cormyr", field: "prestige", op: "add", value: 6 }]
@@ -77,6 +92,11 @@ export const timelineEvents = [
       summary:
         "Cormyrean troops depose Cimbar's duke, while quiet treaties divide southern spoils behind closed doors.",
       newsSources: ["caravan_rumor", "merchant_dispatch"]
+    },
+    rumor: {
+      originCityId: "cimbar",
+      text:
+        "Refugees and hired blades agree on one thing: Cimbar's old lord is gone, and Cormyrean soldiers hold the gates."
     },
     effects: {
       setFlags: ["cimbar_under_cormyr"],
@@ -102,6 +122,11 @@ export const timelineEvents = [
         "Red Wizard fleets and hired corsairs seize Sembian trading ports, proving the eastern war is no border rumor.",
       newsSources: ["ship_news", "merchant_dispatch"]
     },
+    rumor: {
+      originCityId: "velprintalar",
+      text:
+        "Sailors out of the east say Thayan galleys have taken ports along the Wizards' Reach and that the west is slow to care."
+    },
     effects: {
       setFlags: ["thay_seizes_eastern_ports"],
       factionDeltas: [
@@ -122,6 +147,11 @@ export const timelineEvents = [
       summary:
         "Amnian-backed companies rout Cormyr's garrisons with massed handgonnes, and Soorenar passes into Alliance hands.",
       newsSources: ["soldier_tale", "tavern_talk"]
+    },
+    rumor: {
+      originCityId: "soorenar",
+      text:
+        "Soldiers coming north swear the new handgonnes tore open Cormyr's charge near Soorenar and changed the sound of battle."
     },
     effects: {
       setFlags: ["smokepowder_age_begins", "soorenar_under_alliance"],
@@ -147,6 +177,11 @@ export const timelineEvents = [
         "The richest republic on the Inner Sea finds itself surrounded by partners who have begun calling it a prize.",
       newsSources: ["merchant_dispatch", "court_rumor"]
     },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Quiet men from Arrabar say the great powers have stopped admiring Sembia's wealth and started measuring it."
+    },
     effects: {
       setFlags: ["first_great_war_active", "sembia_partition_plots"],
       relations: [
@@ -166,6 +201,11 @@ export const timelineEvents = [
       summary:
         "Cormyr smashes Sembia's field army; only the home cities and counting-houses keep the republic standing.",
       newsSources: ["merchant_dispatch", "tavern_talk"]
+    },
+    rumor: {
+      originCityId: "selgaunt",
+      text:
+        "Sembian teamsters say the mainland roads are broken, and only the rich cities still keep the republic on its feet."
     },
     effects: {
       setFlags: ["sembia_mainland_lost"],
@@ -188,6 +228,11 @@ export const timelineEvents = [
         "The Church of Torm declares that no crown may master the Inner Sea alone, and Sembia is welcomed back into the league that wounded it.",
       newsSources: ["temple_proclamation", "merchant_dispatch"]
     },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Temple messengers out of Arrabar say the high seat has cooled toward Cormyr and is blessing new friends with old enemies."
+    },
     effects: {
       setFlags: ["holy_league_against_cormyr"],
       relations: [
@@ -208,6 +253,11 @@ export const timelineEvents = [
       summary:
         "A brilliant Cormyrean marshal dies in victory, and Dalelands companies help drive the crown's army from the Vilhon.",
       newsSources: ["soldier_tale", "caravan_rumor"]
+    },
+    rumor: {
+      originCityId: "cimbar",
+      text:
+        "Bloodied companies say Cormyr won a field and lost the Reach, with its best marshal dead and Dalelands pikes everywhere."
     },
     effects: {
       setFlags: ["cormyr_expelled_from_vilhon", "dalelands_prestige_peak"],
@@ -233,6 +283,11 @@ export const timelineEvents = [
         "Waterdhavian coin and northern ships enter the war just long enough to make Cormyr bleed on another front.",
       newsSources: ["ship_news", "tavern_talk"]
     },
+    rumor: {
+      originCityId: "suzail",
+      text:
+        "Cormyrean sailors complain that northern ships and Waterdhavian coin have made the kingdom bleed far from the southern fields."
+    },
     effects: {
       setFlags: ["lords_alliance_enters_war"],
       factionDeltas: [
@@ -253,6 +308,11 @@ export const timelineEvents = [
       summary:
         "A fierce young monarch breaks the Dalelands' mercenary myth in a two-day slaughter and restores Cormyr's claim by force.",
       newsSources: ["court_rumor", "soldier_tale"]
+    },
+    rumor: {
+      originCityId: "cimbar",
+      text:
+        "Every wounded veteran has a different count of the dead, but all agree Cormyr's young king has taken Cimbar back."
     },
     effects: {
       setFlags: ["cormyr_great_king", "first_great_war_ending"],
@@ -278,6 +338,11 @@ export const timelineEvents = [
         "The first great war quiets, but Amn's silver and Sembia's ledgers are being gathered under a colder Alliance hand.",
       newsSources: ["merchant_dispatch", "court_rumor"]
     },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Caravan factors say the great war has quieted, though nobody with coin believes the peace is more than a pause."
+    },
     effects: {
       setFlags: ["first_great_war_closed", "alliance_unifier_rising"],
       relations: [
@@ -297,6 +362,11 @@ export const timelineEvents = [
       summary:
         "A renegade priest's denunciations spread from temple doors to market squares, and princes begin seizing church lands.",
       newsSources: ["temple_proclamation", "tavern_talk"]
+    },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Temple doors and market mouths carry the same shock: a priest has denounced the old order, and copies are spreading faster than sermons."
     },
     effects: {
       setFlags: ["great_schism_active", "reform_sects_spread"],
@@ -318,6 +388,11 @@ export const timelineEvents = [
       summary:
         "Sembian gold, Amnian silver, temple authority, and Dalelands levies answer a single overlord as bold ships seek new Maztican coasts.",
       newsSources: ["ship_news", "merchant_dispatch"]
+    },
+    rumor: {
+      originCityId: "selgaunt",
+      text:
+        "Sembian clerks say too many ledgers now answer to one Alliance hand, and westbound captains are being paid for stranger voyages."
     },
     effects: {
       setFlags: ["grand_alliance_consolidated", "maztica_rush_begins"],
@@ -343,6 +418,11 @@ export const timelineEvents = [
         "Cormyr and the consolidated Grand Alliance abandon diplomacy and drag the Inner Sea into a war for mastery.",
       newsSources: ["court_rumor", "tavern_talk"]
     },
+    rumor: {
+      originCityId: "suzail",
+      text:
+        "The road out of Suzail is full of requisitions and hard faces; folk say Cormyr and the Alliance have run out of patient words."
+    },
     effects: {
       setFlags: ["second_great_war_active"],
       relations: [{ a: "cormyr", b: "grand_alliance", value: "war" }]
@@ -359,6 +439,11 @@ export const timelineEvents = [
       summary:
         "Alliance columns break Dalelands pikes near Cimbar while Thayan fleets storm a fortified holy-order island in the Inner Sea.",
       newsSources: ["soldier_tale", "ship_news"]
+    },
+    rumor: {
+      originCityId: "cimbar",
+      text:
+        "Veterans near Cimbar say pikes no longer frighten guns, while sailors claim Thay has taken a fortress out on the Inner Sea."
     },
     effects: {
       setFlags: ["pikes_obsolete", "thay_takes_island_fortress"],
@@ -384,6 +469,11 @@ export const timelineEvents = [
         "Cormyr's host is shattered in the south, and the crown sits captive in an enemy camp while regents bargain in panic.",
       newsSources: ["war_wizard_sending", "soldier_tale"]
     },
+    rumor: {
+      originCityId: "cimbar",
+      text:
+        "No one says it loudly near loyal ears, but the rumor is everywhere: Cormyr's king was taken alive beneath Cimbar's walls."
+    },
     effects: {
       setFlags: ["cormyr_king_captured", "regency_crisis"],
       factionDeltas: [
@@ -404,6 +494,11 @@ export const timelineEvents = [
       summary:
         "The eastern shield is destroyed in one terrible field battle, its monarch dead and its passes open to the Red Wizards.",
       newsSources: ["refugee_rumor", "war_wizard_sending"]
+    },
+    rumor: {
+      originCityId: "velprintalar",
+      text:
+        "Refugees from Aglarond say the eastern shield has cracked and the Red Wizards are coming through the passes."
     },
     effects: {
       setFlags: ["aglarond_destroyed", "thay_pours_west"],
@@ -430,6 +525,11 @@ export const timelineEvents = [
         "Unpaid, schism-radicalized mercenaries sack the Church of Torm's holy seat, shocking every faithful court in Faerûn.",
       newsSources: ["temple_proclamation", "refugee_rumor"]
     },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Smoke-stained pilgrims say Arrabar was sacked by unpaid soldiers, and even hardened merchants lower their voices at the telling."
+    },
     effects: {
       setFlags: ["arrabar_sacked", "church_state_humiliated"],
       factionDeltas: [
@@ -449,6 +549,11 @@ export const timelineEvents = [
       summary:
         "Thay reaches the gate-city of the east and is thrown back bloodily, leaving the frontier alive but badly wounded.",
       newsSources: ["war_wizard_sending", "caravan_rumor"]
+    },
+    rumor: {
+      originCityId: "velprintalar",
+      text:
+        "Aglarond's survivors say the eastern siege has been thrown back, though every victory feast sounds too tired to last."
     },
     effects: {
       setFlags: ["eastern_siege_repulsed", "thay_overextended"],
@@ -470,6 +575,11 @@ export const timelineEvents = [
         "Arrabar's wounded hierarchy reconciles just enough to bless the Grand Alliance's supremacy over the Vilhon.",
       newsSources: ["temple_proclamation", "court_rumor"]
     },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Priests in Arrabar have blessed the Alliance's overlord, and taverns are split over whether that is healing or surrender."
+    },
     effects: {
       setFlags: ["alliance_leader_crowned"],
       relations: [{ a: "church_state", b: "grand_alliance", value: "ally" }]
@@ -486,6 +596,11 @@ export const timelineEvents = [
       summary:
         "Courts recoil as the Forest Kingdom's hidden bargain with the Red Wizards comes to light during a renewed border war.",
       newsSources: ["court_rumor", "tavern_talk"]
+    },
+    rumor: {
+      originCityId: "suzail",
+      text:
+        "Courtiers deny it too quickly: letters have surfaced tying Cormyr to Thay, and every pious listener looks sick."
     },
     effects: {
       setFlags: ["impious_pact_revealed"],
@@ -507,6 +622,11 @@ export const timelineEvents = [
       summary:
         "Corsair fleets out of the Pirate Isles smash the Alliance navy, and every coastal city begins watching the horizon.",
       newsSources: ["ship_news", "merchant_dispatch"]
+    },
+    rumor: {
+      originCityId: "eltabbar",
+      text:
+        "Ship captains say Thayan-backed corsairs broke the Alliance fleet, and coastal folk have begun watching every sail."
     },
     effects: {
       setFlags: ["thay_naval_supremacy"],
@@ -530,6 +650,11 @@ export const timelineEvents = [
         "The Alliance's punitive fleet limps home broken, leaving the Pirate Isles louder and richer than before.",
       newsSources: ["ship_news", "tavern_talk"]
     },
+    rumor: {
+      originCityId: "selgaunt",
+      text:
+        "Dockside talk says the fleet sent against the corsairs came back broken, and the pirates are drinking to it."
+    },
     effects: {
       setFlags: ["failed_corsair_expedition"],
       factionDeltas: [
@@ -549,6 +674,11 @@ export const timelineEvents = [
       summary:
         "Every border has moved, every house has buried heirs, and every surviving power begins preparing for the next generation.",
       newsSources: ["court_rumor", "merchant_dispatch"]
+    },
+    rumor: {
+      originCityId: "arrabar",
+      text:
+        "Couriers say the exhausted powers have signed a comprehensive peace, though nobody has forgotten who burned whose fields."
     },
     effects: {
       setFlags: ["campaign_peace_1546"],

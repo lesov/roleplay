@@ -43,8 +43,11 @@ test("timeline events are ordered and player-facing", () => {
     );
     assert.ok(event.presentation.headline, `${event.id} needs a headline`);
     assert.ok(event.presentation.summary, `${event.id} needs a summary`);
+    assert.ok(event.rumor?.originCityId, `${event.id} needs a rumor origin city`);
+    assert.ok(event.rumor?.text, `${event.id} needs common-folk rumor text`);
     assert.equal("source_tag" in event, false, `${event.id} must not expose source_tag`);
     assertNoScaffoldLeak(event.presentation);
+    assertNoScaffoldLeak(event.rumor);
     previousYear = event.fire.year;
     previousDayOfYear = eventDay;
   }
