@@ -3,7 +3,8 @@ import { readFile } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { gameData } from "./src/gameData.js";
-import { races, classes, backgrounds } from "./src/characterData.js";
+import { characterRules } from "./src/character/index.js";
+import { presets } from "./src/character/presets.js";
 import { loadLoreCodex } from "./src/lore.js";
 import { simulateWorldState } from "./src/worldSim/sim.js";
 
@@ -54,7 +55,12 @@ const server = createServer(async (req, res) => {
     }
 
     if (url.pathname === "/api/character-options") {
-      send(req, res, 200, JSON.stringify({ races, classes, backgrounds }), "application/json; charset=utf-8");
+      send(req, res, 200, JSON.stringify(characterRules), "application/json; charset=utf-8");
+      return;
+    }
+
+    if (url.pathname === "/api/character-presets") {
+      send(req, res, 200, JSON.stringify({ presets }), "application/json; charset=utf-8");
       return;
     }
 

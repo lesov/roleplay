@@ -6,6 +6,8 @@ import {
   travelMinutesForMiles
 } from "./time.js";
 import { assessRouteSafety } from "./routeSafety.js";
+import { runCharacterWizard } from "./character/wizard.js";
+import { renderCharacterSheet } from "./character/sheet.js";
 
 const state = {
   player: null,
@@ -20,12 +22,12 @@ const state = {
 
 const elements = {
   charOverlay: document.querySelector("#char-creation-overlay"),
-  charForm: document.querySelector("#char-creation-form"),
-  charName: document.querySelector("#char-name"),
-  charRace: document.querySelector("#char-race"),
-  charClass: document.querySelector("#char-class"),
-  charBackground: document.querySelector("#char-background"),
-  charError: document.querySelector("#char-error"),
+  sheetOverlay: document.querySelector("#sheet-overlay"),
+  sheetBody: document.querySelector("#sheet-body"),
+  sheetClose: document.querySelector("#sheet-close"),
+  characterName: document.querySelector("#character-name"),
+  characterSummary: document.querySelector("#character-summary"),
+  viewSheet: document.querySelector("#view-sheet"),
   shell: document.querySelector(".shell"),
   year: document.querySelector("#year"),
   placeName: document.querySelector("#place-name"),
@@ -44,23 +46,12 @@ const elements = {
   clearLog: document.querySelector("#clear-log")
 };
 
-function populateSelect(selectEl, options) {
-  selectEl.replaceChildren(
-    ...options.map(({ id, label }) => {
-      const opt = document.createElement("option");
-      opt.value = id;
-      opt.textContent = label;
-      return opt;
-    })
-  );
-}
-
-function showCharacterCreation(options) {
-  populateSelect(elements.charRace, options.races);
-  populateSelect(elements.charClass, options.classes);
-  populateSelect(elements.charBackground, options.backgrounds);
-  elements.charOverlay.hidden = false;
-  elements.charName.focus();
+function renderCharacterPanel() {
+  if (!state.player) return;
+  const identity = state.player.subrace ? state.player.subrace.label : state.player.race.label;
+  elements.characterName.textContent = state.player.name;
+  elements.characterSummary.textContent =
+    `${identity} ${state.player.class.label} · ${state.player.background.label} · AC ${state.player.armorClass} · HP ${state.player.hitPoints}`;
 }
 
 function cityById(cityId) {
@@ -289,32 +280,27 @@ async function startGame() {
   state.lore = await loreResponse.json();
   await refreshWorldState();
   const city = cityById(state.currentCityId);
+  const identity = state.player.subrace ? state.player.subrace.label : state.player.race.label;
   addLog(
     "Arrival",
-    `${state.player.name} stands in ${city.name}, with ${city.tavern.name} close at hand.`
+    `${state.player.name}, a ${identity} ${state.player.class.label}, stands in ${city.name}, with ${city.tavern.name} close at hand.`
   );
+  renderCharacterPanel();
   elements.shell.hidden = false;
   render();
 }
 
-elements.charForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const name = elements.charName.value.trim();
-  if (!name) {
-    elements.charError.textContent = "Please enter a name for your adventurer.";
-    elements.charError.hidden = false;
-    elements.charName.focus();
-    return;
-  }
-  elements.charError.hidden = true;
-  state.player = {
-    name,
-    race: elements.charRace.value,
-    characterClass: elements.charClass.value,
-    background: elements.charBackground.value,
-  };
-  elements.charOverlay.hidden = true;
-  await startGame();
+elements.viewSheet.addEventListener("click", () => {
+  renderCharacterSheet(elements.sheetBody, state.player);
+  elements.sheetOverlay.hidden = false;
+});
+
+elements.sheetClose.addEventListener("click", () => {
+  elements.sheetOverlay.hidden = true;
+});
+
+elements.sheetOverlay.addEventListener("click", (e) => {
+  if (e.target === elements.sheetOverlay) elements.sheetOverlay.hidden = true;
 });
 
 elements.clearLog.addEventListener("click", () => {
@@ -332,12 +318,27 @@ window.addEventListener("resize", () => {
 });
 
 async function boot() {
-  const response = await fetch("/api/character-options");
-  const options = await response.json();
-  showCharacterCreation(options);
+  const [optionsRes, presetsRes] = await Promise.all([
+    fetch("/api/character-options"),
+    fetch("/api/character-presets")
+  ]);
+  const rules = await optionsRes.json();
+  const { presets } = await presetsRes.json();
+  runCharacterWizard({
+    rules,
+    presets,
+    onComplete: async (character) => {
+      state.player = character;
+      elements.charOverlay.hidden = true;
+      await startGame();
+    }
+  });
 }
 
-boot().catch(() => {
-  elements.charError.textContent = "Failed to load character options. Please restart the server.";
-  elements.charError.hidden = false;
+boot().catch((error) => {
+  console.error(error);
+  const mount = document.querySelector("#char-wizard");
+  if (mount) {
+    mount.textContent = "Failed to load character options. Please restart the server and reload.";
+  }
 });
