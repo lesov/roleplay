@@ -348,3 +348,30 @@
 - Tests run: npm test - passed on main; git diff --check - passed on main
 - UI review: approved-by-human
 - Blockers or coordination notes: Push to origin/main approved by human; separate local edits remain unstaged.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/regional-weather
+
+- Status: started
+- Summary: Begin atmospheric regional daily weather. New pure module public/weather.js (deterministic per region/day, lore-consistent climates for Chessenta/Vilhon Reach/Sembia/Cormyr/Aglarond/Thay), shown for the player's current location in the world pane.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 80/80 pass on clean branch baseline
+- UI review: pending-human-test
+- Blockers or coordination notes: Branched from main. Isolated to new public/weather.js + test/weather.test.js with minimal touch-points in app.js/index.html/styles.css. Not touching time.js, routeSafety.js, worldSim, or master_timeline_GM_internal.md.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/regional-weather
+
+- Status: ready-for-review
+- Summary: Implemented atmospheric regional daily weather. New pure module public/weather.js: deterministic per (region, year, dayOfYear) via seeded PRNG; lore-grounded climate profiles for all six regions (Chessenta Mediterranean, Vilhon Reach humid-subtropical, Sembia temperate-maritime, Cormyr continental w/ snowy winters, Aglarond misty, Thay ashen plateau); season derived from the Calendar of Harptos. app.js render() shows current-location weather (condition+temperature badge + flavored sentence) in the world pane; refreshes on travel and as days pass. No effect on travel/route-safety (atmospheric only).
+- Files changed: public/weather.js (new), test/weather.test.js (new), public/app.js, public/index.html, public/styles.css, AGENT_CHANGELOG.md
+- Tests run: npm test - 90/90 pass (10 new weather tests + 80 existing); node --check on weather.js and app.js; sample-output lore sanity check (Cimbar summer heat-haze, Suzail winter frigid/overcast, Eltabbar sweltering ash, Velprintalar autumn rain).
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server on http://localhost:3014. index.html was edited by a concurrent agent mid-task; I re-read and applied only my one-line addition. Did not touch time.js, routeSafety.js, worldSim, playerKnowledge.js, or master_timeline_GM_internal.md. Merge to main needs explicit human stable-state + merge approval.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/regional-weather
+
+- Status: approved
+- Summary: Human tested regional weather UI and approved ("all checks out, approved. merge and push"). Committing to the task branch, then merging to main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 90/90 pass
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged.
