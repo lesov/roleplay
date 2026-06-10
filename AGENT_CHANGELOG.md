@@ -535,3 +535,29 @@
 - Tests run: npm test - 103/103 pass on main after merge
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Push left to the human.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-danger-segments
+
+- Status: started
+- Summary: Begin danger-coloured travel segments in the journey popup. Split the journey line into 3 green/orange/red segments per route, danger from lore (authored per-leg base risk) + world events (campaign flags), reusing assessRouteSafety. Designed as the integration point for future random events.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 104/104 pass on clean branch baseline
+- Blockers or coordination notes: Branched from main. New public/routeSegments.js (imports routeSafety only) + test/routeSegments.test.js; additive journey.segments on travelRoutes in gameData; UI in index.html/app.js/styles.css. Not modifying routeSafety.js or other agents' modules or master_timeline_GM_internal.md.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-danger-segments
+
+- Status: ready-for-review
+- Summary: Implemented danger-coloured travel segments. New pure public/routeSegments.js (computeRouteSegments/segmentForProgress/DANGER_BANDS) scores each authored journey segment via the existing assessRouteSafety, mapping Safe/Watchful->green, Risky->orange, Perilous->red, and folding the strongest world-event factor into the stretch's reason note. Added additive journey.segments (3 per route) to all 6 routes in gameData. Journey popup now renders a segmented green/orange/red track behind the marker, a legend, and a per-stretch danger line that updates as the marker advances. Uses the same knownWorldState as the Roads badges. Designed as the hook for future random events.
+- Files changed: public/routeSegments.js (new), test/routeSegments.test.js (new), src/gameData.js (additive journey.segments x6), public/index.html, public/app.js, public/styles.css, AGENT_CHANGELOG.md
+- Tests run: npm test - 109/109 pass (5 new routeSegments tests + 104 existing); node --check public/app.js & public/routeSegments.js; band-spread sanity (Selgaunt-Suzail all green, Eltabbar-Velprintalar opens red, others mixed).
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server on http://localhost:3017. gameData.js change additive; routeSafety.js imported only (not modified). Did not touch other agents' modules or master_timeline_GM_internal.md. Merge to main needs explicit human stable-state + merge approval.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-danger-segments
+
+- Status: approved
+- Summary: Human approved danger-coloured travel segments ("approved, commit and merge"). Committing to the task branch and merging to main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 109/109 pass
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged.
