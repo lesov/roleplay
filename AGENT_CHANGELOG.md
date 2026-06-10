@@ -490,3 +490,12 @@
 - Tests run: npm test - 103/103 pass
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged.
+
+## 2026-06-09 - claude-sonnet - main
+
+- Status: merged
+- Summary: Merged feature/claude-sonnet/travel-journey into main after explicit human approval ("approved, commit and merge").
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 103/103 pass on main after merge
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Push left to the human.
