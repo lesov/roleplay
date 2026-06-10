@@ -50,6 +50,13 @@ test("each city has one tavern location with rumor-capable dialogue", () => {
   }
 });
 
+test("each city has a market location", () => {
+  for (const city of Object.values(gameData.cities)) {
+    const markets = city.locations.filter((location) => location.category === "Market");
+    assert.ok(markets.length >= 1, `${city.id} should have at least one market location`);
+  }
+});
+
 test("non-tavern contacts explain their establishment", () => {
   for (const city of Object.values(gameData.cities)) {
     for (const location of city.locations.filter((entry) => entry.category !== "Tavern")) {

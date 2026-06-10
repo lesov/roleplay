@@ -1,3 +1,30 @@
+## 2026-06-09 20:40 CDT - codex - feature/codex/city-markets
+
+- Status: started
+- Summary: Begin adding a market location to every current city, with lore- and event-aware descriptions but no buy/sell mechanics.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: not-run-yet
+- UI review: pending-human-test
+- Blockers or coordination notes: master_timeline_GM_internal.md has a pre-existing local edit and will not be changed or staged for this task.
+
+## 2026-06-09 20:43 CDT - codex - feature/codex/city-markets
+
+- Status: ready-for-review
+- Summary: Added market locations for Cimbar, Arrabar, Selgaunt, Suzail, and Velprintalar; expanded the existing Soorenar and Eltabbar market descriptions. Market descriptions reflect local lore and visible world pressures without adding buy/sell mechanics.
+- Files changed: src/gameData.js, test/cityLocations.test.js, AGENT_CHANGELOG.md
+- Tests run: node --check src/gameData.js - pass; npm test - pass; git diff --check - pass; local server smoke check on http://localhost:3008 - pass
+- UI review: pending-human-test
+- Blockers or coordination notes: UI/data review required before merge. master_timeline_GM_internal.md remains an unrelated local edit and was left unstaged.
+
+## 2026-06-09 20:48 CDT - codex - feature/codex/city-markets
+
+- Status: approved
+- Summary: Human reviewed the city market additions and approved merge/push.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: node --check src/gameData.js - pass; npm test - pass; git diff --check - pass
+- UI review: approved-by-human
+- Blockers or coordination notes: Proceeding with commit, merge to main, final checks, and push. master_timeline_GM_internal.md remains an unrelated local edit and will not be staged.
+
 ## 2026-06-07 19:38 CDT - codex - feature/codex/forgotten-realms-adventure
 
 - Status: started
