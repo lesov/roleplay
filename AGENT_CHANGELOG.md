@@ -25,6 +25,15 @@
 - UI review: approved-by-human
 - Blockers or coordination notes: Proceeding with commit, merge to main, final checks, and push. master_timeline_GM_internal.md remains an unrelated local edit and will not be staged.
 
+## 2026-06-09 20:48 CDT - codex - main
+
+- Status: merged
+- Summary: Merged feature/codex/city-markets into main after explicit human approval.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: node --check src/gameData.js - pass; npm test - pass; git diff --check - pass
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge completed. master_timeline_GM_internal.md remains an unrelated local edit and was left unstaged. Preparing final checks and push to origin/main.
+
 ## 2026-06-07 19:38 CDT - codex - feature/codex/forgotten-realms-adventure
 
 - Status: started
