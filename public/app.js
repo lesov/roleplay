@@ -15,6 +15,7 @@ import { runCharacterWizard } from "./character/wizard.js";
 import { renderCharacterSheet } from "./character/sheet.js";
 import { getWeather } from "./weather.js";
 import { journeyDurationMs, vignetteForProgress, journeyStage } from "./travelJourney.js";
+import { computeRouteSegments, segmentForProgress } from "./routeSegments.js";
 
 const state = {
   player: null,
@@ -37,6 +38,8 @@ const elements = {
   travelOverlay: document.querySelector("#travel-overlay"),
   travelStage: document.querySelector("#travel-stage"),
   travelTitle: document.querySelector("#travel-title"),
+  travelSegments: document.querySelector("#travel-segments"),
+  travelDanger: document.querySelector("#travel-danger"),
   travelMarker: document.querySelector("#travel-marker"),
   travelOrigin: document.querySelector("#travel-origin"),
   travelDest: document.querySelector("#travel-dest"),
@@ -132,6 +135,7 @@ function runJourneyAnimation({ origin, destination, route, departTime, arriveTim
   return new Promise((resolve) => {
     const duration = journeyDurationMs(route.miles);
     const vignettes = route.journey?.vignettes || [route.safeSummary];
+    const segments = computeRouteSegments(route, knownWorldState(state.knowledge));
     const weather = getWeather({
       regionId: destination.region,
       year: arriveTime.year,
@@ -141,6 +145,17 @@ function runJourneyAnimation({ origin, destination, route, departTime, arriveTim
     elements.travelTitle.textContent = `${origin.name} → ${destination.name}`;
     elements.travelOrigin.textContent = origin.name;
     elements.travelDest.textContent = destination.name;
+
+    // Render the danger-banded stretches behind the marker.
+    elements.travelSegments.replaceChildren(
+      ...segments.map((segment) => {
+        const span = document.createElement("span");
+        span.className = `travel-seg travel-seg--${segment.band}`;
+        span.style.width = `${(segment.end - segment.start) * 100}%`;
+        span.title = `${segment.level}: ${segment.note}`;
+        return span;
+      })
+    );
     elements.travelMeta.textContent =
       `${route.miles} miles on foot over the ${route.journey?.terrain || "open road"}. ` +
       `Set out ${formatCalendarTime(departTime)}; arrival ${formatCalendarTime(arriveTime)}. ` +
@@ -176,6 +191,11 @@ function runJourneyAnimation({ origin, destination, route, departTime, arriveTim
       elements.travelMarker.style.left = `${progress * 100}%`;
       elements.travelStage.textContent = journeyStage(progress);
       elements.travelVignette.textContent = vignetteForProgress(vignettes, progress);
+      const segment = segmentForProgress(segments, progress);
+      if (segment) {
+        elements.travelDanger.className = `travel-danger travel-danger--${segment.band}`;
+        elements.travelDanger.textContent = `This stretch — ${segment.level}: ${segment.note}`;
+      }
       const milesDone = Math.round(route.miles * progress);
       elements.travelProgress.textContent = `${Math.round(progress * 100)}% — ${milesDone} of ${route.miles} miles`;
 

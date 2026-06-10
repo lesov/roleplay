@@ -117,6 +117,11 @@ export const gameData = {
           "The road runs thick with pilgrims and toll-clerks at first, past wayshrines of Torm where templars note who passes and who pays.",
           "Inland the country opens into terraced Vilhon farmland, vineyards and olive groves broken by bridge-forts where local lords levy their cut.",
           "Toward the marble outskirts the traffic turns sharp-eyed and mercantile, every caravan weighing whether your business helps or threatens its own."
+        ],
+        segments: [
+          { risk: "watchful", tags: ["religious", "trade"], note: "Toll posts and temple watchers, but well-traveled." },
+          { risk: "watchful", tags: ["southern", "trade"], note: "Open farmland with local levies; generally calm." },
+          { risk: "risky", tags: ["southern", "trade"], note: "Sharp-eyed mercenary country near the marble city." }
         ]
       }
     },
@@ -133,6 +138,11 @@ export const gameData = {
           "The way hugs the Sea of Fallen Stars, salt wind off the water and Sembian carracks standing out on the swells beyond the dunes.",
           "Long empty caravan stages stretch between coastal towns, where thin patrols and roadside factors both keep one eye on every stranger's purse.",
           "Nearer the counting-house country the milestones grow frequent and the inns expensive, and clerks tally traffic as if commerce itself were the law."
+        ],
+        segments: [
+          { risk: "watchful", tags: ["coastal", "trade"], note: "Busy coast road with steady traffic." },
+          { risk: "risky", tags: ["trade"], note: "Long empty caravan stages with thin patrols." },
+          { risk: "watchful", tags: ["trade", "religious"], note: "Frequent milestones near the counting-houses." }
         ]
       }
     },
@@ -149,6 +159,11 @@ export const gameData = {
           "Beyond the dueling-yards the road threads a patchwork of rival claims, each village flying whichever banner last frightened it.",
           "Hired blades and city-state patrols shadow the traveler across disputed fields, none of them certain whose coin you carry.",
           "Closer to the disputed crown the checkpoints multiply, every guard hunting the word that proves you are not Cormyr's creature."
+        ],
+        segments: [
+          { risk: "watchful", tags: ["southern", "trade"], note: "City outskirts, patrolled and busy." },
+          { risk: "risky", tags: ["southern"], note: "Disputed claim-lands; rival patrols and hired blades." },
+          { risk: "risky", tags: ["southern"], note: "Anxious checkpoints near the disputed crown." }
         ]
       }
     },
@@ -165,6 +180,11 @@ export const gameData = {
           "The road empties quickly into long, lonely frontier, the comforts of Chessenta falling away behind dust and silence.",
           "Mile after exposed mile crosses scrub and broken country, sharing the way with war refugees moving west and scouts who do not.",
           "At last Aglarond's watchtowers smudge the haze ahead, grim and watchful, with Thay's frontier a cold rumor just beyond them."
+        ],
+        segments: [
+          { risk: "watchful", tags: ["coastal"], note: "Leaving Chessenta on a settled coast road." },
+          { risk: "risky", tags: ["wilderness", "eastern"], note: "Lonely frontier; refugees and roaming scouts." },
+          { risk: "perilous", tags: ["eastern", "wilderness"], note: "Exposed approach within reach of Thay's frontier." }
         ]
       }
     },
@@ -181,6 +201,11 @@ export const gameData = {
           "The march begins among ward-stones and the lacquered patrols of the Red Wizards, who measure travelers the way one measures cattle.",
           "The road crosses old battlefields where the grass grows wrong and the locals will not camp, ash still grey in the hollows.",
           "Near the embattled line Aglarond's soldiers hold their wards drawn, trusting no one who comes out of the east unannounced."
+        ],
+        segments: [
+          { risk: "perilous", tags: ["eastern", "wilderness"], note: "Red Wizard patrols and prickling ward-stones." },
+          { risk: "perilous", tags: ["wilderness", "eastern"], note: "Haunted battlefields where the locals will not camp." },
+          { risk: "risky", tags: ["eastern"], note: "Aglarond's watchful line, wards drawn." }
         ]
       }
     },
@@ -197,6 +222,11 @@ export const gameData = {
           "The way runs orderly and well-paved from the start, Sembian milestones giving way to the first purple-cloaked riders.",
           "Customs posts and Purple Dragon patrols keep the road safe and watched in equal measure, every cart logged and every face noted.",
           "Under the banners of the Forest Kingdom the country turns green and disciplined, fields and forest eaves tended like a soldier's kit."
+        ],
+        segments: [
+          { risk: "watchful", tags: ["trade", "northern"], note: "Orderly, well-paved Sembian road." },
+          { risk: "safe", tags: ["patrolled", "northern"], note: "Heavy Purple Dragon patrols; very secure." },
+          { risk: "safe", tags: ["patrolled", "northern"], note: "Green, disciplined Cormyrean country." }
         ]
       }
     }

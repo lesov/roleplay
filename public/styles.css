@@ -1348,16 +1348,32 @@ h2 {
   margin: 0 6px;
 }
 
-.travel-line {
+.travel-segments {
   position: absolute;
   top: 50%;
   left: 0;
   right: 0;
-  height: 3px;
+  display: flex;
+  height: 6px;
   transform: translateY(-50%);
-  background: linear-gradient(90deg, var(--accent), var(--road));
-  border-radius: 2px;
-  opacity: 0.6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.travel-seg {
+  height: 100%;
+}
+
+.travel-seg--safe {
+  background: #5fb56a;
+}
+
+.travel-seg--caution {
+  background: #e0902f;
+}
+
+.travel-seg--danger {
+  background: #d2554a;
 }
 
 .travel-marker {
@@ -1409,4 +1425,51 @@ h2 {
 
 #travel-skip {
   min-width: 160px;
+}
+
+/* Travel popup danger legend + current-stretch line */
+
+.travel-legend {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.travel-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.travel-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.travel-danger {
+  min-height: 1.4em;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.travel-danger--safe {
+  color: #7bbf86;
+}
+
+.travel-danger--caution {
+  color: #e3a85f;
+}
+
+.travel-danger--danger {
+  color: #e07a6e;
 }

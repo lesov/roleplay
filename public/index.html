@@ -26,14 +26,20 @@
         <p class="travel-eyebrow" id="travel-stage"></p>
         <h2 id="travel-title"></h2>
         <div class="travel-track">
-          <span class="travel-line"></span>
+          <span class="travel-segments" id="travel-segments"></span>
           <span class="travel-marker" id="travel-marker" aria-hidden="true">&#9679;</span>
         </div>
         <div class="travel-ends">
           <span id="travel-origin"></span>
           <span id="travel-dest"></span>
         </div>
+        <div class="travel-legend" aria-hidden="true">
+          <span class="travel-legend-item"><span class="travel-swatch travel-seg--safe"></span>Safe</span>
+          <span class="travel-legend-item"><span class="travel-swatch travel-seg--caution"></span>Caution</span>
+          <span class="travel-legend-item"><span class="travel-swatch travel-seg--danger"></span>Dangerous</span>
+        </div>
         <p class="travel-progress" id="travel-progress"></p>
+        <p class="travel-danger" id="travel-danger"></p>
         <p class="travel-vignette" id="travel-vignette"></p>
         <p class="travel-meta" id="travel-meta"></p>
         <button id="travel-skip" type="button" class="wiz-primary">Skip ahead</button>
