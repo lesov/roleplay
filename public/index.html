@@ -20,6 +20,25 @@
         <div id="sheet-body"></div>
       </div>
     </div>
+
+    <div id="travel-overlay" class="travel-overlay" hidden role="dialog" aria-modal="true" aria-label="Journey in progress">
+      <div class="travel-modal">
+        <p class="travel-eyebrow" id="travel-stage"></p>
+        <h2 id="travel-title"></h2>
+        <div class="travel-track">
+          <span class="travel-line"></span>
+          <span class="travel-marker" id="travel-marker" aria-hidden="true">&#9679;</span>
+        </div>
+        <div class="travel-ends">
+          <span id="travel-origin"></span>
+          <span id="travel-dest"></span>
+        </div>
+        <p class="travel-progress" id="travel-progress"></p>
+        <p class="travel-vignette" id="travel-vignette"></p>
+        <p class="travel-meta" id="travel-meta"></p>
+        <button id="travel-skip" type="button" class="wiz-primary">Skip ahead</button>
+      </div>
+    </div>
     <main class="shell" hidden>
       <section class="world-pane" aria-labelledby="place-name">
         <div class="map" id="map" aria-label="Sea of Fallen Stars travel map"></div>

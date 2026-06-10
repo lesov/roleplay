@@ -455,3 +455,38 @@
 - Tests run: npm test - 94/94 pass on main after merge
 - UI review: approved-by-human
 - Blockers or coordination notes: --no-ff merge (GitFlow). master_timeline_GM_internal.md left untouched/unstaged. Push left to the human.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-journey
+
+- Status: started
+- Summary: Begin travel journey popup — a modal shown on city-to-city travel with an animated origin->destination progress line, a wait proportional to route mileage (moderate ~3-9s, skippable), and rotating en-route lore vignettes describing the lands passed through plus the weather ahead.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 96/96 pass on clean branch baseline
+- Blockers or coordination notes: Branched from main. New public/travelJourney.js (pure) + test/travelJourney.test.js; additive `journey` field on travelRoutes in gameData.js; UI overlay in index.html/app.js/styles.css. Not touching other agents' modules or master_timeline_GM_internal.md.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-journey
+
+- Status: ready-for-review
+- Summary: Implemented the travel journey popup. New pure module public/travelJourney.js (journeyDurationMs proportional+clamped to ~3-9s, vignetteForProgress, journeyStage). Added additive `journey` {terrain, 3 vignettes} to all 6 travelRoutes in gameData. travelTo() now awaits a modal animation (public/index.html #travel-overlay): an origin->destination line with the marker advancing via requestAnimationFrame, live progress %, rotating en-route lore vignettes, route terrain + departure/arrival dates + weather ahead (reuses getWeather/formatCalendarTime). Wait scales with mileage; "Skip ahead" resolves immediately; double-trigger guarded. On finish the popup closes and arrival is committed.
+- Files changed: public/travelJourney.js (new), test/travelJourney.test.js (new), src/gameData.js (additive journey field on 6 routes), public/index.html, public/app.js, public/styles.css, AGENT_CHANGELOG.md
+- Tests run: npm test - 103/103 pass (7 new travelJourney tests + 96 existing); node --check public/app.js & public/travelJourney.js; server smoke (travelJourney.js + journey data served).
+- UI review: pending-human-test
+- Blockers or coordination notes: Verification server on http://localhost:3016. gameData.js change is purely additive. Did not touch other agents' modules or master_timeline_GM_internal.md. Merge to main needs explicit human stable-state + merge approval.
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-journey
+
+- Status: ready-for-review
+- Summary: Slowed the journey pace per human feedback ("too quick to read; skip option exists"). journeyDurationMs defaults now msPerMile=32, min=15s, max=30s -> routes run 15s (260-520mi) up to ~25s (780mi), giving ~5-8.3s per en-route vignette. Updated travelJourney tests to match.
+- Files changed: public/travelJourney.js, test/travelJourney.test.js, AGENT_CHANGELOG.md
+- Tests run: npm test - 103/103 pass
+- UI review: pending-human-test
+- Blockers or coordination notes: travelJourney.js is a static client module; browser refresh on http://localhost:3016 picks up the new pacing (no server restart needed).
+
+## 2026-06-09 - claude-sonnet - feature/claude-sonnet/travel-journey
+
+- Status: approved
+- Summary: Human approved the travel journey popup (including the slower pacing). Committing to the task branch and merging to main.
+- Files changed: AGENT_CHANGELOG.md
+- Tests run: npm test - 103/103 pass
+- UI review: approved-by-human
+- Blockers or coordination notes: --no-ff merge to main per GitFlow. master_timeline_GM_internal.md left untouched/unstaged.

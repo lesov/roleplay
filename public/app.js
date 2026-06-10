@@ -14,6 +14,7 @@ import {
 import { runCharacterWizard } from "./character/wizard.js";
 import { renderCharacterSheet } from "./character/sheet.js";
 import { getWeather } from "./weather.js";
+import { journeyDurationMs, vignetteForProgress, journeyStage } from "./travelJourney.js";
 
 const state = {
   player: null,
@@ -33,6 +34,16 @@ const elements = {
   sheetOverlay: document.querySelector("#sheet-overlay"),
   sheetBody: document.querySelector("#sheet-body"),
   sheetClose: document.querySelector("#sheet-close"),
+  travelOverlay: document.querySelector("#travel-overlay"),
+  travelStage: document.querySelector("#travel-stage"),
+  travelTitle: document.querySelector("#travel-title"),
+  travelMarker: document.querySelector("#travel-marker"),
+  travelOrigin: document.querySelector("#travel-origin"),
+  travelDest: document.querySelector("#travel-dest"),
+  travelProgress: document.querySelector("#travel-progress"),
+  travelVignette: document.querySelector("#travel-vignette"),
+  travelMeta: document.querySelector("#travel-meta"),
+  travelSkip: document.querySelector("#travel-skip"),
   characterName: document.querySelector("#character-name"),
   characterSummary: document.querySelector("#character-summary"),
   viewSheet: document.querySelector("#view-sheet"),
@@ -112,13 +123,91 @@ async function refreshWorldState() {
   state.worldState = await response.json();
 }
 
+let journeyInProgress = false;
+
+// Plays the travel popup: an origin->destination line with the marker advancing,
+// rotating en-route lore, and a wait proportional to mileage. Resolves on
+// completion or when the player clicks "Skip ahead".
+function runJourneyAnimation({ origin, destination, route, departTime, arriveTime }) {
+  return new Promise((resolve) => {
+    const duration = journeyDurationMs(route.miles);
+    const vignettes = route.journey?.vignettes || [route.safeSummary];
+    const weather = getWeather({
+      regionId: destination.region,
+      year: arriveTime.year,
+      dayOfYear: arriveTime.dayOfYear
+    });
+
+    elements.travelTitle.textContent = `${origin.name} → ${destination.name}`;
+    elements.travelOrigin.textContent = origin.name;
+    elements.travelDest.textContent = destination.name;
+    elements.travelMeta.textContent =
+      `${route.miles} miles on foot over the ${route.journey?.terrain || "open road"}. ` +
+      `Set out ${formatCalendarTime(departTime)}; arrival ${formatCalendarTime(arriveTime)}. ` +
+      `Skies ahead: ${weather.condition.label.toLowerCase()}, ${weather.temperature.label.toLowerCase()}.`;
+    elements.travelSkip.textContent = "Skip ahead";
+    elements.travelMarker.style.left = "0%";
+    elements.travelOverlay.hidden = false;
+
+    let rafId = null;
+    let startTs = null;
+    let finished = false;
+
+    function finish() {
+      if (finished) {
+        return;
+      }
+      finished = true;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      elements.travelSkip.removeEventListener("click", finish);
+      elements.travelOverlay.hidden = true;
+      resolve();
+    }
+
+    elements.travelSkip.addEventListener("click", finish);
+
+    function frame(ts) {
+      if (startTs === null) {
+        startTs = ts;
+      }
+      const progress = Math.min(1, (ts - startTs) / duration);
+      elements.travelMarker.style.left = `${progress * 100}%`;
+      elements.travelStage.textContent = journeyStage(progress);
+      elements.travelVignette.textContent = vignetteForProgress(vignettes, progress);
+      const milesDone = Math.round(route.miles * progress);
+      elements.travelProgress.textContent = `${Math.round(progress * 100)}% — ${milesDone} of ${route.miles} miles`;
+
+      if (progress >= 1) {
+        elements.travelSkip.textContent = "Arrive";
+        setTimeout(finish, 600);
+        return;
+      }
+      rafId = requestAnimationFrame(frame);
+    }
+
+    rafId = requestAnimationFrame(frame);
+  });
+}
+
 async function travelTo(cityId) {
+  if (journeyInProgress) {
+    return;
+  }
   const origin = cityById(state.currentCityId);
   const destination = cityById(cityId);
   const route = routeByCities(origin.id, destination.id);
   const pace = state.data.travelPace;
   const travelMinutes = travelMinutesForMiles(route.miles, pace.milesPerHour);
-  state.currentTime = advanceWalkingTravel(state.currentTime, travelMinutes, pace);
+  const departTime = state.currentTime;
+  const arriveTime = advanceWalkingTravel(state.currentTime, travelMinutes, pace);
+
+  journeyInProgress = true;
+  await runJourneyAnimation({ origin, destination, route, departTime, arriveTime });
+  journeyInProgress = false;
+
+  state.currentTime = arriveTime;
   state.currentCityId = cityId;
   state.selectedLocationId = null;
   await refreshWorldState();
