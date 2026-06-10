@@ -1303,3 +1303,110 @@ h2 {
   font-size: 0.95rem;
   line-height: 1.5;
 }
+
+/* Travel journey popup */
+
+.travel-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background: rgba(8, 10, 11, 0.8);
+  z-index: 130;
+}
+
+.travel-modal {
+  width: 100%;
+  max-width: 540px;
+  padding: 28px 30px 24px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(27, 31, 34, 0.98);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.travel-eyebrow {
+  margin: 0 0 6px;
+  color: var(--accent-strong);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.travel-modal h2 {
+  margin: 0 0 22px;
+  font-size: 1.5rem;
+}
+
+.travel-track {
+  position: relative;
+  height: 24px;
+  margin: 0 6px;
+}
+
+.travel-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, var(--accent), var(--road));
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+.travel-marker {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  color: var(--accent-strong);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: left 0.08s linear;
+  text-shadow: 0 0 8px rgba(227, 183, 95, 0.6);
+}
+
+.travel-ends {
+  display: flex;
+  justify-content: space-between;
+  margin: 6px 2px 0;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.82rem;
+}
+
+.travel-progress {
+  margin: 14px 0 0;
+  color: var(--accent-strong);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.travel-vignette {
+  min-height: 3.2em;
+  margin: 14px 0 0;
+  color: #ddd1bd;
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.travel-meta {
+  margin: 12px 0 18px;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+#travel-skip {
+  min-width: 160px;
+}

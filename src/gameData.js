@@ -105,7 +105,15 @@ export const gameData = {
       hazards: ["Vilhon toll posts", "mercenary escorts", "rival city agents"],
       safetyTags: ["southern", "trade", "religious"],
       safeSummary:
-        "The Vilhon road is busy enough to find company, but every shrine, bridge, and counting-house has a watcher."
+        "The Vilhon road is busy enough to find company, but every shrine, bridge, and counting-house has a watcher.",
+      journey: {
+        terrain: "watched Vilhon temple-road",
+        vignettes: [
+          "The road runs thick with pilgrims and toll-clerks at first, past wayshrines of Torm where templars note who passes and who pays.",
+          "Inland the country opens into terraced Vilhon farmland, vineyards and olive groves broken by bridge-forts where local lords levy their cut.",
+          "Toward the marble outskirts the traffic turns sharp-eyed and mercantile, every caravan weighing whether your business helps or threatens its own."
+        ]
+      }
     },
     "arrabar:selgaunt": {
       miles: 640,
@@ -113,7 +121,15 @@ export const gameData = {
       hazards: ["long caravan stages", "political scrutiny", "thin rural patrols"],
       safetyTags: ["trade", "religious", "coastal"],
       safeSummary:
-        "Merchant traffic keeps the road alive, though temple agents and Sembian factors both take careful note of strangers."
+        "Merchant traffic keeps the road alive, though temple agents and Sembian factors both take careful note of strangers.",
+      journey: {
+        terrain: "northern coast trade road",
+        vignettes: [
+          "The way hugs the Sea of Fallen Stars, salt wind off the water and Sembian carracks standing out on the swells beyond the dunes.",
+          "Long empty caravan stages stretch between coastal towns, where thin patrols and roadside factors both keep one eye on every stranger's purse.",
+          "Nearer the counting-house country the milestones grow frequent and the inns expensive, and clerks tally traffic as if commerce itself were the law."
+        ]
+      }
     },
     "cimbar:soorenar": {
       miles: 430,
@@ -121,7 +137,15 @@ export const gameData = {
       hazards: ["contested claims", "city-state patrols", "hired blades"],
       safetyTags: ["southern", "trade"],
       safeSummary:
-        "This is the road every claimant watches; travel is possible, but neutrality is hard to prove near Soorenar."
+        "This is the road every claimant watches; travel is possible, but neutrality is hard to prove near Soorenar.",
+      journey: {
+        terrain: "contested Chessentan road",
+        vignettes: [
+          "Beyond the dueling-yards the road threads a patchwork of rival claims, each village flying whichever banner last frightened it.",
+          "Hired blades and city-state patrols shadow the traveler across disputed fields, none of them certain whose coin you carry.",
+          "Closer to the disputed crown the checkpoints multiply, every guard hunting the word that proves you are not Cormyr's creature."
+        ]
+      }
     },
     "cimbar:velprintalar": {
       miles: 780,
@@ -129,7 +153,15 @@ export const gameData = {
       hazards: ["empty frontier roads", "war refugees", "eastern scouts"],
       safetyTags: ["eastern", "coastal", "wilderness"],
       safeSummary:
-        "The eastern crossing is long, exposed, and full of rumors from Thay's frontier."
+        "The eastern crossing is long, exposed, and full of rumors from Thay's frontier.",
+      journey: {
+        terrain: "exposed eastern frontier crossing",
+        vignettes: [
+          "The road empties quickly into long, lonely frontier, the comforts of Chessenta falling away behind dust and silence.",
+          "Mile after exposed mile crosses scrub and broken country, sharing the way with war refugees moving west and scouts who do not.",
+          "At last Aglarond's watchtowers smudge the haze ahead, grim and watchful, with Thay's frontier a cold rumor just beyond them."
+        ]
+      }
     },
     "eltabbar:velprintalar": {
       miles: 360,
@@ -137,7 +169,15 @@ export const gameData = {
       hazards: ["border skirmishes", "Red Wizard patrols", "haunted battlefields"],
       safetyTags: ["eastern", "wilderness"],
       safeSummary:
-        "Aglarond's shield holds for now, but the road toward Thay is no place for careless travelers."
+        "Aglarond's shield holds for now, but the road toward Thay is no place for careless travelers.",
+      journey: {
+        terrain: "haunted Thayan border march",
+        vignettes: [
+          "The march begins among ward-stones and the lacquered patrols of the Red Wizards, who measure travelers the way one measures cattle.",
+          "The road crosses old battlefields where the grass grows wrong and the locals will not camp, ash still grey in the hollows.",
+          "Near the embattled line Aglarond's soldiers hold their wards drawn, trusting no one who comes out of the east unannounced."
+        ]
+      }
     },
     "selgaunt:suzail": {
       miles: 260,
@@ -145,7 +185,15 @@ export const gameData = {
       hazards: ["customs posts", "royal patrols", "merchant spies"],
       safetyTags: ["trade", "northern", "patrolled"],
       safeSummary:
-        "Cormyrean patrols and Sembian ledgers keep this road orderly, which also means every traveler is noticed."
+        "Cormyrean patrols and Sembian ledgers keep this road orderly, which also means every traveler is noticed.",
+      journey: {
+        terrain: "patrolled Sembia-Cormyr coast road",
+        vignettes: [
+          "The way runs orderly and well-paved from the start, Sembian milestones giving way to the first purple-cloaked riders.",
+          "Customs posts and Purple Dragon patrols keep the road safe and watched in equal measure, every cart logged and every face noted.",
+          "Under the banners of the Forest Kingdom the country turns green and disciplined, fields and forest eaves tended like a soldier's kit."
+        ]
+      }
     }
   },
   topicLabels: {
