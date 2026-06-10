@@ -1,4 +1,5 @@
 const LOCATION_CONTACT_NAMES = {
+  "marble-agora": "Nerissa Vhal",
   "sand-court": "Nymor Phoros",
   "duelists-salle": "Master Rhelos Ankar",
   "forum-of-orators": "Dathia Merrow",
@@ -7,18 +8,22 @@ const LOCATION_CONTACT_NAMES = {
   "hall-of-lineages": "Archivist Sella Vant",
   "shuttered-market": "Mira Haless",
   "old-royal-wall": "Watch-Captain Orsik",
+  "vigilant-market": "Mara Duskane",
   "high-temple": "Canon Vaelis Dorn",
   "templar-barracks": "Marshal Sereth Korr",
   "tithe-house": "Ledger-Priest Odran",
   "pilgrim-quay": "Sister Calitha",
+  "grain-ledger-market": "Ostel Mraer",
   "great-counting-house": "Factor Brelan Morn",
   "carrack-wharves": "Harbor Clerk Tessae",
   "merchant-villa": "Steward Imbrar Sann",
   "contract-court": "Arbiter Jalen Vorr",
+  "crown-market": "Bethaern Lhest",
   "royal-court": "Court Usher Elian",
   "war-wizards-college": "Scribe Amlar",
   "purple-dragon-barracks": "Sergeant Kael Drann",
   "royal-harbor": "Harbormaster Lysaer",
+  "shieldmarket": "Ivara Moss",
   "watchtower-wall": "Warden Thaela",
   "war-mages-hall": "Magister Corun",
   "refugee-quays": "Dock-Healer Sellae",
@@ -230,6 +235,13 @@ export const gameData = {
         }
       }, [
         {
+          id: "marble-agora",
+          name: "The Marble Agora",
+          category: "Market",
+          description:
+            "Cimbar's broad market square is bright with dyed awnings, bronze scales, and hired guards leaning too casually against the stalls. Olive oil, horse grain, practice blades, and imported steel all move briskly here, while foreign factors and mercenary buyers pretend not to watch one another's ledgers."
+        },
+        {
           id: "sand-court",
           name: "The Sand Court",
           category: "Arena",
@@ -304,7 +316,7 @@ export const gameData = {
           name: "The Shuttered Market",
           category: "Market",
           description:
-            "A square that does brisk trade behind half-closed shutters, as though commerce itself were best done quietly. The vendors price strangers higher and remember their faces longer."
+            "A square that does brisk trade behind half-closed shutters, as though commerce itself were best done quietly. Household stewards buy grain, oil, and spare spearheads in careful lots while claimant-agents drift from stall to stall, making prices rise whenever a signet ring shows too plainly."
         },
         {
           id: "old-royal-wall",
@@ -341,6 +353,13 @@ export const gameData = {
             "Arrabar forgives many sins after confession. Bad accounting is not one of them."
         }
       }, [
+        {
+          id: "vigilant-market",
+          name: "The Vigilant Market",
+          category: "Market",
+          description:
+            "Arrabar's market gathers under temple bells, where fish, incense, bolts of linen, and pilgrim tokens are weighed beside tithe ledgers. Tormtar clerks watch the grain stalls with holy patience, and merchants speak softly when sealed packets from Selgaunt or Cimbar change which cargos are held back."
+        },
         {
           id: "high-temple",
           name: "The High Temple of Torm",
@@ -398,6 +417,13 @@ export const gameData = {
         }
       }, [
         {
+          id: "grain-ledger-market",
+          name: "The Grain Ledger Market",
+          category: "Market",
+          description:
+            "This Selgauntan market looks less like a square than a ledger made flesh: grain sacks, wool bales, salt barrels, and cargo warrants passing through a dozen hands before noon. Warehouse agents are paying too well for staples, which tells the experienced vendors that someone expects shortage, war, or profit from both."
+        },
+        {
           id: "great-counting-house",
           name: "The Great Counting-House",
           category: "Counting-House",
@@ -454,6 +480,13 @@ export const gameData = {
         }
       }, [
         {
+          id: "crown-market",
+          name: "The Crown Market",
+          category: "Market",
+          description:
+            "Suzail's orderly market runs on stamped weights, licensed stalls, and the steady presence of Purple Dragon patrols. The best leather, horse feed, sailcloth, and salt meat vanish first into royal contracts, leaving ordinary buyers to read the realm's ambitions in higher prices and brisk quartermaster smiles."
+        },
+        {
           id: "royal-court",
           name: "The Royal Court",
           category: "Royal Court",
@@ -509,6 +542,13 @@ export const gameData = {
             "Velprintalar welcomes help, mistrusts strangers, and has learned that both habits keep people alive."
         }
       }, [
+        {
+          id: "shieldmarket",
+          name: "The Shieldmarket",
+          category: "Market",
+          description:
+            "Velprintalar's market huddles behind wards and watchtowers, selling smoked fish, pine resin, patched cloaks, and whatever refugee boats can spare. Prices jump whenever eastern scouts ride in, and every trader keeps one eye on the road to Thay and the other on families counting their last coin."
+        },
         {
           id: "watchtower-wall",
           name: "The Watchtower Wall",
@@ -577,7 +617,7 @@ export const gameData = {
           name: "The Slave Market",
           category: "Market",
           description:
-            "A grim plaza where Thay trades the bodies that fuel its endless ambitions, conducted with the cold efficiency of a grain exchange. Foreigners are advised to keep their eyes down and their papers in order."
+            "A grim plaza where Thay trades the bodies that fuel its endless ambitions, conducted with the cold efficiency of a grain exchange. Chains, old sea charts, and campaign stores change hands under red-robed oversight, and foreigners are advised to keep their eyes down, their papers ready, and their pity hidden."
         },
         {
           id: "canal-wharves",
