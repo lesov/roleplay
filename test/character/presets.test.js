@@ -22,6 +22,8 @@ for (const preset of presets) {
     const { character, errors } = assembleCharacter(rules, preset.selections);
     assert.equal(errors, undefined, errors ? errors.join("; ") : "");
     assert.ok(character.name);
+    assert.ok(preset.selections.appearance?.trim(), "preset must include appearance text");
+    assert.ok(character.appearance, "assembled preset must expose appearance text");
     assert.ok(character.race.label);
     assert.ok(character.class.label);
     assert.ok(character.background.label);

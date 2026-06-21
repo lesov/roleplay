@@ -21,6 +21,20 @@
       </div>
     </div>
 
+    <div id="narrator-overlay" class="sheet-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="narrator-title">
+      <div class="sheet-modal narrator-modal">
+        <div class="sheet-modal-header">
+          <h2 id="narrator-title">Narrator Brief</h2>
+          <button class="icon-button" id="narrator-close" type="button" title="Close" aria-label="Close narrator brief">x</button>
+        </div>
+        <textarea id="narrator-text" class="narrator-text" readonly aria-label="Copyable narrator brief"></textarea>
+        <div class="narrator-actions">
+          <p id="narrator-status" class="narrator-status" aria-live="polite"></p>
+          <button class="text-button" id="narrator-copy" type="button">Copy</button>
+        </div>
+      </div>
+    </div>
+
     <div id="travel-overlay" class="travel-overlay" hidden role="dialog" aria-modal="true" aria-label="Journey in progress">
       <div class="travel-modal">
         <p class="travel-eyebrow" id="travel-stage"></p>
@@ -64,7 +78,10 @@
               <p class="eyebrow">Adventurer</p>
               <h2 id="character-name"></h2>
             </div>
-            <button class="text-button" id="view-sheet" type="button">View sheet</button>
+            <div class="panel-actions">
+              <button class="text-button" id="narrator-brief" type="button">Narrator brief</button>
+              <button class="text-button" id="view-sheet" type="button">View sheet</button>
+            </div>
           </div>
           <p id="character-summary"></p>
         </div>

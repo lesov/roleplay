@@ -203,6 +203,13 @@ h2 {
   text-align: right;
 }
 
+.panel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
 .button-grid {
   display: grid;
   gap: 10px;
@@ -864,6 +871,12 @@ h2 {
   font: inherit;
 }
 
+.wiz-textarea {
+  min-height: 120px;
+  line-height: 1.45;
+  resize: vertical;
+}
+
 .wiz-input:focus,
 .wiz-assign-select:focus {
   outline: 3px solid var(--accent-strong);
@@ -962,6 +975,44 @@ h2 {
 
 .sheet-modal-header h2 {
   margin: 0;
+}
+
+.narrator-modal {
+  grid-template-rows: auto minmax(280px, 1fr) auto;
+}
+
+.narrator-text {
+  width: calc(100% - 36px);
+  min-height: 360px;
+  margin: 18px 18px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--ink);
+  font: 0.88rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  resize: vertical;
+}
+
+.narrator-text:focus {
+  outline: 3px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+.narrator-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px 18px;
+}
+
+.narrator-status {
+  min-height: 1.2em;
+  margin: 0;
+  color: var(--muted);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.85rem;
 }
 
 #sheet-body {

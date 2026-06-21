@@ -20,6 +20,7 @@ export const presets = [
       languageChoices: ["dwarvish"],
       equipmentChoices: { armor: "chain-mail", weapon: "martial-shield", ranged: "handaxes", pack: "explorers" },
       alignmentId: "lawful-good",
+      appearance: "Broad-shouldered and square-jawed, Garrick keeps his dark hair cropped close and his beard shaved to stubble. A pale saber scar cuts across his left cheek, his shield hand is missing the tip of one finger, and his kit is brushed clean even when the road is mud. He stands at attention without noticing it and checks doorways before he sits.",
       personality: {
         trait: "I'm always polite and respectful.",
         ideal: "Responsibility: I do what I must and obey just authority.",
@@ -47,6 +48,7 @@ export const presets = [
       languageChoices: ["celestial", "infernal"],
       equipmentChoices: { weapon: "mace", armor: "scale", ranged: "crossbow", pack: "priests" },
       alignmentId: "lawful-good",
+      appearance: "Dural is stout even for a dwarf, with warm brown eyes, a copper beard braided around small brass prayer rings, and hands scrubbed raw from temple work. His vestments smell faintly of clean wool, beeswax, and incense. He taps two fingers against his holy symbol before speaking and hums old hymns while tending wounds.",
       personality: {
         trait: "I see omens in every event and action.",
         ideal: "Charity: I always try to help those in need.",
@@ -74,6 +76,7 @@ export const presets = [
       languageChoices: ["draconic", "dwarvish"],
       equipmentChoices: { weapon: "quarterstaff", focus: "arcane", pack: "scholars" },
       alignmentId: "neutral-good",
+      appearance: "Aelar is tall and slender, with moon-pale hair, gray-violet eyes, and ink stains that never quite leave his fingertips. His robes are neatly patched rather than fine, and a thin burn scar marks one wrist from an experiment gone wrong. He speaks with careful precision, blinks slowly when interrupted, and absentmindedly smells old parchment before reading it.",
       personality: {
         trait: "I use polysyllabic words that convey the impression of great erudition.",
         ideal: "Knowledge: The path to power and self-improvement is through knowledge.",
@@ -99,6 +102,7 @@ export const presets = [
       expertise: ["stealth", "perception"],
       equipmentChoices: { weapon: "rapier", ranged: "shortbow", pack: "burglars" },
       alignmentId: "chaotic-neutral",
+      appearance: "Pippa is small even by halfling standards, with sharp hazel eyes, chestnut curls tucked under a soft cap, and a nicked left ear she hides when nervous. Her clothes are tidy but full of hidden pockets, and one glove covers a crooked little finger that healed badly. She picks at loose threads, grins too quickly, and can never keep her hands still around valuables.",
       personality: {
         trait: "I always have a plan for what to do when things go wrong.",
         ideal: "Freedom: Chains are meant to be broken.",
@@ -127,6 +131,7 @@ export const presets = [
       languageChoices: ["elvish"],
       equipmentChoices: { weapon: "rapier", pack: "entertainers" },
       alignmentId: "chaotic-good",
+      appearance: "Lyric has bright green eyes, warm brown skin, and black hair worn in oiled waves pinned with tiny silver bells. Their clothes are colorful, mended with theatrical flair, and usually carry a trace of rose perfume and pipe smoke. They polish their nails before performances, practice smiles in reflective glass, and stammer only when speaking honestly.",
       personality: {
         trait: "I know a story relevant to almost every situation.",
         ideal: "Beauty: When I perform, I make the world better than it was.",
@@ -151,6 +156,7 @@ export const presets = [
       languageChoices: ["giant"],
       equipmentChoices: { "weapon-a": "greataxe", "weapon-b": "handaxes" },
       alignmentId: "chaotic-neutral",
+      appearance: "Grosh towers over most folk, with gray-green skin, heavy tusks, amber eyes, and a broken nose that never set straight. Old claw marks cross his ribs and one ear is torn nearly in half. He smells of smoke, sweat, and crushed bitterleaf, which he chews when thinking, and he scratches at old scars whenever a room gets too quiet.",
       personality: {
         trait: "I'm driven by a wanderlust that led me away from home.",
         ideal: "Glory: I must earn glory in battle, for myself and my clan.",

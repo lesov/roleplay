@@ -161,6 +161,13 @@ export function renderCharacterSheet(container, character) {
     root.append(featSection);
   }
 
+  // Appearance & habits
+  if (character.appearance) {
+    const appearanceSection = section("Appearance & Habits");
+    appearanceSection.append(el("p", "sheet-line", character.appearance));
+    root.append(appearanceSection);
+  }
+
   // Personality
   const p = character.personality || {};
   if (p.trait || p.ideal || p.bond || p.flaw) {

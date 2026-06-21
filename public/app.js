@@ -14,6 +14,7 @@ import {
 import { runCharacterWizard } from "./character/wizard.js";
 import { renderCharacterSheet } from "./character/sheet.js";
 import { getWeather } from "./weather.js";
+import { buildNarratorBrief } from "./narratorExport.js";
 import { journeyDurationMs, vignetteForProgress, journeyStage } from "./travelJourney.js";
 import { computeRouteSegments, segmentForProgress } from "./routeSegments.js";
 
@@ -35,6 +36,12 @@ const elements = {
   sheetOverlay: document.querySelector("#sheet-overlay"),
   sheetBody: document.querySelector("#sheet-body"),
   sheetClose: document.querySelector("#sheet-close"),
+  narratorOverlay: document.querySelector("#narrator-overlay"),
+  narratorClose: document.querySelector("#narrator-close"),
+  narratorText: document.querySelector("#narrator-text"),
+  narratorCopy: document.querySelector("#narrator-copy"),
+  narratorStatus: document.querySelector("#narrator-status"),
+  narratorBrief: document.querySelector("#narrator-brief"),
   travelOverlay: document.querySelector("#travel-overlay"),
   travelStage: document.querySelector("#travel-stage"),
   travelTitle: document.querySelector("#travel-title"),
@@ -115,6 +122,43 @@ function renderLog() {
       return item;
     })
   );
+}
+
+function currentWeather(city) {
+  return getWeather({
+    regionId: city.region,
+    year: state.currentTime.year,
+    dayOfYear: state.currentTime.dayOfYear
+  });
+}
+
+function travelOptionsForBrief(city) {
+  return city.connections.map((connectionId) => {
+    const destination = cityById(connectionId);
+    const route = routeByCities(city.id, connectionId);
+    const safety = assessRouteSafety(route, knownWorldState(state.knowledge));
+    return {
+      destinationName: destination.name,
+      duration: `${formatWalkingDuration(route.miles, state.data.travelPace)} on foot`,
+      safetyLevel: safety.level,
+      safetySummary: safety.summary
+    };
+  });
+}
+
+function createNarratorBrief() {
+  const city = cityById(state.currentCityId);
+  return buildNarratorBrief({
+    purpose: "scene",
+    party: state.player ? [state.player] : [],
+    city,
+    selectedLocation: selectedLocation(city),
+    timeLabel: formatCalendarTime(state.currentTime),
+    weather: currentWeather(city),
+    knownRumors: state.knowledge.knownEvents,
+    logEntries: state.logEntries,
+    travelOptions: travelOptionsForBrief(city)
+  });
 }
 
 async function refreshWorldState() {
@@ -465,11 +509,7 @@ function renderMap() {
 }
 
 function renderWeather(city) {
-  const weather = getWeather({
-    regionId: city.region,
-    year: state.currentTime.year,
-    dayOfYear: state.currentTime.dayOfYear
-  });
+  const weather = currentWeather(city);
   const badge = document.createElement("span");
   badge.className = `weather-badge weather-${weather.condition.id}`;
   badge.textContent = `${weather.condition.label} · ${weather.temperature.label}`;
@@ -529,6 +569,34 @@ elements.sheetClose.addEventListener("click", () => {
 
 elements.sheetOverlay.addEventListener("click", (e) => {
   if (e.target === elements.sheetOverlay) elements.sheetOverlay.hidden = true;
+});
+
+elements.narratorBrief.addEventListener("click", () => {
+  elements.narratorText.value = createNarratorBrief();
+  elements.narratorStatus.textContent = "";
+  elements.narratorOverlay.hidden = false;
+  elements.narratorText.focus();
+  elements.narratorText.select();
+});
+
+elements.narratorClose.addEventListener("click", () => {
+  elements.narratorOverlay.hidden = true;
+});
+
+elements.narratorOverlay.addEventListener("click", (e) => {
+  if (e.target === elements.narratorOverlay) elements.narratorOverlay.hidden = true;
+});
+
+elements.narratorCopy.addEventListener("click", async () => {
+  const text = elements.narratorText.value;
+  try {
+    await navigator.clipboard.writeText(text);
+    elements.narratorStatus.textContent = "Copied.";
+  } catch {
+    elements.narratorText.focus();
+    elements.narratorText.select();
+    elements.narratorStatus.textContent = "Copy unavailable. Text selected for manual copy.";
+  }
 });
 
 elements.clearLog.addEventListener("click", () => {

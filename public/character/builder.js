@@ -20,6 +20,7 @@
 //     equipmentChoices: { groupId: optionId },
 //     languageChoices: [...],
 //     alignmentId,
+//     appearance,
 //     personality: { trait, ideal, bond, flaw }
 //   }
 
@@ -349,6 +350,7 @@ export function assembleCharacter(rules, selections) {
     equipment: resolvedItems.map(({ id, label, quantity }) => ({ id, label, quantity })),
     spellcasting,
     features,
+    appearance: (selections.appearance || "").trim(),
     personality: selections.personality || {}
   };
 

@@ -56,6 +56,7 @@ function createInitialSelections() {
     equipmentChoices: {},
     languageChoices: [],
     alignmentId: null,
+    appearance: "",
     personality: {}
   };
 }
@@ -148,6 +149,7 @@ export function runCharacterWizard({ rules, presets, mountId = "char-wizard", on
         selections.cantrips = selections.cantrips || [];
         selections.spells = selections.spells || [];
         selections.languageChoices = selections.languageChoices || [];
+        selections.appearance = selections.appearance || "";
         go("review");
       });
       grid.append(card);
@@ -579,6 +581,18 @@ export function runCharacterWizard({ rules, presets, mountId = "char-wizard", on
     });
     alignWrap.append(align);
     body.append(alignWrap);
+
+    const appearanceWrap = el("div", "wiz-field");
+    appearanceWrap.append(el("label", null, "Appearance & Habits"));
+    const appearance = el("textarea", "wiz-input wiz-textarea");
+    appearance.maxLength = 1200;
+    appearance.value = selections.appearance || "";
+    appearance.placeholder = "Size, build, hair, eyes, scars, missing digits, clothing, grooming, hygiene, speech, nervous habits, pipe smoke, leaf chewing, posture, and overall look.";
+    appearance.addEventListener("input", () => {
+      selections.appearance = appearance.value;
+    });
+    appearanceWrap.append(appearance);
+    body.append(appearanceWrap);
 
     // Personality from background tables
     const bg = byId(rules.backgrounds, selections.backgroundId);

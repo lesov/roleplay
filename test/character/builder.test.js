@@ -32,6 +32,7 @@ function highElfWizard() {
     equipmentChoices: { weapon: "quarterstaff", focus: "arcane", pack: "scholars" },
     languageChoices: ["draconic", "dwarvish"],
     alignmentId: "neutral-good",
+    appearance: "  Tall, pale-eyed, ink-stained, and always smelling faintly of old paper.  ",
     personality: { trait: "Curious", ideal: "Knowledge", bond: "My tome", flaw: "Distracted" }
   };
 }
@@ -107,6 +108,7 @@ test("assembleCharacter derives a complete wizard sheet", () => {
   assert.equal(arcana.bonus, 5);
   // Elf grants Perception proficiency: Wis +1 + prof +2 = +3; passive = 13
   assert.equal(character.passivePerception, 13);
+  assert.equal(character.appearance, "Tall, pale-eyed, ink-stained, and always smelling faintly of old paper.");
 });
 
 test("unarmored defense and armor AC compute correctly", () => {
