@@ -155,6 +155,7 @@ function createNarratorBrief() {
     selectedLocation: selectedLocation(city),
     timeLabel: formatCalendarTime(state.currentTime),
     weather: currentWeather(city),
+    worldState: state.worldState,
     knownRumors: state.knowledge.knownEvents,
     logEntries: state.logEntries,
     travelOptions: travelOptionsForBrief(city)

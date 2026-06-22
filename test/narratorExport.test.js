@@ -68,6 +68,35 @@ const sampleWeather = {
   description: "Clear skies stretch over the marble courts of Chessenta."
 };
 
+const sampleWorldState = {
+  factions: [
+    {
+      displayName: "Cormyr",
+      government: "Hereditary monarchy.",
+      leaders: [
+        {
+          displayName: "King Baerovus Obarskyr",
+          title: "King of Cormyr",
+          status: "active",
+          race: "Human",
+          classOrRole: "Noble Fighter",
+          publicSummary: "A young Obarskyr monarch."
+        }
+      ],
+      keyFigures: [
+        {
+          displayName: "Araleth Rowanmantle",
+          title: "Senior War Wizard",
+          status: "active",
+          race: "Human",
+          classOrRole: "Wizard",
+          publicSummary: "A cool-voiced War Wizard."
+        }
+      ]
+    }
+  ]
+};
+
 test("buildNarratorBrief includes party appearance, personality, location, weather, rumors, and log", () => {
   const brief = buildNarratorBrief({
     party: [sampleCharacter()],
@@ -75,6 +104,7 @@ test("buildNarratorBrief includes party appearance, personality, location, weath
     selectedLocation: sampleLocation,
     timeLabel: "1 Hammer 1496 DR, 08:00",
     weather: sampleWeather,
+    worldState: sampleWorldState,
     knownRumors: [{ headline: "War Stirs", summary: "Cormyr watches the eastern roads." }],
     logEntries: [{ title: "Arrival", message: "Aelar stands in Cimbar." }],
     travelOptions: [{ destinationName: "Soorenar", duration: "2 days on foot", safetyLevel: "Caution", safetySummary: "Bandit signs on the road." }]
@@ -85,6 +115,8 @@ test("buildNarratorBrief includes party appearance, personality, location, weath
   assert.match(brief, /City: Cimbar/);
   assert.match(brief, /Selected Place: The Brazen Flagon/);
   assert.match(brief, /Condition: Clear/);
+  assert.match(brief, /King Baerovus Obarskyr \(King of Cormyr\) - Human Noble Fighter/);
+  assert.match(brief, /Araleth Rowanmantle \(Senior War Wizard\) - Human Wizard/);
   assert.match(brief, /War Stirs: Cormyr watches the eastern roads\./);
   assert.match(brief, /Arrival: Aelar stands in Cimbar\./);
   assert.match(brief, /Soorenar \| 2 days on foot \| safety: Caution/);
@@ -97,6 +129,7 @@ test("buildNarratorBrief handles empty rumors and log cleanly", () => {
     selectedLocation: sampleLocation,
     timeLabel: "1 Hammer 1496 DR, 08:00",
     weather: sampleWeather,
+    worldState: { factions: [] },
     knownRumors: [],
     logEntries: [],
     travelOptions: []
@@ -122,6 +155,7 @@ test("buildNarratorBrief keeps deterministic section order", () => {
     "## Party",
     "## Current Location",
     "## Current Weather",
+    "## Known Powers And Leaders",
     "## Nearby Places And People",
     "## Known Rumors",
     "## Recent Events",

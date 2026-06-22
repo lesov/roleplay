@@ -121,6 +121,28 @@ function formatTravelOption(option) {
   ].filter(Boolean).join(" | ");
 }
 
+function formatPerson(person) {
+  const identity = [person.race, person.classOrRole].filter(Boolean).join(" ");
+  return [
+    person.displayName,
+    person.title ? `(${person.title})` : null,
+    identity ? `- ${identity}` : null,
+    person.status && person.status !== "active" ? `status: ${person.status}` : null,
+    person.publicSummary
+  ].filter(Boolean).join(" ");
+}
+
+function formatFaction(faction) {
+  const leaders = (faction.leaders || []).map(formatPerson).join("; ");
+  const keyFigures = (faction.keyFigures || []).map(formatPerson).join("; ");
+  return [
+    faction.displayName,
+    faction.government ? `government: ${faction.government}` : null,
+    leaders ? `leaders: ${leaders}` : null,
+    keyFigures ? `important figures: ${keyFigures}` : null
+  ].filter(Boolean).join(" | ");
+}
+
 export function buildNarratorBrief({
   purpose = "scene",
   instruction = DEFAULT_SCENE_INSTRUCTION,
@@ -131,7 +153,8 @@ export function buildNarratorBrief({
   weather = null,
   knownRumors = [],
   logEntries = [],
-  travelOptions = []
+  travelOptions = [],
+  worldState = null
 } = {}) {
   const sections = [
     "# Narrator Brief",
@@ -145,6 +168,10 @@ export function buildNarratorBrief({
     formatLocation({ city, selectedLocation, timeLabel }),
     "## Current Weather",
     formatWeather(weather),
+    listSection(
+      "Known Powers And Leaders",
+      (worldState?.factions || []).map(formatFaction)
+    ),
     listSection(
       "Nearby Places And People",
       selectedLocation ? [

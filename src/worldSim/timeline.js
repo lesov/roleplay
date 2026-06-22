@@ -78,7 +78,12 @@ export const timelineEvents = [
     },
     effects: {
       setFlags: ["cormyr_new_claimant", "cimbar_claim_active"],
-      factionDeltas: [{ faction: "cormyr", field: "prestige", op: "add", value: 6 }]
+      factionDeltas: [{ faction: "cormyr", field: "prestige", op: "add", value: 6 }],
+      leadership: [
+        { op: "setPersonStatus", person: "cormyr_king_baerovus", status: "dead", died: { year: 1500, cause: "hunting fall" } },
+        { op: "setPersonStatus", person: "cormyr_king_aldren", status: "active", introduced: { year: 1500 } },
+        { op: "setLeaders", faction: "cormyr", leaderIds: ["cormyr_king_aldren"] }
+      ]
     }
   },
   {
@@ -107,6 +112,10 @@ export const timelineEvents = [
       territory: [
         { faction: "chessenta", op: "remove", value: "cimbar" },
         { faction: "cormyr", op: "add", value: "cimbar" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "chessenta_duke_lyrandros", status: "deposed", deposed: { year: 1501, place: "cimbar" } },
+        { op: "setPersonStatus", person: "chessenta_heir_phaneros", status: "exiled", introduced: { year: 1501 } }
       ]
     }
   },
@@ -268,6 +277,11 @@ export const timelineEvents = [
       territory: [
         { faction: "cormyr", op: "remove", value: "cimbar" },
         { faction: "chessenta", op: "add", value: "cimbar" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "cormyr_marshal_daerov", status: "dead", died: { year: 1514, cause: "battlefield death" } },
+        { op: "setPersonStatus", person: "chessenta_heir_phaneros", status: "active", restored: { year: 1514, place: "cimbar" } },
+        { op: "setLeaders", faction: "chessenta", leaderIds: ["chessenta_heir_phaneros"] }
       ]
     }
   },
@@ -323,6 +337,11 @@ export const timelineEvents = [
       territory: [
         { faction: "chessenta", op: "remove", value: "cimbar" },
         { faction: "cormyr", op: "add", value: "cimbar" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "cormyr_king_aldren", status: "dead", died: { year: 1517, cause: "failed health" } },
+        { op: "setPersonStatus", person: "cormyr_king_corath", status: "active", introduced: { year: 1517 } },
+        { op: "setLeaders", faction: "cormyr", leaderIds: ["cormyr_king_corath"] }
       ]
     }
   },
@@ -348,6 +367,10 @@ export const timelineEvents = [
       relations: [
         { a: "cormyr", b: "grand_alliance", value: "truce" },
         { a: "cormyr", b: "sembia", value: "truce" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "amn_unifier_estavan", status: "active", introduced: { year: 1518 } },
+        { op: "addKeyFigure", faction: "grand_alliance", person: "amn_unifier_estavan" }
       ]
     }
   },
@@ -374,6 +397,11 @@ export const timelineEvents = [
         { faction: "church_state", field: "treasury", op: "sub", value: 12 },
         { faction: "church_state", field: "prestige", op: "sub", value: 12 },
         { faction: "dalelands", field: "treasury", op: "add", value: 10 }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "church_reformer_caladorn", status: "active", introduced: { year: 1519 } },
+        { op: "addKeyFigure", faction: "church_state", person: "church_reformer_caladorn" },
+        { op: "addKeyFigure", faction: "dalelands", person: "church_reformer_caladorn" }
       ]
     }
   },
@@ -403,6 +431,12 @@ export const timelineEvents = [
       relations: [
         { a: "grand_alliance", b: "amn", value: "ally" },
         { a: "grand_alliance", b: "sembia", value: "ally" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "grand_alliance_overlord_aerovar", status: "active", introduced: { year: 1521 } },
+        { op: "setPersonStatus", person: "amn_captain_roder", status: "active", introduced: { year: 1521 } },
+        { op: "setLeaders", faction: "grand_alliance", leaderIds: ["grand_alliance_overlord_aerovar"] },
+        { op: "addKeyFigure", faction: "maztica", person: "amn_captain_roder" }
       ]
     }
   },
@@ -480,6 +514,9 @@ export const timelineEvents = [
         { faction: "cormyr", field: "armyStrength", op: "mul", value: 0.55 },
         { faction: "cormyr", field: "prestige", op: "sub", value: 22 },
         { faction: "grand_alliance", field: "prestige", op: "add", value: 12 }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "cormyr_king_corath", status: "captured", captured: { year: 1527, place: "cimbar" } }
       ]
     }
   },
@@ -510,6 +547,9 @@ export const timelineEvents = [
       territory: [
         { faction: "aglarond", op: "remove", value: "velprintalar" },
         { faction: "thay", op: "add", value: "velprintalar" }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "aglarond_queen_lurathra", status: "dead", died: { year: 1528, cause: "battlefield death" } }
       ]
     }
   },
@@ -535,6 +575,9 @@ export const timelineEvents = [
       factionDeltas: [
         { faction: "church_state", field: "prestige", op: "sub", value: 28 },
         { faction: "grand_alliance", field: "prestige", op: "sub", value: 10 }
+      ],
+      leadership: [
+        { op: "setPersonStatus", person: "church_high_justiciar_maelra", status: "humiliated" }
       ]
     }
   },
@@ -582,7 +625,10 @@ export const timelineEvents = [
     },
     effects: {
       setFlags: ["alliance_leader_crowned"],
-      relations: [{ a: "church_state", b: "grand_alliance", value: "ally" }]
+      relations: [{ a: "church_state", b: "grand_alliance", value: "ally" }],
+      leadership: [
+        { op: "setPersonStatus", person: "grand_alliance_overlord_aerovar", status: "crowned" }
+      ]
     }
   },
   {

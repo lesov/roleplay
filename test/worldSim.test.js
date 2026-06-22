@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { factions } from "../src/worldSim/factions.js";
+import { people } from "../src/worldSim/people.js";
 import {
   dayOfYearForFestival,
   dayOfYearForMonthDay,
@@ -25,6 +26,38 @@ test("all faction relations point to known factions", () => {
   for (const faction of Object.values(factions)) {
     for (const factionId of Object.keys(faction.relations)) {
       assert.ok(factions[factionId], `${faction.id} has a relation to missing ${factionId}`);
+    }
+  }
+});
+
+test("all factions have valid public leadership references", () => {
+  for (const faction of Object.values(factions)) {
+    assert.ok(faction.government, `${faction.id} needs a government description`);
+    assert.ok(faction.leaderIds?.length > 0, `${faction.id} needs at least one leader`);
+
+    for (const personId of [...(faction.leaderIds || []), ...(faction.keyFigureIds || [])]) {
+      assert.ok(people[personId], `${faction.id} references missing person ${personId}`);
+    }
+  }
+});
+
+test("all people point to known factions and expose race/class when known", () => {
+  for (const person of Object.values(people)) {
+    assert.ok(factions[person.factionId], `${person.id} points to missing faction ${person.factionId}`);
+    assert.equal("gmNotes" in person, true, `${person.id} should keep private notes explicit`);
+    if (person.race != null) assert.equal(typeof person.race, "string", `${person.id} race must be a string or null`);
+    if (person.classOrRole != null) assert.equal(typeof person.classOrRole, "string", `${person.id} classOrRole must be a string or null`);
+  }
+});
+
+test("timeline leadership effects reference known factions and people", () => {
+  for (const event of timelineEvents) {
+    for (const change of event.effects?.leadership || []) {
+      if (change.faction) assert.ok(factions[change.faction], `${event.id} references missing faction ${change.faction}`);
+      if (change.person) assert.ok(people[change.person], `${event.id} references missing person ${change.person}`);
+      for (const personId of change.leaderIds || []) {
+        assert.ok(people[personId], `${event.id} sets missing leader ${personId}`);
+      }
     }
   }
 });
@@ -73,6 +106,7 @@ test("world state advances on schedule with no player input", () => {
   }
 
   assertNoScaffoldLeak(state);
+  assert.equal(JSON.stringify(state).includes("gmNotes"), false, "public world state must not expose gmNotes");
 });
 
 test("early world state exposes only current public news", () => {
@@ -110,4 +144,45 @@ test("festival timeline events fire on their festival date", () => {
 
   assert.equal(before.flags.includes("first_grand_alliance_forms"), false);
   assert.equal(after.flags.includes("first_grand_alliance_forms"), true);
+});
+
+test("world state exposes current leaders with race and class or role", () => {
+  const state = simulateWorldState({ year: 1496, dayOfYear: 1 });
+  const cormyr = state.factions.find((faction) => faction.id === "cormyr");
+  assert.equal(cormyr.leaders[0].displayName, "King Baerovus Obarskyr");
+  assert.equal(cormyr.leaders[0].race, "Human");
+  assert.equal(cormyr.leaders[0].classOrRole, "Noble Fighter");
+  assert.equal("gmNotes" in cormyr.leaders[0], false);
+});
+
+test("timeline leadership changes update public leaders and statuses", () => {
+  const after1500 = simulateWorldState({
+    year: 1500,
+    dayOfYear: dayOfYearForMonthDay(1500, "Tarsakh", 1)
+  });
+  const cormyr1500 = after1500.factions.find((faction) => faction.id === "cormyr");
+  assert.equal(cormyr1500.leaders[0].displayName, "King Aldren Obarskyr");
+
+  const after1517 = simulateWorldState({
+    year: 1517,
+    dayOfYear: dayOfYearForMonthDay(1517, "Eleint", 13)
+  });
+  const cormyr1517 = after1517.factions.find((faction) => faction.id === "cormyr");
+  assert.equal(cormyr1517.leaders[0].displayName, "King Corath Obarskyr");
+  assert.equal(cormyr1517.leaders[0].status, "active");
+
+  const after1527 = simulateWorldState({
+    year: 1527,
+    dayOfYear: dayOfYearForMonthDay(1527, "Alturiak", 24)
+  });
+  const cormyr1527 = after1527.factions.find((faction) => faction.id === "cormyr");
+  assert.equal(cormyr1527.leaders[0].status, "captured");
+
+  const after1528 = simulateWorldState({
+    year: 1528,
+    dayOfYear: dayOfYearForMonthDay(1528, "Eleasis", 29)
+  });
+  const aglarond = after1528.factions.find((faction) => faction.id === "aglarond");
+  assert.equal(aglarond.leaders[0].displayName, "Queen Lurathra Aerlonde");
+  assert.equal(aglarond.leaders[0].status, "dead");
 });

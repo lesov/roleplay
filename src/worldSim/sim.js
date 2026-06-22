@@ -1,4 +1,5 @@
 import { cloneFactions } from "./factions.js";
+import { clonePeople } from "./people.js";
 import { timelineEvents } from "./timeline.js";
 
 const CAMPAIGN_START_YEAR = 1496;
@@ -139,6 +140,36 @@ function applyTerritory(factions, territoryChange) {
   }
 }
 
+function addUnique(list, value) {
+  if (!list.includes(value)) {
+    list.push(value);
+  }
+}
+
+function removeValue(list, value) {
+  return list.filter((entry) => entry !== value);
+}
+
+function applyLeadership(state, change) {
+  const faction = state.factions[change.faction];
+  const person = state.people[change.person];
+
+  if (change.op === "setLeaders" && faction) {
+    faction.leaderIds = [...(change.leaderIds || [])];
+  } else if (change.op === "addKeyFigure" && faction && change.person) {
+    addUnique(faction.keyFigureIds, change.person);
+  } else if (change.op === "removeKeyFigure" && faction && change.person) {
+    faction.keyFigureIds = removeValue(faction.keyFigureIds, change.person);
+  } else if (change.op === "setPersonStatus" && person) {
+    person.status = change.status;
+    if (change.died) person.died = change.died;
+    if (change.captured) person.captured = change.captured;
+    if (change.deposed) person.deposed = change.deposed;
+    if (change.restored) person.restored = change.restored;
+    if (change.introduced) person.introduced = change.introduced;
+  }
+}
+
 function applyEvent(state, event) {
   const effects = event.effects || {};
 
@@ -157,12 +188,39 @@ function applyEvent(state, event) {
   for (const territoryChange of effects.territory || []) {
     applyTerritory(state.factions, territoryChange);
   }
+
+  for (const leadershipChange of effects.leadership || []) {
+    applyLeadership(state, leadershipChange);
+  }
 }
 
-function publicFaction(faction) {
+function publicPerson(person) {
+  if (!person) {
+    return null;
+  }
+  if (person.status === "hidden" || person.status === "waiting") {
+    return null;
+  }
+
+  return {
+    id: person.id,
+    displayName: person.displayName,
+    title: person.title,
+    status: person.status,
+    race: person.race ?? null,
+    classOrRole: person.classOrRole ?? null,
+    publicSummary: person.publicSummary,
+    tags: [...(person.tags || [])]
+  };
+}
+
+function publicFaction(faction, people) {
   return {
     id: faction.id,
     displayName: faction.displayName,
+    government: faction.government,
+    leaders: (faction.leaderIds || []).map((id) => publicPerson(people[id])).filter(Boolean),
+    keyFigures: (faction.keyFigureIds || []).map((id) => publicPerson(people[id])).filter(Boolean),
     treasury: faction.treasury,
     armyStrength: faction.armyStrength,
     navyStrength: faction.navyStrength,
@@ -193,6 +251,7 @@ export function simulateWorldState(time) {
   const state = {
     time: boundedTime,
     factions: cloneFactions(),
+    people: clonePeople(),
     flags: new Set(),
     firedEvents: []
   };
@@ -217,6 +276,6 @@ export function simulateWorldState(time) {
     flags: [...state.flags],
     recentEvents,
     nextEventYear: nextEvent ? nextEvent.fire.year : null,
-    factions: Object.values(state.factions).map(publicFaction)
+    factions: Object.values(state.factions).map((faction) => publicFaction(faction, state.people))
   };
 }
